@@ -1,5 +1,5 @@
 # aqadvisories-eservice
-An Air Quality Advisory notification and subscription service.
+An Air Quality Advisory notification and subscription service utlizing NotifyBC https://github.com/bcgov/MyGovBC-notification-server
 
 ## License
 
