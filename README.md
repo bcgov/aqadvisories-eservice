@@ -3,7 +3,7 @@ An Air Quality Advisory notification and subscription service utlizing NotifyBC 
 
 ## License
 
-    Copyright 2017 Province of British Columbia
+    Copyright Province of British Columbia
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
