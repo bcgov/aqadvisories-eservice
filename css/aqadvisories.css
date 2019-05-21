@@ -1,0 +1,11 @@
+.table-hover>tbody>tr:hover {
+    background-color: #dff0d8
+}
+
+.table-hover>tbody>tr.active:hover>td,
+.table-hover>tbody>tr.active:hover>th,
+.table-hover>tbody>tr:hover>.active,
+.table-hover>tbody>tr>td.active:hover,
+.table-hover>tbody>tr>th.active:hover {
+    background-color: #dff0d8
+}
