@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/ -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="HandheldFriendly" content="true">
+    <meta name="description"
+        content="Real-time air quality readings for British Columbia through an interactive map, including the Air Quality Health Index (AQHI) and AQHI forecasts.">
+    <meta name="author" content="Ministry of Environment and Climate Change Strategy">
+    <meta name="navigaton_title" content="Air Quality Health Index - BC Air Quality">
+    <meta name="dcterms.publisher" content="Province of British Columbia">
+    <meta name="dcterms.created" content="2019-02-14">
+    <meta name="dcterms.modified" content="2019-02-19">
+    <meta name="security_label" content="Public">
+    <meta name="security_classification" content="Low">
+    <meta name="dcterms.subject" content="Science and Technology">
+    <meta name="dcterms.creator" content="Ministry of Environment and Climate Change Strategy">
+    <meta name="dcsext.creator" content="Ministry of Environment and Climate Change Strategy">
+    <meta name="dcterms.language" content="eng">
+    <meta name="keywords" content="Air Quality Health Index, AQHI">
+    <link rel="apple-touch-icon" sizes="57x57"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/favicon-16x16.png">
+    <link rel="manifest" href="http://wwwt.env.gov.bc.ca/epd/templates-env/icons/manifest.json">
+    <link rel="icon" type="image/png" href="http://wwwt.env.gov.bc.ca/epd/templates-env/images/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../../templates-env/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Air Quality Advisories Subscription Service - BC Air Quality - Province of British Columbia</title>
+
+    <!-- BOOTSTRAP CORE CSS v3.3.6 -->
+    <link rel="stylesheet" href="./subscription_files/bootstrap.min.css">
+</head>
+
+<body>--&gt;
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" href="./subscription_files/ie10-viewport-bug-workaround.css">
+
+    <!-- STANDARD CSS -->
+    <link type="text/css" href="./subscription_files/main.css" rel="stylesheet">
+
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="./subscription_files/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="../../templates-env/css/font-awesome.min.css" /> -->
+
+    <!-- CUSTOM ENV CSS -->
+    <link href="./subscription_files/env-main.css" rel="stylesheet">
+    <link href="./subscription_files/env-form.css" rel="stylesheet">
+
+    <link href="./subscription_files/aqhi_table.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+    <!-- Snowplow starts plowing - Standalone vA.2.10.2 -->
+    <script type="text/javascript" async="" src="./subscription_files/analytics.js.download"></script>
+    <script async="" src="./subscription_files/MDWay3UqFnIiGVLIo7aoMi4xMC4y.js.download"></script>
+    <script type="text/javascript">
+        ;
+        (function (p, l, o, w, i, n, g) {
+            if (!p[i]) {
+                p.GlobalSnowplowNamespace = p.GlobalSnowplowNamespace || [];
+                p.GlobalSnowplowNamespace.push(i);
+                p[i] = function () {
+                    (p[i].q = p[i].q || []).push(arguments)
+                };
+                p[i].q = p[i].q || [];
+                n = l.createElement(o);
+                g = l.getElementsByTagName(o)[0];
+                n.async = 1;
+                n.src = w;
+                g.parentNode.insertBefore(n, g)
+            }
+        }(window, document, "script", "https://sp-js.apps.gov.bc.ca/MDWay3UqFnIiGVLIo7aoMi4xMC4y.js", "snowplow"));
+        var collector = 'spt.apps.gov.bc.ca';
+        window.snowplow('newTracker', 'rt', collector, {
+            appId: "Snowplow_standalone",
+            platform: 'web',
+            post: true,
+            forceSecureTracker: true,
+            contexts: {
+                webPage: true,
+                performanceTiming: true
+            }
+        });
+        window.snowplow('enableActivityTracking', 30, 30); // Ping every 30 seconds after 30 seconds
+        window.snowplow('enableLinkClickTracking');
+        window.snowplow('trackPageView');
+    </script>
+    <!-- Snowplow stop plowing -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="./subscription_files/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-96276187-1', {
+            'anonymize_ip': true
+        });
+    </script>
+
+
+
+
+
+    <!-- HEADER -->
+    <div id="header" role="banner">
+        <div id="header-main" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div id="header-main-row" class="row">
+                    <!-- GOV & ENV TITLE -->
+                    <div class="col-sm-3 col-md-2 col-lg-2 header-main-left">
+                        <div id="logo">
+                            <a href="http://gov.bc.ca/"><img src="./subscription_files/gov3_bc_logo.png"
+                                    alt="Province of British Columbia" title="Province of British Columbia logo"></a>
+                        </div>
+                        <div id="access">
+                            <ul>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a accesskey="0"
+                                        href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#main-content-anchor"
+                                        aria-label="Skip to main content">Skip to main content</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a accesskey="0"
+                                        href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#navigation-anchor"
+                                        aria-label="Skip to navigation">Skip to navigation</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a accesskey="0" href="http://gov.bc.ca/webaccessibility/"
+                                        aria-label="Accessibility Statement">Accessibility Statement</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="navbar-toggle env-button-custom collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="true" aria-label="Burger Navigation">
+                            <img src="./subscription_files/menu-open-mobile.png">
+                        </button>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-6 hidden-xs">
+                        <div class="bcgov-title">
+                            <h1>BC Air Quality</h1>
+                        </div>
+                    </div>
+                    <!-- GOV TITLE -->
+                    <!-- COLLAPSING NAVBAR -->
+                    <div id="navbar" class="collapse navbar-collapse" role="navigation">
+                        <a id="main-content-anchor"></a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air
+                                    Quality Health Index</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current
+                                    Air Quality Data</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air
+                                    Data Archive</a></li>
+                        </ul>
+                    </div>
+                    <!-- /COLLAPSING NAVBAR -->
+                </div>
+            </div>
+            <div class="navigationRibbon">
+                <div class="level2Navigation">
+                    <div class="container">
+                        <a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air Quality
+                            Health Index</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current Air
+                            Quality Data</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air Data
+                            Archive</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER -->
+    <!-- BODY CONTENT -->
+    <div id="main-content" class="template container env-container">
+        <div id="breadcrumbContainer" style="height:30px;">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="http://www.gov.bc.ca/">Home</a>
+                </li>
+                <li>
+                    <a href="http://www2.gov.bc.ca/gov/content?id=8C53E2851B294D8AA18340E4C6A54D7D">Environmental
+                        Protection &amp; Sustainability</a>
+                </li>
+                <li>
+                    <a href="http://www2.gov.bc.ca/gov/content?id=A107794D5085039872470FDB7C7FE62D">Air, Land, &amp;
+                        Water</a>
+                </li>
+                <li>
+                    <a href="http://www2.gov.bc.ca/gov/content?id=F3D83262D06F42D3BDCBABF120A40DD7">Air</a>
+                </li>
+
+
+
+            </ol>
+        </div>
+
+        <!-- PAGE CONTENT -->
+        <div class="row">
+            <!-- AQHI content -->
+            <!--   <div id="main-content" class="contentPageMainColumn col-xs-12"> -->
+
+            <h1>BETA: Air Quality Advisories Email Subscription Service</h1>
+            <div id="pageIntro">
+                <!--  <div class="alert alert-danger" role="alert">
+
+<h3>NOTICE: System Outage</h3>
+    <p>Our Air Quality Monitoring System will be <strong>OFFLINE from 9PM Friday, October 27th to 9AM Sunday, October 29th</strong> for database maintenance and patch application. </p>
+        </div> -->
+                <p>Welcome to the Air Quality Advisory Subscription Service. This is a pilot program aimed at improving
+                    communication between governments and citizens during air quality events. By enabling residents to
+                    subscribe to various distribution lists there is an improved chance that they will get air quality
+                    advisory information in a timely manner.</p>
+
+
+
+
+
+            </div>
+            <form id='myForm'>
+                <div class="row">
+                    <div id="main-content" role="main" class="contentPageMainColumn col-md-8 col-lg-8">
+
+                        <p>To become a subscriber to air quality advisories, please select your community and fill out
+                            your
+                            contact information.</p>
+                        <div class="row">
+                            <div class="col-lg-5">
+
+                                <div class="form-group">
+                                    <label for="exampleInputName2">First Name</label>
+                                    <input type="text" class="form-control" id="exampleInputName2"
+                                        placeholder="Jane Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputName2">Last Name</label>
+                                    <input type="text" class="form-control" id="exampleInputName2"
+                                        placeholder="Jane Doe">
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-5 col-lg-offset-1">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Email Address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail2"
+                                        placeholder="jane.doe@example.com" aria-required="true">
+                                    <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail3">Confirm Your Email Address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail3"
+                                        placeholder="jane.doe@example.com" aria-required="true">
+                                    <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="table1">
+                                <!-- <caption>The following table provides .....</caption> -->
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+
+                                            <label for="exampleInputEmail2">Community Air Quality Advisories</label>
+                                            <p>Subscribe to a community below to receive air quality advisories for your
+                                                area. Subscribers will also receive the <strong>Weather Regional
+                                                    Advisories<sup>*</sup></strong> related to their community as well.
+                                                <a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#"
+                                                    data-toggle="modal" data-target="#myModal">Learn more about these
+                                                    regions and what other notices are included.</a></p>
+                                            <!-- <label for="exampleInputEmail2">Weather Region Advisories</label>
+                                        <p>Subscribe to any list below to receive general advisories for your weather region. <a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a>.</p> -->
+                                        </td>
+
+                                        <!--                                    <td>
+                                        <label for="exampleInputEmail2">Community Advisories</label>
+                                        <p>If you live in any of these communities within the weather region below, you can also subscribe to specific air advisories related to your community. Subscribers will also receive the weather regional advisories related to the community as well.</p>
+                                    </td> -->
+
+
+
+
+                                    </tr>
+
+
+
+
+                                    <tr>
+
+                                        <td>
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Burns Lake">Burns
+                                                    Lake</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Campbell River">Campbell
+                                                    River</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city"
+                                                        value="Castlegar">Castlegar</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city"
+                                                        value="Courtenay/Comox">Courtenay/Comox</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city"
+                                                        value="Cranbrook">Cranbrook</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Duncan">Duncan</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Fort St. John">Fort St.
+                                                    John</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Golden">Golden</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Grand Forks">Grand
+                                                    Forks</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Houston">Houston</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Kamloops">Kamloops</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Kelowna">Kelowna</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Kitimat">Kitimat</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Langdale">Langdale</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city"
+                                                        value="Lavington">Lavington</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value=""><a
+                                                        href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">Metro
+                                                        Vancouver</a></label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Nanaimo">Nanaimo</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Nelson (sometimes)">Nelson
+                                                    (sometimes)</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Port Alberni">Port
+                                                    Alberni</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Powell River">Powell
+                                                    River</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Prince George">Prince
+                                                    George</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Prince Rupert">Prince
+                                                    Rupert</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Quesnel">Quesnel</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Smithers">Smithers</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Squamish">Squamish</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Taylor">Taylor</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Terrace">Terrace</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Trail">Trail</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city"
+                                                        value="Valemount">Valemount</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city"
+                                                        value="Vanderhoof">Vanderhoof</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Vernon">Vernon</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Victoria">Victoria</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Whistler">Whistler</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="Williams Lake">Williams
+                                                    Lake</label>
+                                            </div>
+
+
+                                            <!-- <p><a href="#">Reset Form</a></p> -->
+
+
+                                        </td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                            <p>
+                                <button type="button" class="btn btn-primary" onclick="subscribe()">Subscribe</button>
+                                <script type='text/javascript'>
+                                    function subscribe() {
+                                        let selectedCities = []
+                                        $("input:checkbox[name=city]:checked").each(function () {
+                                            selectedCities.push('contains_ci(cities,\'' + $(this).val() +
+                                            '\')');
+                                        });
+                                        let data = {
+                                            serviceName: "envAirQuality",
+                                            channel: "email",
+                                            userChannelId: $("#exampleInputEmail2")[0].value,
+                                            broadcastPushNotificationFilter: selectedCities.join('||')
+                                        }
+                                        $.ajax({
+                                            type: "POST",
+                                            url: 'https://notify-bc-gcpe-notifybc-dev.pathfinder.gov.bc.ca/api/subscriptions',
+                                            data: data,
+                                            success: () => {
+                                                alert('successfully submitted. Check email')
+                                                document.getElementById('myForm').reset()
+                                            }
+                                        });
+                                    }
+                                </script>
+
+                            </p>
+                        </div>
+
+                        <!-- <p><a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a></p> -->
+
+
+
+
+
+
+                    </div>
+
+                    <div class="contentPageRightColumn col-md-12 col-lg-4">
+                        <div class="row">
+
+
+
+                            <div class="alert alert-info" role="alert">
+                                <h2>How to use this service</h2>
+                                <ul>
+                                    <li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">How to sign
+                                            up
+                                            and what to expect</a></li>
+                                    <li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">How to
+                                            unsubscribe from this service</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert">
+                                <h2>Privacy and Collection Notice</h2>
+                                <p>Email addresses are collected under section 26(c) of the Freedom of Information and
+                                    Protection of Privacy Act, for the purpose of providing content updates. Questions
+                                    about
+                                    the collection of email addresses can be directed to the Manager of Corporate Web,
+                                    Government Digital Experience Division. PO Box 9409, Stn Prov Govt, Victoria, BC V8W
+                                    9V1
+                                </p>
+
+                            </div>
+
+                            <hr>
+
+
+
+
+
+                            <p>If you have any questions or feedback regarding this service <a
+                                    href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please
+                                    contact us.</a></p>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div class="row">
+
+
+
+                <div class="alert alert-success" role="alert" aria-live="polite">
+
+                    <h3>Prototype/Mock-up Navigation</h3>
+                    <p>This is just a static HTML mock-up for discussion, planning, and design purposes.</p>
+                    <br>
+
+
+                    <ul>
+                        <li>Subscription Form</li>
+                        <li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/admin.html">Admin Area -
+                                Posting Notices</a></li>
+                        <li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">Subscription
+                                Confirmation Page</a></li>
+                        <li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">Unsubscribe Confirmation
+                                Page</a></li>
+                        <li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">Error Page</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- PAGE CONTENT -->
+    </div>
+    <!-- /BODY CONTENT -->
+    <div id="shareIcons">
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer" role="contentinfo">
+        <img class="back-to-top" src="./subscription_files/back-to-top.png" alt="Back to top" title="Back to top"
+            style="display: inline;">
+        <div id="footerWrapper">
+            <div id="footerAdminSection">
+                <div id="footerAdminLinksContainer" class="container">
+                    <div id="footerAdminLinks" class="row">
+                        <ul class="inline">
+                            <li>
+                                <a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#"
+                                    target="_self">Home</a>
+                            </li>
+                            <li>
+                                <a href="http://www2.gov.bc.ca/gov/content?id=3F498C928BB74B23A2D8E90FE6804DE5"
+                                    target="_self">About this site</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/disclaimer/" target="_self">Disclaimer</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/privacy/" target="_self">Privacy</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/webaccessibility/" target="_self">Accessibility</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/copyright" target="_self">Copyright</a>
+                            </li>
+                            <li>
+                                <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B"
+                                    target="_self">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /FOOTER -->
+    <!-- MODALS -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">X</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Summary of Advisories and Notices</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Subscription Lists</h4>
+                    <div>
+
+
+                        <!--    <h3>Insert Text</h3> -->
+                        <div class="table-responsive">
+
+
+
+                            <table class="table table-bordered table-striped table-hover" id="table1">
+                                <caption>The following communities will also receive Environment Canada and Climate
+                                    Change Weather Region Notices:</caption>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Community</td>
+                                        <td>Environment Canada and Climate Change Weather Region</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>100 Mile</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Arrow Lakes - Slocan Lake</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Atlin</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="white-space: nowrap">- Fort St. John <br>
+                                            - Taylor
+
+                                        </td>
+                                        <td>B.C. North Peace River</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td>B.C. South Peace River</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grand Forks</td>
+                                        <td>Boundary</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Smithers</td>
+                                        <td>Bulkley Valley and The Lakes - northwest including Smithers
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Houston</td>
+                                        <td>Bulkley Valley and The Lakes - southeast including Burns Lake
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Burns Lake</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quesnel</td>
+                                        <td>Cariboo - north including Quesnel</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Williams Lake</td>
+                                        <td>Cariboo - south including Williams Lake</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Cassiar Mountains</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Central Coast - coastal sections</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Central Coast - inland sections</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kelowna</td>
+                                        <td>Central Okanagan - including Kelowna</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Chilcotin</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>City of Vancouver - including Burnaby and New Westminster</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Dease Lake</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Golden</td>
+                                        <td>East Columbia</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>East Kootenay - north including Invermere</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cranbrook</td>
+                                        <td>East Kootenay - south including Cranbrook</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Courtenay</td>
+                                        <td>East Vancouver Island - Courtenay to Campbell River</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Campbell River</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nanaimo</td>
+                                        <td>East Vancouver Island - Duncan to Nanaimo
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Duncan</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Crofton</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>East Vancouver Island - Nanoose Bay to Fanny Bay</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Elk Valley</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Fort Nelson</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Fraser Canyon - north including Lillooet</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Fraser Canyon - south including Lytton</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Fraser Valley - central including Chilliwack</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Fraser Valley - east including Hope</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Fraser Valley - west including Abbotsford</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Victoria</td>
+                                        <td>Greater Victoria</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Haida Gwaii</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Squamish</td>
+                                        <td>Howe Sound</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Port Alberni</td>
+                                        <td>Inland Vancouver Island</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Kinbasket</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Kootenay Lake</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>McGregor</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Metro Vancouver - northeast including Coquitlam and Maple Ridge
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Metro Vancouver - southeast including Surrey and Langley</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Metro Vancouver - southwest including Richmond and Delta</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Muncho Lake Park - Stone Mountain Park</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Nicola</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prince Rupert</td>
+                                        <td>North Coast - coastal sections</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kitimat</td>
+                                        <td>North Coast - inland including Kitimat</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>North Coast - inland including Stewart</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Terrace</td>
+                                        <td>North Coast - inland including Terrace</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>North Columbia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vernon</td>
+                                        <td>North Okanagan - including Vernon</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lavington</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>North Shore - including West Vancouver and North Vancouver
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>North Thompson</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>North Vancouver Island</td>
+                                    </tr>
+                                    <tr>
+                                        <td>- Prince George <br>
+                                            - Vanderhoof
+                                        </td>
+                                        <td>Prince George</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td>Shuswap</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Similkameen</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>South Okanagan - including Penticton</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kamloops</td>
+                                        <td>South Thompson</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Southern Gulf Islands</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Langdale</td>
+                                        <td>Sunshine Coast - Gibsons to Earls Cove</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gibsons</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Powell River</td>
+                                        <td>Sunshine Coast - Saltery Bay to Powell River</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Teslin</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Watson Lake</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>West Columbia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Castlegar</td>
+                                        <td>West Kootenay</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>West Vancouver Island</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Whistler</td>
+                                        <td>Whistler</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Williston</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valemount</td>
+                                        <td>Yellowhead</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Yoho Park - Kootenay Park</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- <p><sup>1</sup> Insert Text.</p>
+                        <p style="text-align:right;">Source: Environment Canada</p> -->
+
+
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /MODALS -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./subscription_files/jquery.min.js.download"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./subscription_files/bootstrap.min.js.download"></script>
+    <script src="./subscription_files/misc.js.download"></script>
+    <script src="./subscription_files/navMenu.js.download"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./subscription_files/ie10-viewport-bug-workaround.js.download"></script>
+
+
+
+
+</body>
+
+</html>
