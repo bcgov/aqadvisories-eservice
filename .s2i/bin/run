@@ -1,0 +1,3 @@
+#!/bin/bash
+cp -rL --remove-destination /mnt/* /opt/app-root/src
+/usr/libexec/s2i/run

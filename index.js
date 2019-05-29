@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = process.env.port || 3000
+const port = process.env.port || 8080
 const role = process.env.notification_sender_role || 'realm:notificaton-sender'
 
 var session = require('express-session')
