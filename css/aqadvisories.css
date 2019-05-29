@@ -9,3 +9,7 @@
 .table-hover>tbody>tr>th.active:hover {
     background-color: #dff0d8
 }
+
+.ssb-bk {
+    background-color: #f9f9f9;
+}
