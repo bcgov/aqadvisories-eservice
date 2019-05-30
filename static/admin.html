@@ -478,8 +478,8 @@
                                 $("input:checkbox[name=city]:checked").each(function () {
                                     selectedCities.push($(this).val());
                                 });
-                                let htmlBody = $('#textArea')[0].value +
-                                    '<br/><a href="{unsubscription_url}">Unsubscribe</a>'
+                                let htmlBody =
+                                    `<pre>${$('#textArea')[0].value}</pre><br/><a href="{unsubscription_url}">Unsubscribe</a>`
                                 let data = {
                                     "serviceName": "envAirQuality",
                                     "channel": "email",
