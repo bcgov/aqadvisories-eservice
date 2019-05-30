@@ -1,0 +1,18 @@
+#!/bin/bash
+# make sure copy and mv applies to dot files
+shopt -s dotglob nullglob
+# fail fast
+set -e
+echo "---> Installing application source"
+pushd /tmp/src
+rm -rf node_modules
+# restore build artifacts
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+    echo "---> restore build artifacts"
+    cp -r /tmp/artifacts/* ./
+fi
+echo node version $(node -v)
+echo "---> Building your Node application from source"
+npm i
+popd
+mv /tmp/src/* ./
