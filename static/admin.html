@@ -260,7 +260,7 @@
         </div> -->
                 <p>NOTE: IDIR authentication required to access this page.</p>
             </div>
-            <form id="myForm">
+            <form id="myForm" action="/api/notifications" method="post">
                 <div class="row">
                     <div id="main-content" role="main" class="contentPageMainColumn col-md-8 col-lg-8">
                         <p>Post your Air Quality Advisories below...</p>
@@ -268,12 +268,13 @@
                             <div>
                                 <div class="form-group">
                                     <label for="exampleInputName2">Subject Line</label>
-                                    <input type="text" class="form-control" id="exampleInputName2"
-                                        placeholder="Air Quality Advisory Issued for..." />
+                                    <input type="text" class="form-control" name="message[subject]"
+                                        id="exampleInputName2" placeholder="Air Quality Advisory Issued for..." />
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputName2">Advisory Text</label>
-                                    <textarea class="form-control" rows="6" id="textArea"></textarea>
+                                    <textarea name="message[htmlBody]" class="form-control" rows="6"
+                                        id="textArea"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -467,46 +468,11 @@
                                 </tbody>
                             </table>
                             <p>
-                                <button type="button" class="btn btn-primary" onclick="postAdvisory()">
+                                <button type="submit" class="btn btn-primary">
                                     Post Advisory
                                 </button>
                             </p>
                         </div>
-                        <script type='text/javascript'>
-                            function postAdvisory() {
-                                let selectedCities = []
-                                $("input:checkbox[name=city]:checked").each(function () {
-                                    selectedCities.push($(this).val());
-                                });
-                                let htmlBody =
-                                    `<pre>${$('#textArea')[0].value}</pre><br/><a href="{unsubscription_url}">Unsubscribe</a>`
-                                let data = {
-                                    "serviceName": "envAirQuality",
-                                    "channel": "email",
-                                    "isBroadcast": true,
-                                    "asyncBroadcastPushNotification": true,
-                                    "message": {
-                                        "from": "donotreply@gov.bc.ca",
-                                        "subject": $('#exampleInputName2')[0].value,
-                                        "htmlBody": htmlBody
-                                    },
-                                    "data": {
-                                        "cities": selectedCities.join(', '),
-                                    },
-                                }
-
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/api/notifications',
-                                    data: data,
-                                    success: () => {
-                                        alert('successfully posted')
-                                        document.getElementById('myForm').reset()
-                                    }
-                                });
-                            }
-                        </script>
-
                         <!-- <p><a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a></p> -->
                     </div>
 

@@ -263,7 +263,7 @@
 
 
             </div>
-            <form id='myForm'>
+            <form id='myForm' action="/api/subscriptions" method="post">
                 <div class="row">
                     <div id="main-content" role="main" class="contentPageMainColumn col-md-8 col-lg-8">
 
@@ -290,7 +290,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail2">Email Address</label>
                                     <input type="email" class="form-control" id="exampleInputEmail2"
-                                        placeholder="jane.doe@example.com" aria-required="true">
+                                        name="userChannelId" placeholder="jane.doe@example.com" aria-required="true">
                                     <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
                                 </div>
                                 <div class="form-group">
@@ -412,7 +412,7 @@
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value=""><a
+                                                    <input type="checkbox" name="city" value="Metro Vancouver"><a
                                                         href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/#">Metro
                                                         Vancouver</a></label>
                                             </div>
@@ -511,32 +511,7 @@
                                 </tbody>
                             </table>
                             <p>
-                                <button type="button" class="btn btn-primary" onclick="subscribe()">Subscribe</button>
-                                <script type='text/javascript'>
-                                    function subscribe() {
-                                        let selectedCities = []
-                                        $("input:checkbox[name=city]:checked").each(function () {
-                                            selectedCities.push('contains_ci(cities,\'' + $(this).val() +
-                                            '\')');
-                                        });
-                                        let data = {
-                                            serviceName: "envAirQuality",
-                                            channel: "email",
-                                            userChannelId: $("#exampleInputEmail2")[0].value,
-                                            broadcastPushNotificationFilter: selectedCities.join('||')
-                                        }
-                                        $.ajax({
-                                            type: "POST",
-                                            url: '/api/subscriptions',
-                                            data: data,
-                                            success: () => {
-                                                alert('successfully submitted. Check email')
-                                                document.getElementById('myForm').reset()
-                                            }
-                                        });
-                                    }
-                                </script>
-
+                                <button type="submit" class="btn btn-primary">Subscribe</button>
                             </p>
                         </div>
 
