@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div id="message"></div>
+  <script>
+    var id = document.getElementById('message')
+    var url = window.location.href;
+    if (url.match(/[?&]err=/)) {
+      id.innerHTML = 'error'
+    } else {
+      id.innerHTML = 'You have been unsubscribed.'
+    }
+  </script>
+</body>
+</html>

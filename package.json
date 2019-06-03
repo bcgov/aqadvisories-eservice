@@ -18,8 +18,12 @@
   },
   "homepage": "https://github.com/bcgov/aqadvisories-eservice#readme",
   "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "express": "^4.17.0",
     "express-session": "^1.16.1",
-    "keycloak-connect": "^6.0.1"
+    "keycloak-connect": "^6.0.1",
+    "lodash": "^4.17.11",
+    "session-file-store": "^1.2.0"
   }
 }
