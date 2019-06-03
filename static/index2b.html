@@ -42,7 +42,7 @@
     <title>Air Quality Advisories Subscription Service - BC Air Quality - Province of British Columbia</title>
 
     <!-- BOOTSTRAP CORE CSS v3.3.6 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" href="css/ie10-viewport-bug-workaround.css" />
@@ -185,25 +185,7 @@
     <!-- /HEADER -->
     <!-- BODY CONTENT -->
     <div id="main-content" class="template container env-container">
-        <div id="breadcrumbContainer" style="height:30px;">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="http://www.gov.bc.ca">Home</a>
-                </li>
-                <li>
-                    <a href="http://www2.gov.bc.ca/gov/content?id=8C53E2851B294D8AA18340E4C6A54D7D">Environmental Protection &amp; Sustainability</a>
-                </li>
-                <li>
-                    <a href="http://www2.gov.bc.ca/gov/content?id=A107794D5085039872470FDB7C7FE62D">Air, Land, &amp; Water</a>
-                </li>
-                <li>
-                    <a href="http://www2.gov.bc.ca/gov/content?id=F3D83262D06F42D3BDCBABF120A40DD7">Air</a>
-                </li>
 
-
-
-            </ol>
-        </div>
 
         <!-- PAGE CONTENT -->
         <div class="row">
@@ -226,431 +208,429 @@
             </div>
             <div class="row">
                 <div id="main-content" role="main" class="contentPageMainColumn col-md-8 col-lg-8">
+                    <form id="form1">
 
+                        <div class="row">
 
-                    <div class="row">
-
-                        <div class="col-lg">
-                            <h3>1. Enter and confirm your email address</h3>
-                            <div class="form-group">
-                                <label for="exampleInputEmail2">Email Address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" aria-required="true">
-                                <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
+                            <div class="col-lg">
+                                <h3>1. Enter and confirm your email address</h3>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Email Address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" aria-required="true">
+                                    <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Confirm Your Email Address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" aria-required="true">
+                                    <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail2">Confirm Your Email Address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" aria-required="true">
-                                <!-- <div role="tooltip" id="labname-tip">The name of the laboratory</div> -->
-                            </div>
+
+
+
                         </div>
-
-
-
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="table1">
-                            <tbody>
-                                <tr>
-                                    <td style="background-color: #fff">
-                                        <h3>2. Choose a Smokey Skies Bulletin</h3>
-                                        <p>Subscribe to a region below to receive Smoky Skies Bulletins for your area. </p><a href="https://www.canada.ca/en/environment-climate-change/services/archive/weatheradio/forecast-region-british-columbia.html" target="_blank">View a map of the areas covered by each bulletin.</a>
-                                        <!-- <label for="exampleInputEmail2">Weather Region Advisories</label>
-                                        <p>Subscribe to any list below to receive general advisories for your weather region. <a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a>.</p> -->
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">SELECT ALL REGIONS</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">100 Mile</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Arrow Lakes - Slocan Lake</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Atlin</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">B.C. North Peace River</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">B.C. South Peace River</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Boundary</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Bulkley Valley and The Lakes - northwest including Smithers</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Bulkley Valley and The Lakes - southeast including Burns Lake</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Cariboo - north including Quesnel
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Cariboo - south including Williams Lake
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Cassiar Mountains
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Central Coast - coastal sections
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Central Coast - inland sections
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Central Okanagan - including Kelowna
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Chilcotin
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">City of Vancouver - including Burnaby and New Westminster
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Dease Lake
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">East Columbia
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">East Kootenay - north including Invermere
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">East Kootenay - south including Cranbrook
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">East Vancouver Island - Courtenay to Campbell River
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">East Vancouver Island - Duncan to Nanaimo
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">East Vancouver Island - Nanoose Bay to Fanny Bay
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Elk Valley
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Fort Nelson
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Fraser Canyon - north including Lillooet
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Fraser Canyon - south including Lytton
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Fraser Valley - central including Chilliwack
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Fraser Valley - east including Hope
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Fraser Valley - west including Abbotsford
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Greater Victoria
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Haida Gwaii
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Howe Sound
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Inland Vancouver Island
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Kinbasket
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Kootenay Lake
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">McGregor
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Metro Vancouver - northeast including Coquitlam and Maple Ridge
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Metro Vancouver - southeast including Surrey and Langley
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Metro Vancouver - southwest including Richmond and Delta
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Muncho Lake Park - Stone Mountain Park
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Nicola
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Coast - coastal sections
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Coast - inland including Kitimat
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Coast - inland including Stewart
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Coast - inland including Terrace
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Columbia
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Okanagan - including Vernon
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Shore - including West Vancouver and North Vancouver
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Thompson
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">North Vancouver Island
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Prince George
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Shuswap
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Similkameen
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">South Okanagan - including Penticton
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">South Thompson
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Southern Gulf Islands
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Sunshine Coast - Gibsons to Earls Cove
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Sunshine Coast - Saltery Bay to Powell River
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Teslin
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Watson Lake
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">West Columbia
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">West Kootenay
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">West Vancouver Island
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Whistler
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Williston
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Yellowhead
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">Yoho Park - Kootenay Park
-                                            </label>
-                                        </div>
-
-
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
-
-
                         <div class="table-responsive">
-                            <div class="alert alert-warning" role="alert">
-                                <h2>Privacy and Collection Notice</h2>
-                                <p>Email addresses are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Questions about the collection of email addresses can be directed to the Manager of Corporate Web, Government Digital Experience Division. PO Box 9409, Stn Prov Govt, Victoria, BC V8W 9V1
-                                </p>
+                            <table class="table table-bordered" id="table1">
+                                <tbody>
+                                    <tr>
+                                        <td style="background-color: #fff">
+                                            <h3>2. Choose a Smokey Skies Bulletin</h3>
+                                            <p>Subscribe to a region below to receive Smoky Skies Bulletins for your area. </p><a href="https://www.canada.ca/en/environment-climate-change/services/archive/weatheradio/forecast-region-british-columbia.html" target="_blank">View a map of the areas covered by each bulletin.</a>
+                                            <!-- <label for="exampleInputEmail2">Weather Region Advisories</label>
+                                        <p>Subscribe to any list below to receive general advisories for your weather region. <a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a>.</p> -->
+                                        </td>
 
-                            </div>
-                            <table id="table2" style="width: 100%;">
-                                <tr>
-                                    <td>
-                                        <p><a href="#">Reset Form</a></p>
-                                    </td>
-                                    <td>
-                                        <p style="text-align: right;">
-                                            <a href="#" data-toggle="modal" data-target="#myModal">
-                                                <button type="submit" class="btn btn-primary">Subscribe to these distribution lists</button>
-                                            </a>
-                                        </p>
-                                    </td>
-                                </tr>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <a href="#">Select All</a> | <a href="#">Unselect All</a>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">100 Mile</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Arrow Lakes - Slocan Lake</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Atlin</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">B.C. North Peace River</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">B.C. South Peace River</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Boundary</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Bulkley Valley and The Lakes - northwest including Smithers</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Bulkley Valley and The Lakes - southeast including Burns Lake</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Cariboo - north including Quesnel
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Cariboo - south including Williams Lake
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Cassiar Mountains
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Central Coast - coastal sections
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Central Coast - inland sections
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Central Okanagan - including Kelowna
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Chilcotin
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">City of Vancouver - including Burnaby and New Westminster
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Dease Lake
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">East Columbia
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">East Kootenay - north including Invermere
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">East Kootenay - south including Cranbrook
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">East Vancouver Island - Courtenay to Campbell River
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">East Vancouver Island - Duncan to Nanaimo
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">East Vancouver Island - Nanoose Bay to Fanny Bay
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Elk Valley
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Fort Nelson
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Fraser Canyon - north including Lillooet
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Fraser Canyon - south including Lytton
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Fraser Valley - central including Chilliwack
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Fraser Valley - east including Hope
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Fraser Valley - west including Abbotsford
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Greater Victoria
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Haida Gwaii
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Howe Sound
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Inland Vancouver Island
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Kinbasket
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Kootenay Lake
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">McGregor
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Metro Vancouver - northeast including Coquitlam and Maple Ridge
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Metro Vancouver - southeast including Surrey and Langley
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Metro Vancouver - southwest including Richmond and Delta
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Muncho Lake Park - Stone Mountain Park
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Nicola
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Coast - coastal sections
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Coast - inland including Kitimat
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Coast - inland including Stewart
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Coast - inland including Terrace
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Columbia
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Okanagan - including Vernon
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Shore - including West Vancouver and North Vancouver
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Thompson
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">North Vancouver Island
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Prince George
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Shuswap
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Similkameen
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">South Okanagan - including Penticton
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">South Thompson
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Southern Gulf Islands
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Sunshine Coast - Gibsons to Earls Cove
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Sunshine Coast - Saltery Bay to Powell River
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Teslin
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Watson Lake
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">West Columbia
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">West Kootenay
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">West Vancouver Island
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Whistler
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Williston
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Yellowhead
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Yoho Park - Kootenay Park
+                                                </label>
+                                            </div>
+
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
                             </table>
+
+
+                            <div class="table-responsive">
+                                <div class="alert alert-warning" role="alert">
+                                    <h2>Privacy and Collection Notice</h2>
+                                    <p>Email addresses are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Questions about the collection of email addresses can be directed to the Manager of Corporate Web, Government Digital Experience Division. PO Box 9409, Stn Prov Govt, Victoria, BC V8W 9V1
+                                    </p>
+
+                                </div>
+                                <table id="table2" style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <p><a href="#">Reset Form</a></p>
+                                        </td>
+                                        <td>
+                                            <p style="text-align: right;">
+                                                <a href="#" data-toggle="modal" data-target="#myModal">
+                                                    <button type="submit" class="btn btn-primary">Subscribe to these distribution lists</button>
+                                                </a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+
+                            <hr/>
+
+
+
+
+
+                            <p>If you have any questions or feedback regarding this service <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a></p>
+
                         </div>
 
-
-
-                        <hr/>
-
-
-
-
-
-                        <p>If you have any questions or feedback regarding this service <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a></p>
-
-                    </div>
-
-                    <!-- <p><a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a></p> -->
+                        <!-- <p><a href="#" data-toggle="modal" data-target="#myModal">Learn more about these regions and to view a map</a></p> -->
 
 
 
 
 
 
+                    </form>
                 </div>
 
                 <div class="contentPageRightColumn col-md-12 col-lg-4">
@@ -700,7 +680,7 @@
                     <ul>
                         <li><a href="index.html">Subscription Form Prototype #1</a></li>
                         <li><a href="index2.html">Subscription Form Prototype #2</a></li>
-                        <li><a href="admin.html">Admin Area - Posting Notices</a></li>
+                        <li><a href="admin1.html">Admin Area - Posting Notices</a></li>
                         <li><a href="#">Subscription Confirmation Page</a></li>
                         <li><a href="#">Unsubscribe Confirmation Page</a></li>
                         <li><a href="#">Error Page</a></li>
