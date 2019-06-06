@@ -1,3 +1,6 @@
+
+[![Build Status](https://jenkins-zffq6u-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=build+aqadvisories-eservice+and+deploy+to+dev)](https://jenkins-zffq6u-tools.pathfinder.gov.bc.ca/job/build%20aqadvisories-eservice%20and%20deploy%20to%20dev/)
+
 # aqadvisories-eservice
 An Air Quality Advisory notification and subscription service utlizing NotifyBC https://github.com/bcgov/MyGovBC-notification-server
 

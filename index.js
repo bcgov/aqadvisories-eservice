@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const express = require('express')
 const app = express()
 const port = process.env.port || 8080
@@ -37,11 +36,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/admin.html', keycloak.protect(role))
 
 app.post('/api/subscriptions', async (req, res) => {
-  let data = req.body
-  data = _.merge(data, {
+  let data = {
     serviceName: 'envAirQuality',
-    channel: 'email'
-  })
+    channel: 'email',
+    city: req.body.city,
+    userChannelId: req.body.userChannelId
+  }
   if (data.city) {
     if (data.city instanceof Array) {
       data.broadcastPushNotificationFilter = data.city
@@ -59,7 +59,7 @@ app.post('/api/subscriptions', async (req, res) => {
   try {
     const response = await axios.post(
       notifybcRootUrl + '/api/subscriptions',
-      req.body,
+      data,
       {
         headers: {
           'X-Forwarded-For': req.ip
@@ -72,17 +72,19 @@ app.post('/api/subscriptions', async (req, res) => {
   }
 })
 app.post('/api/notifications', keycloak.protect(role), async (req, res) => {
-  let data = req.body
-  data = _.merge(data, {
+  let data = {
     serviceName: 'envAirQuality',
     channel: 'email',
     isBroadcast: true,
     asyncBroadcastPushNotification: true,
     message: {
-      from: 'donotreply@gov.bc.ca'
+      from: 'donotreply@gov.bc.ca',
+      subject: req.body.message.subject,
+      htmlBody: req.body.message.htmlBody
     },
+    city: req.body.city,
     data: {}
-  })
+  }
   data.data.sender = {
     name: req.kauth.grant.access_token.content.name,
     email: req.kauth.grant.access_token.content.email
@@ -112,4 +114,6 @@ app.post('/api/notifications', keycloak.protect(role), async (req, res) => {
 
 app.use(express.static('static'))
 
-app.listen(port, () => console.log(`app listening on port ${port}!`))
+app.listen(port, () =>
+  console.log(`launch http://localhost:${port} to explore`)
+)
