@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/ -->
 <html lang="en">
 
 <head>
@@ -44,10 +43,6 @@
 
     <!-- BOOTSTRAP CORE CSS v3.3.6 -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-</head>
-
-<body>
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" href="./css/ie10-viewport-bug-workaround.css">
 
@@ -123,10 +118,9 @@
             'anonymize_ip': true
         });
     </script>
+</head>
 
-
-
-
+<body>
 
     <!-- HEADER -->
     <div id="header" role="banner">
@@ -199,7 +193,7 @@
         <div id="main-content" class="template container env-container">
             <!-- PAGE CONTENT -->
             <div class="row">
-                <h1>BETA: Air Quality Advisories Email Subscription Service</h1>
+                <h1>BETA: Air Quality Advisories Subscription Service</h1>
                 <div id="pageIntro">
                     <p>Welcome to the Air Quality Advisory Subscription Service. This goal of the program is to improve communication between governments and citizens during air quality events in a timely manner. We currently have two notification services: Air Quality Advisories and Smoky Skies Bulletin.</p>
 
@@ -677,8 +671,9 @@
                                     <table class="table table-bordered table-hover" id="table1">
                                         <tbody>
                                             <tr>
-                                                <td class="ssb-bk" style="padding: 20px">
-                                                    <p><strong>3a. Other Smoky Skies Bulletin Regions</strong></p>
+                                                <td class="ssb-bk" style="padding: 10px">
+                                                   <h3>3a. Other Smoky Skies Bulletin Regions</h3>
+                                                    <p><a href="#" target="_blank">View regional map</a></p>
                                                     <div class="checkbox">
                                                         <label>
                                                             <input type="checkbox" name="city" value="100 Mile">100 Mile
@@ -889,10 +884,10 @@
 
                             <p style="text-align: right;"> <span style="padding-right: 15px;"><a href="#">Reset
                                         Form</a></span>
-                                <a href="#" data-toggle="modal" data-target="#myModal">
+                                
                                     <button type="submit" class="btn btn-primary">Subscribe to these distribution lists
                                     </button>
-                                </a>
+                               
                             </p>
 
 
@@ -962,41 +957,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Subscription Lists Confirmation</h4>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body">
-                        <h4>You are about to subscribe to these notice distribution lists:</h4>
+                        <h4></h4>
 
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Air Quality Advisories</strong>
-                                        <ol>
-                                            <li>Name of List 1</li>
-                                            <li>Name of List 1</li>
-                                            <li>Name of List 1</li>
-                                        </ol>
-                                        <strong>Smokie Skies Bulletin</strong>
-                                        <ol>
-                                            <li>Name of List 1</li>
-                                            <li>Name of List 1</li>
-                                            <li>Name of List 1</li>
-                                        </ol>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p>To modify your selection, press the cancel button.</p>
+                      
 
 
 
                     </div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-
-                        <button type="submit" class="btn btn-primary">Confirm Subscription</button>
                     </div>
                 </div>
             </div>
