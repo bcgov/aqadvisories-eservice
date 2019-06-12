@@ -46,13 +46,11 @@ app.post('/api/subscriptions', async (req, res) => {
     if (data.city instanceof Array) {
       data.broadcastPushNotificationFilter = data.city
         .map(e => {
-          return "contains_ci(cities,'" + e + "')"
+          return "contains(cities,'" + e + "')"
         })
         .join('||')
     } else if (typeof data.city == 'string') {
-      data.broadcastPushNotificationFilter = `contains_ci(cities,'${
-        data.city
-      }')`
+      data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
     }
     delete data.city
   }
@@ -82,20 +80,16 @@ app.post('/api/notifications', keycloak.protect(role), async (req, res) => {
       subject: req.body.message.subject,
       htmlBody: req.body.message.htmlBody
     },
-    city: req.body.city,
-    data: {}
+    data: {
+      cities: req.body.city
+    }
+  }
+  if (typeof data.data.cities == 'string') {
+    data.data.cities = [data.data.cities]
   }
   data.data.sender = {
     name: req.kauth.grant.access_token.content.name,
     email: req.kauth.grant.access_token.content.email
-  }
-  if (data.city) {
-    if (data.city instanceof Array) {
-      data.data.cities = data.city.join(', ')
-    } else if (typeof data.city == 'string') {
-      data.data.cities = data.city
-    }
-    delete data.city
   }
   data.message.htmlBody = `<pre>${
     data.message.htmlBody
