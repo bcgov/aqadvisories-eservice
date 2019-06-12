@@ -40,7 +40,8 @@ app.post('/api/subscriptions', async (req, res) => {
     serviceName: 'envAirQuality',
     channel: 'email',
     city: req.body.city,
-    userChannelId: req.body.userChannelId
+    userChannelId: req.body.userChannelId,
+    data: {}
   }
   if (data.city) {
     if (data.city instanceof Array) {
@@ -49,8 +50,12 @@ app.post('/api/subscriptions', async (req, res) => {
           return "contains(cities,'" + e + "')"
         })
         .join('||')
+      data.data.citiesHtml = `<ul><li>${data.city.join('</li><li>')}</li></ul>`
+      data.data.citiesText = `${data.city.join(', ')}`
     } else if (typeof data.city == 'string') {
       data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
+      data.data.citiesHtml = `<ul><li>${data.city}</li></ul>`
+      data.data.citiesText = `${data.city}`
     }
     delete data.city
   }
