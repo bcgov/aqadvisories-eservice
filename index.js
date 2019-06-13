@@ -36,73 +36,88 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/admin.html', keycloak.protect(role))
 
 app.post('/api/subscriptions', async (req, res) => {
-  let data = {
-    serviceName: 'envAirQuality',
-    channel: 'email',
-    city: req.body.city,
-    userChannelId: req.body.userChannelId
-  }
-  if (data.city) {
-    if (data.city instanceof Array) {
-      data.broadcastPushNotificationFilter = data.city
-        .map(e => {
-          return "contains(cities,'" + e + "')"
-        })
-        .join('||')
-    } else if (typeof data.city == 'string') {
-      data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
-    }
-    delete data.city
-  }
   try {
-    const response = await axios.post(
-      notifybcRootUrl + '/api/subscriptions',
-      data,
-      {
-        headers: {
-          'X-Forwarded-For': req.ip
-        }
+    let data = {
+      serviceName: 'envAirQuality',
+      channel: 'email',
+      city: req.body.city,
+      userChannelId: req.body.userChannelId,
+      data: {}
+    }
+    if (data.city) {
+      if (data.city instanceof Array) {
+        data.broadcastPushNotificationFilter = data.city
+          .map(e => {
+            return "contains(cities,'" + e + "')"
+          })
+          .join('||')
+        data.data.citiesHtml = `<ul><li>${data.city.join(
+          '</li><li>'
+        )}</li></ul>`
+        data.data.citiesText = `${data.city.join(', ')}`
+      } else if (typeof data.city == 'string') {
+        data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
+        data.data.citiesHtml = `<ul><li>${data.city}</li></ul>`
+        data.data.citiesText = `${data.city}`
       }
-    )
-    res.redirect('/subscription_sent.html')
-  } catch (error) {
-    res.status(error.response.status).end(error.response.statusText)
+      delete data.city
+    }
+    try {
+      const response = await axios.post(
+        notifybcRootUrl + '/api/subscriptions',
+        data,
+        {
+          headers: {
+            'X-Forwarded-For': req.ip
+          }
+        }
+      )
+      res.redirect('/subscription_sent.html')
+    } catch (error) {
+      res.status(error.response.status).end(error.response.statusText)
+    }
+  } catch (ex) {
+    res.status(500).end(ex)
   }
 })
 app.post('/api/notifications', keycloak.protect(role), async (req, res) => {
-  let data = {
-    serviceName: 'envAirQuality',
-    channel: 'email',
-    isBroadcast: true,
-    asyncBroadcastPushNotification: true,
-    message: {
-      from: 'donotreply@gov.bc.ca',
-      subject: req.body.message.subject,
-      htmlBody: req.body.message.htmlBody
-    },
-    data: {
-      cities: req.body.city
-    }
-  }
-  if (typeof data.data.cities == 'string') {
-    data.data.cities = [data.data.cities]
-  }
-  data.data.sender = {
-    name: req.kauth.grant.access_token.content.name,
-    email: req.kauth.grant.access_token.content.email
-  }
-  data.message.htmlBody = `<pre>${
-    data.message.htmlBody
-  }</pre><br/><a href="{unsubscription_url}">Unsubscribe</a>`
-
   try {
-    const response = await axios.post(
-      notifybcRootUrl + '/api/notifications',
-      data
-    )
-    res.redirect('/advisory_sent.html')
-  } catch (error) {
-    res.status(error.response.status).end(error.response.statusText)
+    let data = {
+      serviceName: 'envAirQuality',
+      channel: 'email',
+      isBroadcast: true,
+      asyncBroadcastPushNotification: true,
+      message: {
+        from: 'donotreply@gov.bc.ca',
+        subject: req.body.message.subject,
+        htmlBody: req.body.message.htmlBody
+      },
+      data: {
+        cities: req.body.city
+      }
+    }
+    if (typeof data.data.cities == 'string') {
+      data.data.cities = [data.data.cities]
+    }
+    data.data.sender = {
+      name: req.kauth.grant.access_token.content.name,
+      email: req.kauth.grant.access_token.content.email
+    }
+    data.message.htmlBody = `<pre>${
+      data.message.htmlBody
+    }</pre><br/><a href="{unsubscription_url}">Unsubscribe</a>`
+
+    try {
+      const response = await axios.post(
+        notifybcRootUrl + '/api/notifications',
+        data
+      )
+      res.redirect('/advisory_sent.html')
+    } catch (error) {
+      res.status(error.response.status).end(error.response.statusText)
+    }
+  } catch (ex) {
+    res.status(500).end(ex)
   }
 })
 
