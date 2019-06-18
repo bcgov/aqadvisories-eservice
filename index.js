@@ -36,32 +36,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/admin.html', keycloak.protect(role))
 
 app.post('/api/subscriptions', async (req, res) => {
-<<<<<<< HEAD
-  let data = {
-    serviceName: 'envAirQuality',
-    channel: 'email',
-    city: req.body.city,
-    userChannelId: req.body.userChannelId,
-    data: {}
-  }
-  if (data.city) {
-    if (data.city instanceof Array) {
-      data.broadcastPushNotificationFilter = data.city
-        .map(e => {
-          return "contains(cities,'" + e + "')"
-        })
-        .join('||')
-      data.data.citiesHtml = `<ul><li>${data.city.join('</li><li>')}</li></ul>`
-      data.data.citiesText = `${data.city.join(', ')}`
-    } else if (typeof data.city == 'string') {
-      data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
-      data.data.citiesHtml = `<ul><li>${data.city}</li></ul>`
-      data.data.citiesText = `${data.city}`
-    }
-    delete data.city
-  }
-=======
->>>>>>> 618ec976cc7d676a718d0db6b94a9bca1a7079a3
   try {
     let data = {
       serviceName: 'envAirQuality',
