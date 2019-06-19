@@ -55,10 +55,12 @@ app.post('/post/subscriptions', async (req, res) => {
           '</li><li>'
         )}</li></ul>`
         data.data.citiesText = `${data.city.join(', ')}`
+        data.data.cities = data.city
       } else if (typeof data.city == 'string') {
         data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
         data.data.citiesHtml = `<ul><li>${data.city}</li></ul>`
         data.data.citiesText = `${data.city}`
+        data.data.cities = [data.city]
       }
       delete data.city
     }
