@@ -110,12 +110,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
     try {
       const response = await axios.post(
         notifybcRootUrl + '/api/notifications',
-        data,
-        {
-          headers: {
-            'X-Forwarded-For': req.ip
-          }
-        }
+        data
       )
       res.redirect('/advisory_sent.html')
     } catch (error) {
