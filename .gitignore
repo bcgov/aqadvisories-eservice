@@ -1,3 +1,5 @@
 node_modules/
 keycloak.json
 sessions/
+*.bak
+static/subscriptionRT.html

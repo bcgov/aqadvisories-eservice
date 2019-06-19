@@ -188,7 +188,7 @@
     </div>
     <!-- /HEADER -->
     <!-- BODY CONTENT -->
-    <form id='myForm' action="/post/subscriptions" method="post">
+    <form id="myForm" action="/api/subscriptions" method="post" role="form">
 
         <div id="main-content" class="template container env-container">
             <!-- PAGE CONTENT -->
@@ -207,20 +207,20 @@
                             <div class="col-lg-6">
                                 <h3>1. Enter and confirm your email address</h3>
                                 <div class="form-group">
-                                    <label for="InputEmail">Email Address</label>
-                                    <input type="email" class="form-control" id="InputEmail" name="userChannelId" placeholder="jane.doe@example.com" aria-required="true">
+                                    <label for="InputEmail" class="control-label">Email Address (required)</label>
+                                    <input type="email" class="form-control" id="InputEmail" name="userChannelId" placeholder="jane.doe@example.com" aria-required="true" aria-describedby="helpBlock" required>
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputConfirmEmail">Confirm Your Email Address</label>
-                                    <input type="email" class="form-control" id="InputConfirmEmail" placeholder="jane.doe@example.com" aria-required="true">
+                                    <label for="InputConfirmEmail" class="control-label">Confirm Your Email Address (required)</label>
+                                    <input type="email" class="form-control" id="InputConfirmEmail" oninput="check(this)" aria-required="true" placeholder="Confirm" required>
 
                                 </div>
                             </div>
                             <div class="col-lg-5 col-lg-offset-1">
-                                <div class="alert alert-info" role="alert">
+                                <div class="alert alert-info" role="alert" id="helpblock">
                                     <h2>How do I subscribe?</h2>
-                                    <p>To begin, enter your email address followed by selecting the communities and regions you would like to subscribe to for Air Quality Adivsories and Smoky Skies Bulletins. Click on the check boxes to make your selection.</p>
+                                    <p>To begin, enter and confirm your email address followed by selecting the communities and regions you would like to subscribe to for Air Quality Adivsories and Smoky Skies Bulletins. Click on the check boxes to make your selection.</p>
                                     <p><a href="#">How do I unsubscribe from a list?</a></p>
                                 </div>
                             </div>
@@ -876,6 +876,17 @@
                             <p style="text-align: right;"> <span style="padding-right: 15px;"><a href="#">Reset
                                         Form</a></span>
 
+                               <script language="javascript" type="text/javascript">
+    function check(input) {
+        if (input.value != document.getElementById('InputEmail').value) {
+            input.setCustomValidity('The email address must match.');
+        } else {
+            // input is valid -- reset the error message
+            input.setCustomValidity('');
+        }
+    }
+</script>
+                               
                                 <button type="submit" class="btn btn-primary">Subscribe to these distribution lists
                                 </button>
 
