@@ -189,6 +189,8 @@
     <!-- /HEADER -->
     <!-- BODY CONTENT -->
     <form id="myForm" action="/api/subscriptions" method="post" role="form">
+        
+      
 
         <div id="main-content" class="template container env-container">
             <!-- PAGE CONTENT -->
@@ -885,10 +887,12 @@
             input.setCustomValidity('');
         }
     }
-</script>
+                                   
+                                    </script>
+
+                              
                                
-                                <button type="submit" class="btn btn-primary">Subscribe to these distribution lists
-                                </button>
+                                <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" />
 
                             </p>
 
@@ -992,7 +996,20 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
 
+  <script language="javascript" type="text/javascript">
+                            $(document).ready(function () {
+    $('#checkBtn').click(function() {
+      checked = $("input[type=checkbox]:checked").length;
 
+      if(!checked) {
+        alert("You must subscribe to at least one notification list.");
+        return false;
+      }
+
+    });
+});
+   
+                                   </script>
 
 
 </body>
