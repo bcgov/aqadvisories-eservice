@@ -35,7 +35,7 @@ app.use(keycloak.middleware())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/admin.html', keycloak.protect(role))
 
-app.post('/api/subscriptions', async (req, res) => {
+app.post('/post/subscriptions', async (req, res) => {
   try {
     let data = {
       serviceName: 'envAirQuality',
@@ -80,7 +80,7 @@ app.post('/api/subscriptions', async (req, res) => {
     res.status(500).end(ex)
   }
 })
-app.post('/api/notifications', keycloak.protect(role), async (req, res) => {
+app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
   try {
     let data = {
       serviceName: 'envAirQuality',
