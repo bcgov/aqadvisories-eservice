@@ -38,7 +38,7 @@
     <meta name="msapplication-TileImage" content="./icons/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
 
-    <title>Unsubscribe Confirmation - Air Quality Advisories Subscription Service - BC Air Quality - Province of British Columbia</title>
+    <title>Unsubscribe Confirmation - Air Quality Subscription Service - BC Air Quality - Province of British Columbia</title>
 
     <!-- BOOTSTRAP CORE CSS v3.3.6 -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -191,7 +191,7 @@
         <div id="main-content" class="template container env-container">
             <!-- PAGE CONTENT -->
             <div class="row">
-                <h1>Air Quality Advisories Subscription Service</h1>
+                <h1>Air Quality Subscription Service</h1>
                
                 <div class="row">
                 <div id="main-content" role="main" class="contentPageMainColumn">
@@ -200,9 +200,9 @@
     var id = document.getElementById('message')
     var url = window.location.href;
     if (url.match(/[?&]err=/)) {
-      id.innerHTML = 'error'
+      id.innerHTML = 'Sorry, the page you are trying to access has expired.'
     } else {
-      id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have been unsubscribed from the Air Quality Advisory Subscription Service.</p>'
+      id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service.</p> <p>If you change your mind, you will find a resubscribe link in your unsubscription acknowledgement email.</p>'
     }
   </script>
   </div>
