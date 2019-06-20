@@ -66,9 +66,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-
-
     <!-- Snowplow starts plowing - Standalone vA.2.10.2 -->
     <script type="text/javascript">
         ;
@@ -231,7 +228,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="table-responsive">
+                            <div class="table-responsive">
                                     <table class="table table-bordered table-hover step23" id="table1">
                                         <tbody>
                                             <tr>
@@ -258,14 +255,15 @@
 
                                             <tr>
                                                 <td>
-                                                    <p><a href="#">Select All</a></p>
+                                                  
+                                                    <p><input type="checkbox" id="selectAll">Select All</p>
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" name="city" value="Courtenay">Courtenay</label>
+                                                            <input type="checkbox" name="city" class="aqa" value="Courtenay">Courtenay</label>
                                                     </div>
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" name="city" value="Campbell River">Campbell River</label>
+                                                            <input type="checkbox" name="city" class="aqa"  value="Campbell River">Campbell River</label>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -282,7 +280,7 @@
                                                 <td>
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" name="city" value="Castlegar">Castlegar</label>
+                                                            <input type="checkbox" name="city" class="aqa" value="Castlegar">Castlegar</label>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -666,20 +664,18 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-
-
-
                             </div>
                             <div class="col-md-4">
                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover" id="table2">
+                                    <table class="table table-bordered ssb-bk" id="table2">
                                         <tbody>
                                             <tr> 
-                                                <div class="ssb-bk" style="padding: 25px;">
+                                                <td>
+                                                   <div style="padding: 15px;">
                                                     <h3>3a. Other Smoky Skies Bulletins by Environment Canada and Climate Change Regions</h3>
                                                     <p><a href="#" target="_blank">View a map to see which region you fall under</a>.</p>
-                                                    <p><a href="#">Select All</a></p>
+                                                    <fieldset>
+                                                    <p><input type="checkbox" id="checkAll" /> Check All</p>
                                                     <div class="checkbox">
                                                         <label>
                                                             <input type="checkbox" name="city" value="100 Mile">100 Mile <span class="context">(includes )</span>
@@ -857,7 +853,9 @@
                                                             <input type="checkbox" name="city" value="Yoho Park - Kootenay Park">Yoho Park - Kootenay Park (includes Yoho and Kootenay National Parks)
                                                         </label>
                                                     </div>
+                                                       </fieldset>
                                                 </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table> 
@@ -1010,6 +1008,8 @@
 });
    
                                    </script>
+                                   
+                                    
 
 
 </body>
