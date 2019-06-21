@@ -204,12 +204,12 @@
                                 <h3>1. Enter and confirm your email address</h3>
                                 <div class="form-group">
                                     <label for="InputEmail" class="control-label">Email Address (required)</label>
-                                    <input type="email" class="form-control" id="InputEmail" name="userChannelId" placeholder="jane.doe@example.com" aria-required="true" aria-describedby="helpBlock" required>
+                                    <input type="email" class="form-control" id="InputEmail" name="userChannelId" aria-required="true" aria-describedby="helpBlock" required>
 
                                 </div>
                                 <div class="form-group">
                                     <label for="InputConfirmEmail" class="control-label">Confirm Your Email Address (required)</label>
-                                    <input type="email" class="form-control" id="InputConfirmEmail" oninput="check(this)" aria-required="true" placeholder="Confirm" required>
+                                    <input type="email" class="form-control" id="InputConfirmEmail" oninput="check(this)" aria-required="true" required>
 
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                                 <div class="alert alert-info" role="alert" id="helpblock">
                                     <h2>How do I subscribe?</h2>
                                     <p>Enter and confirm your email address followed by checking the communities and regions you would like to subscribe to.</p>
-                                    <p><a href="#">How do I unsubscribe from a list?</a></p>
+                                    <p><a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">How do I unsubscribe from a list?</a></p>
                                 </div>
                             </div>
 
@@ -890,7 +890,7 @@
 
                             <p style="text-align: right;"> <span style="padding-right: 15px;"><button type="button" class="reset-btn btn btn-link">Reset Form</button></span>
 
-                                <script language="javascript" type="text/javascript">
+                                <!-- <script language="javascript" type="text/javascript">
                                     function check(input) {
                                         if (input.value != document.getElementById('InputEmail').value) {
                                             input.setCustomValidity('The email address must match.');
@@ -899,7 +899,7 @@
                                             input.setCustomValidity('');
                                         }
                                     }
-                                </script>
+                                </script> -->
 
 
 
@@ -1006,8 +1006,9 @@
     <script src="./js/navMenu.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/validation.js"></script>
 
-    <script language="javascript" type="text/javascript">
+    <!-- <script language="javascript" type="text/javascript">
         $(document).ready(function () {
             $('#checkBtn').click(function () {
                 checked = $("input[type=checkbox]:checked").length;
@@ -1049,7 +1050,7 @@
                 $("#myForm").trigger("reset");
             });
         });
-    </script>
+    </script> -->
 
 
 
