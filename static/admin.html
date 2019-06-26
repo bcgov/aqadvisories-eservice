@@ -177,6 +177,22 @@
                                         </textarea>
                                     </div>
                                     <script>
+                                        var SignatureButton = function (context) {
+                                            var ui = $.summernote.ui;
+
+                                            // create button
+                                            var button = ui.button({
+                                                contents: '<i class="fa fa-child"/> Signature',
+                                                tooltip: 'signature',
+                                                click: function () {
+                                                    // invoke insertText method with 'hello' on editor module.
+                                                    context.invoke('editor.insertText', 'signature');
+                                                }
+                                            });
+
+                                            return button.render(); // return button as jquery object
+                                        }
+
                                         $(document).ready(function () {
                                             $('#summernote').summernote({
                                                 placeholder: 'Insert advisory text here...',
@@ -188,9 +204,14 @@
     ['font', ['superscript', 'subscript']],
     ['para', ['ul', 'ol', 'paragraph']],
     ['insert', ['link', 'picture']],
-  ]
+    ['mybutton', ['signature']]
+  ],
+                                                buttons: {
+                                                    signature: SignatureButton
+                                                }
+
                                             });
-                                            $('#summernote').summernote('fontName', 'Arial');
+                                        
                                         });
                                     </script>
                                 </div>
