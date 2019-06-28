@@ -42,7 +42,9 @@ app.post('/post/subscriptions', async (req, res) => {
       channel: 'email',
       city: req.body.city,
       userChannelId: req.body.userChannelId,
-      data: {}
+      data: {
+        creator: { ip: req.ip }
+      }
     }
     if (data.city) {
       if (data.city instanceof Array) {
@@ -67,12 +69,7 @@ app.post('/post/subscriptions', async (req, res) => {
     try {
       const response = await axios.post(
         notifybcRootUrl + '/api/subscriptions',
-        data,
-        {
-          headers: {
-            'X-Forwarded-For': req.ip
-          }
-        }
+        data
       )
       res.redirect('/subscription_sent.html')
     } catch (error) {
