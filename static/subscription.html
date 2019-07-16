@@ -136,7 +136,7 @@
     </div>
     <!-- /HEADER -->
     <!-- BODY CONTENT -->
-    <form onsubmit="openModal()" id="myForm" action="/post/subscriptions" method="post" role="form">
+    <form id="myForm" action="/post/subscriptions" method="post" role="form">
         <div id="main-content" class="template container env-container">
             <!-- PAGE CONTENT -->
             <div class="row">
@@ -167,8 +167,7 @@
                             <div class="col-lg-5 col-lg-offset-1">
                                 <div class="alert alert-info" role="alert" id="helpblock">
                                     <h2>How do I subscribe?</h2>
-                                    <p>Enter and confirm your email address followed by checking the communities and regions you would like to subscribe to.</p>
-                                    <p><a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">How do I unsubscribe from a list?</a></p>
+                                    <p>Enter and confirm your email address followed by checking the communities and regions you would like to subscribe to. <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">Learn more about this service.</a></p>
                                 </div>
                             </div>
 
@@ -840,16 +839,6 @@
 
                             <p style="text-align: right;"> <span style="padding-right: 15px;"><button type="button" class="reset-btn btn btn-link">Reset Form</button></span>
 
-                                <!-- <script language="javascript" type="text/javascript">
-                                    function check(input) {
-                                        if (input.value != document.getElementById('InputEmail').value) {
-                                            input.setCustomValidity('The email address must match.');
-                                        } else {
-                                            // input is valid -- reset the error message
-                                            input.setCustomValidity('');
-                                        }
-                                    }
-                                </script> -->
 
 
 
@@ -921,7 +910,7 @@
     </div>
     <!-- /FOOTER -->
     <!-- MODALS -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -939,7 +928,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <!-- /MODALS -->
@@ -955,52 +944,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
     <script src="./js/validation.js"></script>
-
-    <!-- <script language="javascript" type="text/javascript">
-        $(document).ready(function () {
-            $('#checkBtn').click(function () {
-                checked = $("input[type=checkbox]:checked").length;
-
-                if (!checked) {
-                    alert("You must subscribe to at least one notification list.");
-                    return false;
-                }
-
-            });
-        });
-
-        $(document).ready(function () {
-            $("#selectAll").click(function () {
-                $(".aqa").prop('checked', $(this).prop('checked'));
-            });
-
-            $(".aqa").change(function () {
-                if (!$(this).prop("checked")) {
-                    $("#selectAll").prop("checked", false);
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $("#selectAll2").click(function () {
-                $(".skb").prop('checked', $(this).prop('checked'));
-            });
-
-            $(".skb").change(function () {
-                if (!$(this).prop("checked")) {
-                    $("#selectAll2").prop("checked", false);
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $(".reset-btn").click(function () {
-                $("#myForm").trigger("reset");
-            });
-        });
-    </script> -->
-
-
 
 
 </body>

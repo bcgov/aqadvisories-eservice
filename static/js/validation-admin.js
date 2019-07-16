@@ -31,22 +31,13 @@ $(document).ready(function () {
 
 ///FORM VALIDATION
 
-//match email
-function check(input) {
-    if (input.value != document.getElementById('InputEmail').value) {
-        input.setCustomValidity('The email address must match.');
-    } else {
-        // input is valid -- reset the error message
-        input.setCustomValidity('');
-    }
-}
 // checkbox minimum selected
 $(document).ready(function () {
     $('#checkBtn').click(function () {
         checked = $("input[type=checkbox]:checked").length;
 
         if (!checked) {
-            alert("You must subscribe to at least one notification list.");
+            alert("You must select at least one notification list.");
             return false;
         } else {
             return confirm('Please confirm: do you want to subscribe to these notifcation lists?');
