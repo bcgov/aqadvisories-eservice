@@ -833,6 +833,11 @@
 
                             </div>
 
+
+
+
+
+
                             <p style="text-align: right;"> <span style="padding-right: 15px;"><button type="button" class="reset-btn btn btn-link">Reset Form</button></span>
 
                                 <!-- <script language="javascript" type="text/javascript">
@@ -848,8 +853,8 @@
 
 
 
-                                <!-- <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" /> -->
-                                <button type="submit" class="btn btn-primary">Confirm Subscription</button>
+                                <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" />
+
 
                             </p>
 
@@ -873,68 +878,69 @@
             </div>
             <!-- PAGE CONTENT -->
         </div>
-        <!-- /BODY CONTENT -->
-        <div id="shareIcons">
-
-        </div>
-
-        <!-- FOOTER -->
-        <div id="footer" role="contentinfo">
-            <img class="back-to-top" src="./images/back-to-top.png" alt="Back to top" title="Back to top" style="display: inline;">
-            <div id="footerWrapper">
-                <div id="footerAdminSection">
-                    <div id="footerAdminLinksContainer" class="container">
-                        <div id="footerAdminLinks" class="row">
-                            <ul class="inline">
-                                <li>
-                                    <a href="#" target="_self">Home</a>
-                                </li>
-                                <li>
-                                    <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">About this site</a>
-                                </li>
-                                <li>
-                                    <a href="http://gov.bc.ca/disclaimer/" target="_self">Disclaimer</a>
-                                </li>
-                                <li>
-                                    <a href="http://gov.bc.ca/privacy/" target="_self">Privacy</a>
-                                </li>
-                                <li>
-                                    <a href="http://gov.bc.ca/webaccessibility/" target="_self">Accessibility</a>
-                                </li>
-                                <li>
-                                    <a href="http://gov.bc.ca/copyright" target="_self">Copyright</a>
-                                </li>
-                                <li>
-                                    <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B" target="_self">Contact Us</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /FOOTER -->
-        <!-- MODALS -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Subscription Confirmation</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to subscribe to these notification list(s)?</p>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" />
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </form>
+    <!-- /BODY CONTENT -->
+    <div id="shareIcons">
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer" role="contentinfo">
+        <img class="back-to-top" src="./images/back-to-top.png" alt="Back to top" title="Back to top" style="display: inline;">
+        <div id="footerWrapper">
+            <div id="footerAdminSection">
+                <div id="footerAdminLinksContainer" class="container">
+                    <div id="footerAdminLinks" class="row">
+                        <ul class="inline">
+                            <li>
+                                <a href="#" target="_self">Home</a>
+                            </li>
+                            <li>
+                                <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">About this site</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/disclaimer/" target="_self">Disclaimer</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/privacy/" target="_self">Privacy</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/webaccessibility/" target="_self">Accessibility</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/copyright" target="_self">Copyright</a>
+                            </li>
+                            <li>
+                                <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B" target="_self">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /FOOTER -->
+    <!-- MODALS -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- /MODALS -->
     <!-- Bootstrap core JavaScript
@@ -994,12 +1000,7 @@
         });
     </script> -->
 
-    <script>
-        $('#myForm').on('submit', function (e) {
-            $('#myModal').modal('show');
-            e.preventDefault();
-        });
-    </script>
+
 
 
 </body>
