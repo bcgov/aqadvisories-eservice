@@ -3,3 +3,4 @@ keycloak.json
 sessions/
 *.bak
 static/subscriptionRT.html
+static/subscription-with-SMSEmail.html
