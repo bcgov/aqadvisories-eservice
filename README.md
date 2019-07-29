@@ -2,7 +2,7 @@
 [![Build Status](https://jenkins-zffq6u-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=build+aqadvisories-eservice+and+deploy+to+dev)](https://jenkins-zffq6u-tools.pathfinder.gov.bc.ca/job/build%20aqadvisories-eservice%20and%20deploy%20to%20dev/)
 
 # aqadvisories-eservice
-An Air Quality Advisory notification and subscription service utlizing NotifyBC https://github.com/bcgov/MyGovBC-notification-server
+An Air Quality notification and subscription service utlizing NotifyBC https://github.com/bcgov/MyGovBC-notification-server
 
 ## Overview
 The app consists of two forms - a subscription form and a notification posting form, each contains a list of geographical areas. The areas selected by the sender of the notification are matched against the areas chosen by the subscribers. If there is overlap, the notification is dispatched to the subscriber.
