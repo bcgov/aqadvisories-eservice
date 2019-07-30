@@ -17,7 +17,8 @@ table.floatThead-table {
 .table-hover>tbody>tr.active:hover>th,
 .table-hover>tbody>tr:hover>.active,
 .table-hover>tbody>tr>td.active:hover,
-.table-hover>tbody>tr>th.active:hover {
+.table-hover>tbody>tr>th.active:hover,
+.aqa-ssb-row:hover {
     background-color: #dff0d8
 }
 
@@ -25,8 +26,17 @@ table.floatThead-table {
     background-color: #f9f9f9;
 }
 
+.aqa-ssb-row {
+    border: 1px solid #ddd;
+    padding: 13px;
+}
+
 .checkbox {
     padding: 5px;
+}
+
+fieldset:focus-within {
+    background: #dff0d8;
 }
 
 
