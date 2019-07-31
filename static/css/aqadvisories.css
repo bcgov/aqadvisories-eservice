@@ -28,7 +28,13 @@ table.floatThead-table {
 
 .aqa-ssb-row {
     border: 1px solid #ddd;
-    padding: 13px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.row-border {
+    border-left: 1px solid #ddd;
+    padding-left: 15px;
 }
 
 .checkbox {
@@ -44,26 +50,26 @@ fieldset:focus-within {
 
 @media only screen and (max-width: 600px) {}
 
-.table-responsive > .table > thead > tr > th,
-.table-responsive > .table > tbody > tr > th,
-.table-responsive > .table > tfoot > tr > th,
-.table-responsive > .table > thead > tr > td,
-.table-responsive > .table > tbody > tr > td,
-.table-responsive > .table > tfoot > tr > td {
-    white-space: normal;
-}
-
-
-}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
+
 @media only screen and (min-width: 600px) {}
 
+
 /* Medium devices (landscape tablets, 768px and up) */
+
 @media only screen and (min-width: 768px) {}
 
+
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
+
+@media only screen and (min-width: 992px) {
+    h5 {
+        display: none;
+    }
+}
+
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
+
 @media only screen and (min-width: 1200px) {}
