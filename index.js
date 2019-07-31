@@ -87,7 +87,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
       isBroadcast: true,
       asyncBroadcastPushNotification: true,
       message: {
-        from: 'donotreply@gov.bc.ca',
+        from: 'BC Air Quality <donotreply@gov.bc.ca>',
         subject: req.body.message.subject,
         htmlBody: req.body.message.htmlBody
       },
