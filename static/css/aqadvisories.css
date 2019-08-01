@@ -6,6 +6,10 @@
     margin-left: 10px;
 }
 
+#helpBlock {
+    padding: 5px;
+}
+
 table.floatThead-table {
     border-top: none;
     border-bottom: none;
