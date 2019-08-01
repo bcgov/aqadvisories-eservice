@@ -2,6 +2,10 @@
     font-size: 13px;
 }
 
+.list-header {
+    margin-left: 10px;
+}
+
 table.floatThead-table {
     border-top: none;
     border-bottom: none;
