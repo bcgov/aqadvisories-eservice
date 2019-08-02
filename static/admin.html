@@ -74,9 +74,13 @@
 
 
     <!-- include summernote css/js -->
-    <link href="./css/summernote.css" rel="stylesheet" />
-    <script src="./js/summernote.js"></script>
-
+    <!-- <link href="./css/summernote.css" rel="stylesheet" /> -->
+    <!-- <script src="./js/summernote-hack.js"></script> -->
+    <!-- <script src="./js/summernote.js"></script> -->
+    <link href="./css/summernote-lite.css" rel="stylesheet" />
+    <script src="./js/summernote-lite.js"></script>
+    <script src="./js/summernote-ext-template.js"></script>
+    <script src="./js/validation-admin.js"></script>
 
 </head>
 
@@ -170,33 +174,50 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="advisoryInputText">Advisory Text</label>
-                                        <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]">
 
+                                        <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]">
                                             <p>Posted To: </p>
 
                                             <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all Air Quality Advisories</a></p>
-
                                         </textarea>
-                                    </div>
-                                    <script>
-                                        $(document).ready(function () {
+                                        <script>
                                             $('#summernote').summernote({
                                                 placeholder: 'Insert advisory text here...',
                                                 tabSize: 2,
                                                 height: 200,
                                                 toolbar: [
-    // [groupName, [list of button]]
+        // [groupName, [list of button]]
     ['style', ['bold', 'italic', 'underline', 'clear']],
     ['font', ['superscript', 'subscript']],
     ['para', ['ul', 'ol', 'paragraph']],
     ['insert', ['link', 'picture']],
+    ['insert', ['template']],
   ],
-
-
+                                                template: {
+                                                    path: './js/tpls',
+                                                    list: {
+                                                        'asaraswa': 'Arvind Saraswat',
+                                                        'bweinste': 'Benjamin Weinstein',
+                                                        'dhaga': 'Donna Haga',
+                                                        'eplain': 'Earle Plain',
+                                                        'groth': 'Gail Roth',
+                                                        'jgveale': 'Graham Veale',
+                                                        'rsadams': 'Gail Roth',
+                                                        'tayache': 'Tarek Ayache'
+                                                    }
+                                                },
                                             });
+                                        </script>
+                                        <!-- <select id="dropdown">
+                                            <option value="">None</option>
+                                            <option value="<p><strong>text1</strong></p><p>
+    Apple</p>">text1</option>
+                                            <option value="text2">text2</option>
+                                            <option value="text3">text3</option>
+                                            <option value="text4">text4</option>
+                                        </select> -->
+                                    </div>
 
-                                        });
-                                    </script>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="table1">
@@ -222,463 +243,464 @@
                                             <tr>
 
                                                 <td>
+                                                    <fieldset>
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" id="selectAll" /> Select all</label>
+                                                        </p>
 
-                                                    <p>
-                                                        <label>
-                                                            <input type="checkbox" id="selectAll" /> Select all</label>
-                                                    </p>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Burns Lake">Burns Lake</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Campbell River">Campbell River</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Castlegar">Castlegar</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Courtenay/Comox">Courtenay/Comox</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Cranbrook">Cranbrook</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Duncan">Duncan</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Fort St. John">Fort St. John</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Golden">Golden</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Grand Forks">Grand Forks</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Houston">Houston</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Kamloops">Kamloops</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Kelowna">Kelowna</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Kitimat">Kitimat</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Langdale">Langdale</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Lavington">Lavington</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Nanaimo">Nanaimo</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Nelson">Nelson</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Port Alberni">Port Alberni</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Powell River">Powell River</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Prince George">Prince George</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Prince Rupert">Prince Rupert</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Quesnel">Quesnel</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Smithers">Smithers</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Squamish">Squamish</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Taylor">Taylor</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Terrace">Terrace</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Trail">Trail</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Valemount">Valemount</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Vanderhoof">Vanderhoof</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Vernon">Vernon</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Victoria">Victoria</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Whistler">Whistler</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="aqa" value="Williams Lake">Williams Lake</label>
+                                                        </div>
 
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Burns Lake">Burns Lake</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Campbell River">Campbell River</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Castlegar">Castlegar</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Courtenay/Comox">Courtenay/Comox</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Cranbrook">Cranbrook</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Duncan">Duncan</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Fort St. John">Fort St. John</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Golden">Golden</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Grand Forks">Grand Forks</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Houston">Houston</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Kamloops">Kamloops</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Kelowna">Kelowna</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Kitimat">Kitimat</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Langdale">Langdale</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Lavington">Lavington</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Nanaimo">Nanaimo</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Nelson">Nelson</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Port Alberni">Port Alberni</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Powell River">Powell River</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Prince George">Prince George</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Prince Rupert">Prince Rupert</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Quesnel">Quesnel</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Smithers">Smithers</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Squamish">Squamish</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Taylor">Taylor</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Terrace">Terrace</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Trail">Trail</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Valemount">Valemount</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Vanderhoof">Vanderhoof</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Vernon">Vernon</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Victoria">Victoria</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Whistler">Whistler</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="aqa" value="Williams Lake">Williams Lake</label>
-                                                    </div>
-
+                                                    </fieldset>
                                                 </td>
 
                                                 <td>
+                                                    <fieldset>
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" id="selectAll2" /> Select all</label>
+                                                        </p>
 
-                                                    <p>
-                                                        <label>
-                                                            <input type="checkbox" id="selectAll2" /> Select all</label>
-                                                    </p>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="100 Mile">100 Mile</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Arrow Lakes - Slocan Lake">Arrow Lakes - Slocan Lake</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Atlin">Atlin</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="B.C. North Peace River">B.C. North Peace River</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="B.C. South Peace River">B.C. South Peace River</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Boundary">Boundary</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Bulkley Valley and The Lakes - northwest including Smithers">Bulkley Valley and The Lakes - northwest including Smithers</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Bulkley Valley and The Lakes - southeast including Burns Lake">Bulkley Valley and The Lakes - southeast including Burns Lake</label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Cariboo - north including Quesnel">Cariboo - north including Quesnel
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Cariboo - south including Williams Lake">Cariboo - south including Williams Lake
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Cassiar Mountains">Cassiar Mountains
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Central Coast - coastal sections">Central Coast - coastal sections
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Central Coast - inland sections">Central Coast - inland sections
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Central Okanagan - including Kelowna">Central Okanagan - including Kelowna
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Chilcotin">Chilcotin
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Dease Lake">Dease Lake
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="East Columbia">East Columbia
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="East Kootenay - north including Invermere">East Kootenay - north including Invermere
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="East Kootenay - south including Cranbrook">East Kootenay - south including Cranbrook
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="East Vancouver Island - Courtenay to Campbell River">East Vancouver Island - Courtenay to Campbell River
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="East Vancouver Island - Duncan to Nanaimo">East Vancouver Island - Duncan to Nanaimo
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="East Vancouver Island - Nanoose Bay to Fanny Bay">East Vancouver Island - Nanoose Bay to Fanny Bay
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Elk Valley">Elk Valley
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Fort Nelson">Fort Nelson
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Fraser Canyon - north including Lillooet">Fraser Canyon - north including Lillooet
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Fraser Canyon - south including Lytton">Fraser Canyon - south including Lytton
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Fraser Valley - central including Chilliwack">Fraser Valley - central including Chilliwack
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Fraser Valley - east including Hope">Fraser Valley - east including Hope
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Fraser Valley - west including Abbotsford">Fraser Valley - west including Abbotsford
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Greater Victoria">Greater Victoria
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Haida Gwaii">Haida Gwaii
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Howe Sound">Howe Sound
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Inland Vancouver Island">Inland Vancouver Island
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Kinbasket">Kinbasket
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Kootenay Lake">Kootenay Lake
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="McGregor">McGregor
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Muncho Lake Park - Stone Mountain Park">Muncho Lake Park - Stone Mountain Park
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Nicola">Nicola
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Coast - coastal sections">North Coast - coastal sections
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Coast - inland including Kitimat">North Coast - inland including Kitimat
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Coast - inland including Terrace">North Coast - inland including Stewart
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Coast - inland including Terrace">North Coast - inland including Terrace
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Columbia">North Columbia
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Okanagan - including Vernon">North Okanagan - including Vernon
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Thompson">North Thompson
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="North Vancouver Island">North Vancouver Island
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Prince George">Prince George
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Shuswap">Shuswap
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Similkameen">Similkameen
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="South Okanagan - including Penticton">South Okanagan - including Penticton
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="South Thompson">South Thompson
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Southern Gulf Islands">Southern Gulf Islands
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Sunshine Coast - Gibsons to Earls Cove">Sunshine Coast - Gibsons to Earls Cove
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Sunshine Coast - Saltery Bay to Powell River">Sunshine Coast - Saltery Bay to Powell River
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Teslin">Teslin
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Watson Lake">Watson Lake
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="West Columbia">West Columbia
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="West Kootenay">West Kootenay
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="West Vancouver Island">West Vancouver Island
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Whistler">Whistler
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Williston">Williston
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Yellowhead">Yellowhead
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="city" class="skb" value="Yoho Park - Kootenay Park">Yoho Park - Kootenay Park
+                                                            </label>
+                                                        </div>
 
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="100 Mile">100 Mile</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Arrow Lakes - Slocan Lake">Arrow Lakes - Slocan Lake</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Atlin">Atlin</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="B.C. North Peace River">B.C. North Peace River</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="B.C. South Peace River">B.C. South Peace River</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Boundary">Boundary</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Bulkley Valley and The Lakes - northwest including Smithers">Bulkley Valley and The Lakes - northwest including Smithers</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Bulkley Valley and The Lakes - southeast including Burns Lake">Bulkley Valley and The Lakes - southeast including Burns Lake</label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Cariboo - north including Quesnel">Cariboo - north including Quesnel
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Cariboo - south including Williams Lake">Cariboo - south including Williams Lake
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Cassiar Mountains">Cassiar Mountains
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Central Coast - coastal sections">Central Coast - coastal sections
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Central Coast - inland sections">Central Coast - inland sections
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Central Okanagan - including Kelowna">Central Okanagan - including Kelowna
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Chilcotin">Chilcotin
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Dease Lake">Dease Lake
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="East Columbia">East Columbia
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="East Kootenay - north including Invermere">East Kootenay - north including Invermere
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="East Kootenay - south including Cranbrook">East Kootenay - south including Cranbrook
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="East Vancouver Island - Courtenay to Campbell River">East Vancouver Island - Courtenay to Campbell River
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="East Vancouver Island - Duncan to Nanaimo">East Vancouver Island - Duncan to Nanaimo
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="East Vancouver Island - Nanoose Bay to Fanny Bay">East Vancouver Island - Nanoose Bay to Fanny Bay
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Elk Valley">Elk Valley
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Fort Nelson">Fort Nelson
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Fraser Canyon - north including Lillooet">Fraser Canyon - north including Lillooet
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Fraser Canyon - south including Lytton">Fraser Canyon - south including Lytton
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Fraser Valley - central including Chilliwack">Fraser Valley - central including Chilliwack
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Fraser Valley - east including Hope">Fraser Valley - east including Hope
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Fraser Valley - west including Abbotsford">Fraser Valley - west including Abbotsford
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Greater Victoria">Greater Victoria
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Haida Gwaii">Haida Gwaii
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Howe Sound">Howe Sound
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Inland Vancouver Island">Inland Vancouver Island
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Kinbasket">Kinbasket
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Kootenay Lake">Kootenay Lake
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="McGregor">McGregor
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Muncho Lake Park - Stone Mountain Park">Muncho Lake Park - Stone Mountain Park
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Nicola">Nicola
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Coast - coastal sections">North Coast - coastal sections
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Coast - inland including Kitimat">North Coast - inland including Kitimat
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Coast - inland including Terrace">North Coast - inland including Stewart
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Coast - inland including Terrace">North Coast - inland including Terrace
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Columbia">North Columbia
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Okanagan - including Vernon">North Okanagan - including Vernon
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Thompson">North Thompson
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="North Vancouver Island">North Vancouver Island
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Prince George">Prince George
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Shuswap">Shuswap
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Similkameen">Similkameen
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="South Okanagan - including Penticton">South Okanagan - including Penticton
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="South Thompson">South Thompson
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Southern Gulf Islands">Southern Gulf Islands
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Sunshine Coast - Gibsons to Earls Cove">Sunshine Coast - Gibsons to Earls Cove
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Sunshine Coast - Saltery Bay to Powell River">Sunshine Coast - Saltery Bay to Powell River
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Teslin">Teslin
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Watson Lake">Watson Lake
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="West Columbia">West Columbia
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="West Kootenay">West Kootenay
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="West Vancouver Island">West Vancouver Island
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Whistler">Whistler
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Williston">Williston
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Yellowhead">Yellowhead
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="city" class="skb" value="Yoho Park - Kootenay Park">Yoho Park - Kootenay Park
-                                                        </label>
-                                                    </div>
-
-
+                                                    </fieldset>
                                                 </td>
                                             </tr>
 
@@ -692,32 +714,7 @@
                                 </div>
                             </div>
 
-                            <!--   <div class="contentPageRightColumn col-md-12 col-lg-4">
-                                <div class="row">
-                                    <div class="alert alert-info" role="alert">
-                                        <h2>How to use post advisories</h2>
-                                        <ul>
-                                            <li>
-                                                <a href="#">Link</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Link</a>
-                                            </li>
-                                        </ul>
-                                    </div>
 
-                                    <div class="alert alert-warning" role="alert">
-                                        <h2>Reminders</h2>
-                                        <p>
-                                            Important reminders about sending out notices can be posted here.
-                                        </p>
-                                    </div>
-
-                                    <hr />
-
-                                    <p>For technical support, contact....</p>
-                                </div>
-                            </div> -->
                         </div>
                     </form>
 
@@ -809,7 +806,15 @@
     <script src="./js/navMenu.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
-    <script src="./js/validation-admin.js"></script>
+    <!-- <script>
+        var mytextbox = document.getElementById('mytext');
+        var mydropdown = document.getElementById('dropdown');
+
+        mydropdown.onchange = function () {
+            mytextbox.value = mytextbox.value + this.value;
+        }
+    </script> -->
+
 </body>
 
 </html>

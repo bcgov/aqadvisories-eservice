@@ -144,7 +144,7 @@
                     <a id="main-content-anchor"></a>
                     <h1>Air Quality Subscription Service</h1>
                     <div id="pageIntro">
-                        <p>Subscribe to receive notifications of <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">Air quality advisories</a> and <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">Smoky Skies Bulletins</a> for your area.</p>
+                        <p>Subscribe to receive notifications of Air Quality Advisories and Smoky Skies Bulletins for your area. <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">Learn more about these types of notifications</a>.</p>
                     </div>
                     <hr/>
                 </div>
@@ -168,6 +168,7 @@
 
                                         </div>
                                     </fieldset>
+                                    <p>* SMS notifications are in development</p>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-lg-offset-1">
@@ -179,8 +180,7 @@
                                         <li>Step 3. Select the Subscribe button</li>
                                         <li>Step 4. You will receive an email (asking you to confirm your subscription). Follow the instructions in the email to complete your subscription.</li>
                                     </ul>
-
-
+                                    <p><strong>* SMS notifications are in development</strong></p>
                                     <p><a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">Learn more about the Air Quality Subscription Service</a></p>
                                 </div>
                             </div>
@@ -192,19 +192,37 @@
 
                                 <div class="row">
 
-                                    <h2>2. Subscribe to Air Quality Advisories with Smoky Skies Bulletins</h2>
+                                    <h2>2. Subscribe to Air Quality Advisories and/or Smoky Skies Bulletins</h2>
                                     <div id="helpBlock">
                                         <p><strong>Air quality advisories</strong> and <strong>Smoky Skies Bulletins</strong> are issued for the following communities below. More communities with Air Quality Advisories will be added in the future. If you do not see your specific community, you could select the closest one. Other communities that only have Smoky Skies bulletins are listed on the right.</p>
                                         <p>Optionally, you can also <a href="#subscribe-all">subscribe to all notifications</a>.</p>
-                                        <p><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Are you unsure which Smoky Skies region you fall under? Click on a community name to open our weather forecast regional map or your can <a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c" target="_blank" aria-label="weather forecast regional map">access the map here</a>. You can also view the weather forecast region map here. Return to this page after you have figured out your region name.</p>
+                                        <p><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Are you unsure which Smoky Skies region you fall under? Click on a community name to open our weather forecast regional map or your can <a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c" target="_blank" aria-label="weather forecast regional map">access the map here</a>. Return to this page after you have found your region's name.</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="list-header">Air Quality Advisory</h4>
+                                        <h3 class="list-header">Air Quality Advisory</h3>
                                     </div>
                                     <div class="col-md-6 row-border">
-                                        <h4 class="list-header">Smoky Skies Bulletin</h4>
+                                        <h3 class="list-header">Smoky Skies Bulletin</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <hr/>
+                                    <!-- <a id="subscribe-all"></a>
+                                    <h3>OPTIONAL: Subscribe to all notification lists</h3>
+                                    <p>If you need to be notified for all Air Quality Advisories and/or Smoky Skies Bulletins, select any option below. You will only receive one notification message if you have subscribed to more than one advisory or bulletin notification list.</p> -->
+                                    <div class="col-md-6">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="selectAll"> Select all Air Quality Advisories</label>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="selectAll2"> Select all Smoky Skies Bulletins</label>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="row aqa-ssb-row">
@@ -881,30 +899,14 @@
 
                                 <div class="row">
                                     <div class="alert alert-info" role="alert" style="margin: 10px;">
-                                        <p class="context"><sup>1</sup> TBD </p>
+                                        <p class="context"><sup>1</sup> The Province and MetroVancouver share responsibility for airshed management and air quality notifications in British Columbia. This notification system is for areas outside of MetroVancouver. Sign up for air quality notifications with MetroVancouver here:
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="row">
-                            <hr/>
-                            <a id="subscribe-all"></a>
-                            <h3>OPTIONAL: Subscribe to all notification lists</h3>
-                            <p>If you need to be notified for all Air Quality Advisories and/or Smoky Skies Bulletins, select any option below. You will only receive one notification message if you have subscribed to more than one advisory or bulletin notification list.</p>
-                            <div class="col-md-6">
-                                <p>
-                                    <label>
-                                        <input type="checkbox" id="selectAll"> Select all Air Quality Advisories</label>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>
-                                    <label>
-                                        <input type="checkbox" id="selectAll2"> Select all Smoky Skies Bulletins</label>
-                                </p>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <hr/>
                             <div class="alert alert-warning" role="alert">
@@ -924,7 +926,7 @@
 
 
 
-                                <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" />
+                                <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" onClick="valthis()" />
 
 
                             </p>

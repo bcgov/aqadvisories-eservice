@@ -34,8 +34,7 @@ $(document).ready(function () {
 // checkbox minimum selected
 $(document).ready(function () {
     $('#checkBtn').click(function () {
-        checked = $("input[type=checkbox]:checked").length;
-
+        checked = $("[name=city]:checked").length > 0;
         if (!checked) {
             alert("You must select at least one notification list.");
             return false;
