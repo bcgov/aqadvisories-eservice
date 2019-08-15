@@ -69,11 +69,24 @@ fieldset:focus-within {
 @media only screen and (min-width: 768px) {}
 
 
+/* small devices (phones, 992px and down) */
+
+@media only screen and (max-width: 992px) {
+    .list-header {
+        display: none;
+    }
+}
+
+
 /* Large devices (laptops/desktops, 992px and up) */
 
 @media only screen and (min-width: 992px) {
-    h5 {
+    h4 {
         display: none;
+    }
+    .row-border {
+        border-left: 0px;
+        padding-left: 0px;
     }
 }
 
