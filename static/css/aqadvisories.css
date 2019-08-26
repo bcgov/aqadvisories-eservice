@@ -10,6 +10,10 @@
     padding: 0 5px 5px 5px;
 }
 
+#access li {
+    margin-left: 225px;
+}
+
 table.floatThead-table {
     border-top: none;
     border-bottom: none;
@@ -62,6 +66,15 @@ fieldset:focus-within {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 
 @media only screen and (min-width: 600px) {}
+
+
+/* Medium devices (landscape tablets, 768px and down) */
+
+@media only screen and (max-width: 768px) {
+    #access li {
+        margin-left: 0px;
+    }
+}
 
 
 /* Medium devices (landscape tablets, 768px and up) */
