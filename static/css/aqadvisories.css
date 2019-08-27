@@ -1,3 +1,15 @@
+legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0px;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    border: 0;
+    border-bottom: 0;
+}
+
 .context {
     font-size: 13px;
 }
@@ -88,6 +100,10 @@ fieldset:focus-within {
     .list-header {
         display: none;
     }
+    .row-border {
+        border-left: 0px;
+        padding-left: 0px;
+    }
 }
 
 
@@ -96,10 +112,6 @@ fieldset:focus-within {
 @media only screen and (min-width: 992px) {
     h4 {
         display: none;
-    }
-    .row-border {
-        border-left: 0px;
-        padding-left: 0px;
     }
 }
 
