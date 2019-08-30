@@ -15,10 +15,10 @@ The app is hosted on BCGov OpenShift platform. The app uses Jenkins, which is al
 * Keycloak
 
 ### Authorizing a notification sender
-From Keycloak admin console, go to *Users*, and click button *Add User*. Fill out *Username* in the format of *\<idir_username\>@idir* and *Email*. Other fields are optional. Click Save. Next, click *Role Mappings* tab, assign *notification-sender* realm role to the newly created user.
-
-When logging in for the first time, after authentication, the user will be prompted to link account as shown ![link account](static/images/link-acct.png) 
-The user needs to click the button *Add to existing account*. An email will be sent to the user containing a link. When user clicks the link, account linking will be completed and the user is able to access the notification post form.
+From Keycloak admin console, go to *Users*, either click *View all users* or use the search box to find a specific user.  Then,
+1.  if the user exists, go to step 3. Otherwise,
+2.  if the user doesn't exist, click button *Add User*. Fill out *Username* in the format of *\<idir_username\>@idir*. Other fields are optional. Click Save. 
+3. click *Role Mappings* tab, assign *notification-sender* realm role to the user.
 
 ### Config changes
 Instance-specific configurations are either specified in environment variables or config maps. The configs are
