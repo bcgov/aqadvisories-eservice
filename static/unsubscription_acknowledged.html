@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="HandheldFriendly" content="true" />
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
     <meta name="description" content="This goal of the program is to improve communication between governments and citizens during air quality events in a timely manner." />
     <meta name="author" content="Ministry of Environment and Climate Change Strategy" />
     <meta name="navigaton_title" content="Air Quality Subscription Service - BC Air Quality" />
@@ -106,7 +108,7 @@
                             </ul>
                         </div>
                         <button type="button" class="navbar-toggle env-button-custom collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-label="Burger Navigation">
-                            <img src="./images/menu-open-mobile.png">
+                            <img src="./images/menu-open-mobile.png" alt="menu icon">
                         </button>
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-6 hidden-xs">
@@ -164,7 +166,7 @@
                         if (url.match(/[?&]err=/)) {
                             id.innerHTML = 'Sorry, the page you are trying to access has expired.'
                         } else {
-                            id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service.</p> <p>If you change your mind, you will find a resubscribe link in your unsubscription acknowledgement email.</p>'
+                            id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
                         }
                     </script>
                 </div>
