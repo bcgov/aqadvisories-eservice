@@ -55,7 +55,7 @@
 
     <!-- FONTS -->
     <link rel="stylesheet" href="./css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="../../templates-env/css/font-awesome.min.css" /> -->
+
 
     <!-- CUSTOM ENV CSS -->
     <link href="./css/env-main.css" rel="stylesheet">
@@ -69,8 +69,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- include libraries(jQuery, bootstrap) -->
-    <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
 
@@ -118,7 +116,7 @@
                             </ul>
                         </div>
                         <button type="button" class="navbar-toggle env-button-custom collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-label="Burger Navigation">
-                            <img src="./images/menu-open-mobile.png">
+                            <img src="./images/menu-open-mobile.png" alt="menu icon">
                         </button>
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-6 hidden-xs">
@@ -190,15 +188,14 @@
                                         </textarea>
                                         <script>
                                             $('#summernote').summernote({
-                                                placeholder: 'Insert advisory text here...',
+                                                placeholder: 'Insert notification text here...',
                                                 tabSize: 2,
                                                 height: 200,
                                                 toolbar: [
         // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['style', ['bold', 'italic', 'underline']],
     ['font', ['superscript', 'subscript']],
     ['para', ['ul', 'ol', 'paragraph']],
-    ['insert', ['link', 'picture']],
     ['insert', ['template']],
   ],
                                                 template: {
@@ -381,7 +378,7 @@
                                         <fieldset>
 
                                             <p>
-                                                <legend>Smokey Skies Bulletin Lists</legend>
+                                                <legend>Smoky Skies Bulletin Lists</legend>
                                             </p>
                                             <div class="checkbox">
                                                 <p>
@@ -709,6 +706,7 @@
 
                                     </p>
                                 </div>
+
                             </div>
 
 
@@ -738,7 +736,7 @@
                     <div id="footerAdminLinks" class="row">
                         <ul class="inline">
                             <li>
-                                <a href="#" target="_self">Home</a>
+                                <a href="http://gov.bc.ca/" target="_self">Home</a>
                             </li>
                             <li>
                                 <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">About this site</a>
