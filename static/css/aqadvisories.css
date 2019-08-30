@@ -69,6 +69,10 @@ fieldset:focus-within {
     background: #dff0d8;
 }
 
+.panel-heading .open {
+    transform: inherit;
+}
+
 
 /* Extra small devices (phones, 600px and down) */
 
