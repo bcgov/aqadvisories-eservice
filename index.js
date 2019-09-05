@@ -104,7 +104,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
     }
     data.message.htmlBody = `${
       data.message.htmlBody
-    }<br/><a href="{unsubscription_url}">Unsubscribe from this service</a>`
+    }<a href="{unsubscription_url}">Unsubscribe from this service</a>`
 
     try {
       const response = await axios.post(
