@@ -65,6 +65,10 @@ table.floatThead-table {
     padding: 5px;
 }
 
+input[type=checkbox]:checked {
+  box-shadow: 0 0 0 3px orange;
+} 
+
 fieldset:focus-within {
     background: #dff0d8;
 }
