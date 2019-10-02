@@ -31,6 +31,19 @@ Generally these configs don't need to be changed.
 ### Code change propagation
 A commit to the *master* branch of this repo will trigger a build and deployment to *dev* environment. To propagate the change to *test* and *prod*, run *deploy to test* and *deploy to prod* jenkins project respectively. To run a project,  click the dropdown next to the project and select *Build with Parameters*. The parameters allow you to choose the source image to deploy. By default, lastest *dev* image will be deployed to *test* and latest *test* image will be deployed to *prod*. The default parameter values should work in most cases.
 
+### Increase disk space
+As number of active subscribers increases, more disk space is needed by NotifyBC MongoDB. You can find existing space usage by opening the MongoDB pod terminal from OpenShift console and run
+
+```
+$ df -h /var/lib/mongodb/data
+Filesystem                                            Size  Used Avail Use% Mounted on
+****************************************************   10G  477M  9.6G   5% /var/lib/mongodb/data
+```
+
+It is recommended to increase disk space when Use% is over 80%. To do so, follow [Automated Storage Migration Steps](
+https://github.com/BCDevOps/StorageMigration/blob/master/MigrationSteps.md#automated-storage-migration-steps) to allocate a PVC with larger size and move data to the new PVC. 
+
+__Warning: During migration service will be down. To minimize service disruption, perform a drill in non-prod OpenShift project first.__
 
 ## License
 
