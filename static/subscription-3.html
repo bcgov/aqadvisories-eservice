@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="description" content="This goal of the program is to improve communication between governments and citizens during air quality events in a timely manner." />
+    <meta name="author" content="Ministry of Environment and Climate Change Strategy" />
+    <meta name="navigaton_title" content="Air Quality Subscription Service - BC Air Quality" />
+    <meta name="dcterms.publisher" content="Province of British Columbia" />
+    <meta name="dcterms.created" content="2019-02-14" />
+    <meta name="dcterms.modified" content="2019-02-19" />
+    <meta name="security_label" content="Public" />
+    <meta name="security_classification" content="Low" />
+    <meta name="dcterms.subject" content="Science and Technology" />
+    <meta name="dcterms.creator" content="Ministry of Environment and Climate Change Strategy" />
+    <meta name="dcsext.creator" content="Ministry of Environment and Climate Change Strategy" />
+    <meta name="dcterms.language" content="eng" />
+    <meta name="keywords" content="Air Quality Subscription Service, air quality">
+    <link rel="apple-touch-icon" sizes="57x57" href="./icons/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="./icons/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="./icons/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./icons/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="./icons/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="./icons/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="./icons/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./icons/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png" />
+    <link rel="manifest" href="./icons/manifest.json" />
+    <link rel="icon" type="image/png" href="./images/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="./icons/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>Air Quality Subscription Service - BC Air Quality - Province of British Columbia</title>
+
+    <!-- BOOTSTRAP CORE CSS v3.3.6 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" href="./css/ie10-viewport-bug-workaround.css">
+
+    <!-- STANDARD CSS -->
+    <link type="text/css" href="./css/main.css" rel="stylesheet">
+
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+
+    <!-- CUSTOM ENV CSS -->
+    <link href="./css/env-main.css" rel="stylesheet">
+    <link href="./css/env-form.css" rel="stylesheet">
+
+    <link href="./css/aqadvisories.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div id="header" role="banner">
+        <div id="header-main" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div id="header-main-row" class="row">
+                    <!-- GOV & ENV TITLE -->
+                    <div class="col-sm-3 col-md-2 col-lg-2 header-main-left">
+                        <div id="logo">
+                            <a href="http://gov.bc.ca/"><img src="./images/gov3_bc_logo.png" alt="Province of British Columbia" title="Province of British Columbia logo"></a>
+                        </div>
+                        <div id="access">
+                            <ul>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a href="#main-content-anchor" aria-label="Skip to main content">Skip to main content</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a href="#navigation-anchor" aria-label="Skip to navigation">Skip to navigation</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a href="http://gov.bc.ca/webaccessibility/" aria-label="Accessibility Statement">Accessibility Statement</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="navbar-toggle env-button-custom collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-label="Burger Navigation">
+                            <img src="./images/menu-open-mobile.png" alt="menu button">
+                        </button>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-6 hidden-xs">
+                        <div class="bcgov-title">
+                            <h1>BC Air Quality</h1>
+                        </div>
+                    </div>
+                    <!-- GOV TITLE -->
+                    <!-- COLLAPSING NAVBAR -->
+                    <div id="navbar" class="collapse navbar-collapse" role="navigation">
+                        <a id="navigation-anchor"></a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air
+                                    Quality Health Index</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current
+                                    Air Quality Data</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air
+                                    Data Archive</a></li>
+                        </ul>
+                    </div>
+                    <!-- /COLLAPSING NAVBAR -->
+                </div>
+            </div>
+            <div class="navigationRibbon">
+                <div class="level2Navigation">
+                    <div class="container">
+                        <a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air Quality
+                            Health Index</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current Air
+                            Quality Data</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air Data
+                            Archive</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER -->
+    <!-- BODY CONTENT -->
+    <form id="myForm" action="/post/subscriptions" method="post" role="form">
+        <div id="main-content" role="main" class="template container env-container">
+            <!-- PAGE CONTENT -->
+            <div class="row">
+                <div class="row">
+                    <a id="main-content-anchor"></a>
+                    <h1>Air Quality Subscription Service</h1>
+                    <div id="pageIntro">
+                        <p>Subscribe to receive notifications of Air Quality Advisories and Smoky Skies Bulletins for your area. <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">Learn more about these types of notifications</a>.</p>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="row">
+                    <div id="main-content" class="contentPageMainColumn">
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+
+
+                                <h2>1. Enter and confirm your email address</h2>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <legend>
+                                                <label for="InputEmail" class="control-label">Email Address (required)</label>
+                                            </legend>
+                                            <input type="email" class="form-control" id="InputEmail" name="userChannelId" aria-required="true" aria-describedby="helpBlock" required>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <legend>
+                                                <label for="InputConfirmEmail" class="control-label">Confirm Your Email Address (required)</label>
+                                            </legend>
+                                            <input type="email" class="form-control" id="InputConfirmEmail" oninput="check(this)" aria-required="true" required>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <legend>
+                                                <label for="InputPhone" class="control-label">Phone Number to recieve SMS text messages (optional)</label><span><br />Example format: 250-555-5555</span>
+                                            </legend>
+                                            <input type="tel" name="phone" class="form-control" id="InputPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+<p><sup>*</sup> Standard rates charged by your carrier may apply.</p>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-5 col-lg-offset-1">
+                                <div class="alert alert-info" role="alert" id="helpblock">
+                                    <h3>How do I subscribe?</h3>
+                                    <ul>
+                                        <li><strong>Step 1.</strong> Enter and confirm your email address. As an option, if you would like to also receive SMS text notifications, enter your mobile phone number<sup>*</sup></li>
+                                        <li><strong>Step 2.</strong> Select the communities and regions you would like to receive notifications for</li>
+                                        <li><strong>Step 3.</strong> Select the Subscribe button</li>
+                                        <li><strong>Step 4.</strong> You will receive an email (asking you to confirm your subscription). Follow the instructions in the email to complete your subscription.</li>
+                                    </ul>
+                                    <p><a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">Learn more about the Air Quality Subscription Service</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-8">
+
+
+                                <div class="row">
+
+                                    <legend>
+                                        <h2>2. Subscribe to Air Quality Advisories and/or Smoky Skies Bulletins</h2></legend>
+                                    <div id="helpBlock">
+                                        <p><strong>Air quality advisories</strong> and <strong>Smoky Skies Bulletins</strong> are issued for the following communities below. More communities with Air Quality Advisories may be added in the future. If you do not see your specific community, you could select the closest one. Other communities that only have Smoky Skies bulletins are listed on the right.</p>
+
+                                        <p><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Are you unsure which Smoky Skies region you fall under? Click on a community name to open our weather forecast regional map or your can <a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c" target="_blank" aria-label="weather forecast regional map">access the map here</a>. Return to this page after you have found your region's name.</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3 class="list-header">Air Quality Advisory</h3>
+                                    </div>
+                                    <div class="col-md-6 row-border">
+                                        <h3 class="list-header">Smoky Skies Bulletin</h3>
+                                    </div>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="selectAll"> Select all Air Quality Advisories</label>
+                                                </div>
+                                            </legend>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="selectAll2"> Select all Smoky Skies Bulletins</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Courtenay/Comox">Courtenay / Comox</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <legend>
+                                                    <label>
+                                                        <input type="checkbox" name="city" class="aqa" value="Campbell River">Campbell River</label>
+                                                </legend>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="East Vancouver Island"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CEast%20Vancouver%20Island%20-%20Courtenay%20to%20Campbell%20River" target="_blank">East Vancouver Island</a>
+                                                    <span class="context">(includes Comox, Courtenay, Cumberland, Black Creek to Campbell River)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Castlegar">Castlegar</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="West Kootenay"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CWest%20Kootenay" target="_blank">West Kootenay</a> <span class="context">(includes Nelson, Castlegar, Trail, Rossland)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Cranbrook">Cranbrook</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="East Kootenay - south including Cranbrook"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CEast%20Kootenay%20-%20south%20including%20Cranbrook" target="_blank">East Kootenay - south</a> <span class="context">(includes Kimberley, Cranbrook, Yahk, Moyie, Wasa Lake Provinical Park, Jaffray, Grasmere and Roosville)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Crofton">Crofton</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Duncan">Duncan</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Nanaimo">Nanaimo</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="East Vancouver Island"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CEast%20Vancouver%20Island%20-%20Duncan%20to%20Nanaimo" target="_blank">East Vancouver Island - Duncan to Nanaimo</a> <span class="context">(also includes Crofton, Ladysmith, and Cedar)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Fort St. John" />Fort St. John</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Taylor" />Taylor</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="B.C. North Peace River" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CB.C.%20North%20Peace%20River" target="_blank">B.C. North Peace River</a> <span class="context">(includes the City of Fort St John and all communities along Hwy 97 extending from Farmington to Pink Mountain; Hwy 29 including Moberly Lake, Hudson's Hope; also includes Rolla, Clayhurst and Goodlow)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Golden" />Golden</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="East Columbia" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CEast%20Columbia" target="_blank">East Columbia</a> <span class="context">(includes Golden)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Gibsons" />Gibsons</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Langdale" />Langdale</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Sunshine Coast - Gibsons to Earls Cove" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CSunshine%20Coast%20-%20Gibsons%20to%20Earls%20Cove" target="_blank">Sunshine Coast - Gibsons to Earls Cove</a> <span class="context">(includes Sechelt and Langdale)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Grand Forks">Grand Forks
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Boundary"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CBoundary" target="_blank">Boundary</a> <span class="context">(includes Grand Forks, Midway and Greenwood)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Houston" />Houston</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Burns Lake" />Burns Lake</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Bulkley Valley and The Lakes - southeast including Burns Lake" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CBulkley%20Valley%20and%20The%20Lakes%20-%20southeast%20including%20Burns%20Lake" target="_blank">Bulkley Valley and The Lakes - southeast including Burns Lake</a> <span class="context">(also includes Houston, Fraser Lake)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Kamloops" />Kamloops</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="South Thompson" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CSouth%20Thompson" target="_blank">South Thompson</a> <span class="context">(includes Kamloops, Rayleigh, Monte Creek, Cache Creek, Spences Bridge and Logan Lake)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Kelowna" />Kelowna</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Central Okanagan - including Kelowna" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CCentral%20Okanagan%20-%20including%20Kelowna" target="_blank">Central Okanagan - including Kelowna</a> <span class="context">(also includes Lake Country, West Kelowna and Peachland)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Kitimat" />Kitimat</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="North Coast - inland including Kitimat" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Coast%20-%20inland%20including%20Kitimat" target="_blank">North Coast - inland including Kitimat</a> <span class="context">(also includes Kemano)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Penticton" />Penticton</label>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            
+                                             <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="South Okanagan - including Penticton"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CSouth%20Okanagan%20-%20including%20Penticton" target="_blank">South Okanagan - including Penticton</a> <span class="context">(also includes Summerland, Naramata, Keremeos, Oliver and Osoyoos)</span></label>
+                                        </div>
+                                            
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Port Alberni" />Port Alberni</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Inland Vancouver Island"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CInland%20Vancouver%20Island" target="_blank">Inland Vancouver Island</a> <span class="context">(includes Lake Cowichan, Nahmint, Port Alberni, central portions of Strathcona Park and Schoen Lake Provincial Park)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Powell River" />Powell River</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Sunshine Coast - Saltery Bay to Powell River" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CSunshine%20Coast%20-%20Saltery%20Bay%20to%20Powell%20River" target="_blank">Sunshine Coast - Saltery Bay to Powell River</a> <span class="context">(also includes Quadra Island)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Prince George" />Prince George</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Vanderhoof" />Vanderhoof</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Prince George (Smoky Skies Bulletin)" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CPrince%20George" target="_blank">Prince George</a> <span class="context">(includes Hwy 16 Vanderhoof to Upper Fraser, and Hwy 97 Hixon to the south end of McLeod Lake)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Prince Rupert" />Prince Rupert</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="North Coast - coastal sections" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Coast%20-%20coastal%20sections" target="_blank">North Coast - Coastal Sections</a> <span class="context">(includes Prince Rupert)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Quesnel" />Quesnel</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Cariboo - north including Quesnel" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CCariboo%20-%20north%20including%20Quesnel" target="_blank">Cariboo - north including Quesnel</a> <span class="context">(also includes Wells and Bowron Lake Park)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Smithers" />Smithers</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Bulkley Valley and The Lakes - northwest including Smithers" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CBulkley%20Valley%20and%20The%20Lakes%20-%20northwest%20including%20Smithers" target="_blank">Bulkley Valley and The Lakes - northwest including Smithers</a> <span class="context">(also includes Telkwa, Fort St James and Granisle)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Squamish" />Squamish</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Howe Sound" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CHowe%20Sound" target="_blank">Howe Sound</a> <span class="context">(includes Horseshoe Bay, Gambier Island, Squamish <sup>1</sup>.)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Terrace" />Terrace</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="North Coast - inland including Terrace" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Coast%20-%20inland%20including%20Terrace" target="_blank">North Coast - inland including Terrace</a> (also includes New Aiyansh)</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Vernon" />Vernon</label>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="North Okanagan - including Vernon" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Okanagan%20-%20including%20Vernon" target="_blank">North Okanagan - including Vernon</a> <span class="context">(also includes Armstrong, Enderby, Lavington and Lumby)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Colwood" />Colwood</label>
+                                            </div>
+                                               <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Victoria" />Victoria</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Greater Victoria" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CGreater%20Victoria" target="_blank">Greater Victoria</a> <span class="context">(includes Sidney, Victoria, Saanich, Langford, Metchosin)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Whistler" />Whistler</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Whistler (Smokie Skies Bulletin)" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CWhistler" target="_blank">Whistler</a> <span class="context">(includes Whistler and Pemberton)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Williams Lake" />Williams Lake</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="skb" name="city" value="Cariboo - south including Williams Lake" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CCariboo%20-%20south%20including%20Williams%20Lake" target="_blank">Cariboo - south including Williams Lake</a> <span class="context">(also includes Northern and Central sections of Wells Gray Park)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-md-6">
+                                            <legend>
+                                                <h4 role="heading">Air Quality Advisory</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="Valemount" />Valemount</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row-border">
+                                            <legend>
+                                                <h4>Smoky Skies Bulletin</h4></legend>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="skb" value="Yellowhead" /><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CYellowhead" target="_blank">Yellowhead</a> <span class="context">(includes McBride and Valemount and all communities within the southern half of the Robson Valley extending from Urling to Valemount and the northern half of Mount Robson Park)</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+
+                                <div style="padding: 15px;" class="ssb-bk">
+                                    <fieldset>
+                                        <legend>
+                                            <h3>Other regions with Smoky Skies Bulletins</h3></legend>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="100 Mile"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2C100%20Mile" target="_blank">100 Mile</a> <span class="context">(includes Hwy 97 from 108 Mile House to Clinton, Bridge Lake and Canim Lake)</span>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Arrow Lakes - Slocan Lake"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CArrow%20Lakes%20-%20Slocan%20Lake" target="_blank">Arrow Lakes - Slocan Lake</a> <span class="context">(also includes Slocan, New Denver, Nakusp, and Fauquier)</span>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Atlin"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CAtlin" target="_blank">Atlin</a></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="B.C. South Peace River"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CB.C.%20South%20Peace%20River" target="_blank">B.C. South Peace River</a> <span class="context">(includes Chetwynd, Dawson Creek, Pouce Coupe, and Tumbler Ridge)</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Cassiar Mountains"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CCassiar%20Mountains" target="_blank">Cassiar Mountains</a> <span class="context">(includes Cassiar, Good Hope Lake, Boya Lake Provincial Park)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Central Coast - coastal sections"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CCentral%20Coast%20-%20coastal%20sections" target="_blank">Central Coast - Coastal Sections</a> <span class="context">(includes Bella Bella, Ocean Falls, and extends south to Jackson Bay)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Central Coast - inland sections"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CCentral%20Coast%20-%20inland%20sections" target="_blank">Central Coast - Inland Sections</a> <span class="context">(includes Bella Coola, Hagensborg, Firvale, and Stuie)</span></label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Chilcotin"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CChilcotin" target="_blank">Chilcotin</a> <span class="context">(includes Hansville, Alexis Creek,  Chilanko Forks, Tatla Lake,  Nimpo Lake, Anahim Lake,  and the southern half of Tweedsmuir Park)</span></label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Dease Lake"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CDease%20Lake" target="_blank">Dease Lake</a> <span class="context">(includes Telegraph Creek)</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="East Kootenay - north includes Inveremere"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CEast%20Kootenay%20-%20north%20including%20Invermere" target="_blank">East Kootenay - north includes Inveremere</a><span class="context"> (also includes Edgwater, Canal Flats and Skookumchuck)</span></label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="East Vancouver Island - Nanoose Bay to Fanny Bay"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CEast%20Vancouver%20Island%20-%20Nanoose%20Bay%20to%20Fanny%20Bay" target="_blank">East Vancouver Island - Nanoose Bay to Fanny Bay</a> <span class="context">(also includes Parksville, Coombs, Qualicum Beach, and Hornby Island)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Elk Valley"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CElk%20Valley" target="_blank">Elk Valley</a> <span class="context">(includes Elko, Fernie, Sparwood and Elkford)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Fort Nelson"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CFort%20Nelson" target="_blank">Fort Nelson</a> <span class="context">(includes Muskwa, Prophet River, Buckinghorse River, Sikanni Chief, Hwy 77 north to the Yukon border)</span>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Fraser Canyon - north including Lillooet"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CFraser%20Canyon%20-%20north%20including%20Lillooet" target="_blank">Fraser Canyon - north including Lillooet</a> <span class="context">(also includes Andersen lake)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Fraser Canyon - south including Lytton"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CFraser%20Canyon%20-%20south%20including%20Lytton" target="_blank">Fraser Canyon - south including Lytton</a> <span class="context">(also includes Trans Canada Hwy 1 from Lytton to Choate)</span></label>
+                                        </div>
+                                       
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Haida Gwaii"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CHaida%20Gwaii" target="_blank">Haida Gwaii</a></label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Kinbasket"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CKinbasket" target="_blank">Kinbasket</a> <span class="context">(includes Kinbasket reservoir south of Valemount)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Kootenay Lake"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CKootenay%20Lake" target="_blank">Kootenay Lake</a> <span class="context">(includes Creston and Kaslo)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="McGregor"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CMcGregor" target="_blank">McGregor</a> <span class="context">(includes the northern end of the Robson Valley extending from Hansard to Dome Creek; extends north to Monkmon Park)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Muncho Lake Park - Stone Mountain Park"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CMuncho%20Lake%20Park%20-%20Stone%20Mountain%20Park" target="_blank">Muncho Lake Park - Stone Mountain Park</a> <span class="context">(also includes Muncho Lake, Toad River and Stone Mountain Provincial Park)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Nicola"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNicola" target="_blank">Nicola</a> <span class="context">(includes Merritt, Strump Lake, Pennask Lake, and Brookmere)</span></label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="North Coast - inland including Stewart"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Coast%20-%20inland%20including%20Stewart" target="_blank">North Coast - inland including Stewart</a> <span class="context">(also includes Bob Quinn Lake)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="North Columbia"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Columbia" target="_blank">North Columbia</a> <span class="context">(includes Blue River and McMurphy)</span></label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="North Thompson"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Thompson" target="_blank">North Thompson</a> <span class="context">(includes Barriere, Clearwater and Vavenby)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="North Vancouver Island"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CNorth%20Vancouver%20Island" target="_blank">North Vancouver Island</a> <span class="context">(includes Port Hardy, Port McNeill, Port Alice, Bull Harbour, Alert Bay, Sayward, and Woss)</span>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Shuswap"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CShuswap" target="_blank">Shuswap</a> <span class="context">(includes Salmon Arm, Sicamous, and Chase)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Similkameen"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CSouth%20Klondike%20Highway" target="_blank">Similkameen</a> <span class="context">(includes Princeton)</span></label>
+                                        </div>
+                                       
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Southern Gulf Islands"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CSouthern%20Gulf%20Islands" target="_blank">Southern Gulf Islands</a>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Teslin"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CTeslin" target="_blank">Teslin</a> </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Watson Lake"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CWatson%20Lake" target="_blank"> Watson Lake</a> <span class="context">(includes Liard River, Lower Post and extends north to the Yukon border)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="West Columbia"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CWest%20Columbia" target="_blank">West Columbia</a> <span class="context">(includes Revelstoke)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="West Vancouver Island"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CWest%20Vancouver%20Island" target="_blank">West Vancouver Island</a> <span class="context">(includes Tofino, Uclulet, Port Renfrew, Sooke)</span>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Williston"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CWilliston" target="_blank">Williston</a> <span class="context">(includes McLeod Lake, Mackenzie and Williston Lake)</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="skb" name="city" value="Yoho Park - Kootenay Park"><a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c&query=ECCCWxRegions_Updated_1_5739%2CName%2CYoho%20Park%20-%20Kootenay%20Park">Yoho Park - Kootenay Park</a> <span class="context">(includes Yoho and Kootenay National Parks)</span>
+                                            </label>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="alert alert-info" role="alert" style="margin: 10px;">
+                                        <p><sup>1</sup> The Province and Metro Vancouver share responsibility for airshed management and air quality notifications in British Columbia. This notification system is for areas outside of Metro Vancouver and the Lower Fraser Valley.</p>
+                                        <p><a href="http://www.metrovancouver.org/services/air-quality/mailing-list/Pages/default.aspx" target="_blank">Sign up for air quality notifications with Metro Vancouver</a>.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <hr/>
+                            <div class="alert alert-warning" role="alert">
+                                <h2>Privacy and Collection Notice</h2>
+                                <p>Email addresses are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Should you have any questions about the collection or use of this information, please contact us by email at <a href="mailto:bcairquality@gov.bc.ca">bcairquality@gov.bc.ca</a>, by phone at +1 (778) 698-4448 or by mail at PO Box 9338, Stn Prov Govt, Victoria, B.C. V8W 9M1, attn.: Environmental and Climate Monitoring Section, Knowledge Management Branch.
+                                </p>
+
+                            </div>
+
+
+
+
+
+
+                            <p style="text-align: right;"> <span style="padding-right: 15px;"><button type="button" class="reset-btn btn btn-link">Reset Form</button></span>
+
+
+
+
+                                <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" onClick="valthis()" />
+
+
+                            </p>
+
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <hr />
+
+
+            </div>
+            <!-- PAGE CONTENT -->
+        </div>
+    </form>
+    <!-- /BODY CONTENT -->
+    <div id="shareIcons">
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer" role="contentinfo">
+        <img class="back-to-top" src="./images/back-to-top.png" alt="Back to top link" title="Back to top" style="display: inline;">
+        <div id="footerWrapper">
+            <div id="footerAdminSection">
+                <div id="footerAdminLinksContainer" class="container">
+                    <div id="footerAdminLinks" class="row">
+                        <ul class="inline">
+                            <li>
+                                <a href="http://gov.bc.ca/" target="_self">Home</a>
+                            </li>
+                            <li>
+                                <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">About this site</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/disclaimer/" target="_self">Disclaimer</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/privacy/" target="_self">Privacy</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/webaccessibility/" target="_self">Accessibility</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/copyright" target="_self">Copyright</a>
+                            </li>
+                            <li>
+                                <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B" target="_self">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /FOOTER -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/misc.js"></script>
+    <script src="./js/navMenu.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/validation.js"></script>
+
+
+</body>
+
+</html>
