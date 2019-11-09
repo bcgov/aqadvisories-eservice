@@ -1,11 +1,5 @@
 /* BC Gov Font workaround for Cross-Origin Resource Sharing block by CL and RT */
 
-@font-face {
-    font-family: 'Myriad-Pro';
-    src: url('../fonts/MyriadWebPro.ttf');
-}
-
-
 /* background image */
 
 body,
@@ -15,22 +9,23 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover; 
     background-size: cover; **/
-    background-color: #f1f1f1;
-    color: #494949;
+}
+
+.template {
+    min-height: 100%;
+    background-color: #fff;
+    word-wrap: break-word;
 }
 
 #footer {
     margin-top: -44px;
 }
 
-.template {
-    background-color: #fff;
-}
 
 
 #themeTemplate .contentPageMainColumn a,
 #subthemeTemplate .contentPageMainColumn a {
-	text-decoration: underline;
+	
 }
 
 
