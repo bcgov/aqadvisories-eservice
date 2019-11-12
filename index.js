@@ -50,7 +50,7 @@ app.post('/post/subscriptions', async (req, res) => {
       if (data.city instanceof Array) {
         data.broadcastPushNotificationFilter = data.city
           .map(e => {
-            return "contains(cities,'" + e + "')"
+            return "contains(categories,'" + e + "')"
           })
           .join('||')
         data.data.citiesHtml = `<ul><li>${data.city.join(
@@ -59,7 +59,7 @@ app.post('/post/subscriptions', async (req, res) => {
         data.data.citiesText = `${data.city.join(', ')}`
         data.data.cities = data.city
       } else if (typeof data.city == 'string') {
-        data.broadcastPushNotificationFilter = `contains(cities,'${data.city}')`
+        data.broadcastPushNotificationFilter = `contains(categories,'${data.city}')`
         data.data.citiesHtml = `<ul><li>${data.city}</li></ul>`
         data.data.citiesText = `${data.city}`
         data.data.cities = [data.city]
@@ -92,11 +92,11 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
         htmlBody: req.body.message.htmlBody
       },
       data: {
-        cities: req.body.city
+        categories: req.body.city
       }
     }
-    if (typeof data.data.cities == 'string') {
-      data.data.cities = [data.data.cities]
+    if (typeof data.data.categories == 'string') {
+      data.data.categories = [data.data.categories]
     }
     data.data.sender = {
       name: req.kauth.grant.access_token.content.name,
