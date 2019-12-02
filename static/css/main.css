@@ -36,18 +36,18 @@ html, body {
 }
 
 body {
-	font-family: 'BCSans', Verdana, Arial, sans-serif;
+	font-family: 'BCSans', 'Noto Sans', Verdana, Arial, sans-serif;
 	background-color: #f1f1f1;
-	color: #494949;
+	color: #313132;
 	font-size: 16px;
 }
 
 a {
-	color: #1A5A96;
+	color: #1a5a96;
 }
 
 h1, h2, h3, h4, h5 {
-	color: #494949;
+	color: #313132;
 	font-weight: 600;
 	line-height: 1.2em;
 	margin-bottom: 0.5em;
@@ -1744,8 +1744,31 @@ img.back-to-top:hover {
 
 .alert p{
 	margin: 0;
-	padding-left: 1.8em;
+	padding: .2em 0 .2em 1.7em;
 }
+
+.alert ul {
+  margin: 0;  
+  padding-left: .7em;
+}
+
+.alert h2{
+	margin: 0;
+	padding-left: 1em;
+    padding-bottom: .5em;
+} 
+
+.alert h3{
+	margin: 0;
+	padding-left: 1em;
+    padding-bottom: .5em;
+} 
+
+.alert h4{
+	margin: 0;
+	padding-left: 1em;
+    padding-bottom: .5em;
+} 
 
 .ss-gac-m tr:hover {
 	cursor: pointer;
