@@ -9,6 +9,7 @@ const FileStore = require('session-file-store')(session)
 const Keycloak = require('keycloak-connect')
 const axios = require('axios')
 const bodyParser = require('body-parser')
+const htmlToText = require('html-to-text')
 
 app.get('/ping', (req, res) => res.send('ok'))
 
@@ -67,18 +68,12 @@ app.post('/post/subscriptions', async (req, res) => {
       delete data.city
     }
     try {
-      await axios.post(
-        notifybcRootUrl + '/api/subscriptions',
-        data
-      )
+      await axios.post(notifybcRootUrl + '/api/subscriptions', data)
       // send sms subscription if phone # is supplied
-      if(req.body.phone){
+      if (req.body.phone) {
         data.channel = 'sms'
         data.userChannelId = req.body.phone
-        await axios.post(
-          notifybcRootUrl + '/api/subscriptions',
-          data
-        )  
+        await axios.post(notifybcRootUrl + '/api/subscriptions', data)
       }
       res.redirect('/subscription_sent.html')
     } catch (error) {
@@ -90,6 +85,8 @@ app.post('/post/subscriptions', async (req, res) => {
 })
 app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
   try {
+    const htmlBody = req.body.message.htmlBody || ''
+    const textBody = htmlToText.fromString(htmlBody)
     let data = {
       serviceName: 'envAirQuality',
       channel: 'email',
@@ -98,7 +95,8 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
       message: {
         from: 'BC Air Quality <donotreply@gov.bc.ca>',
         subject: req.body.message.subject,
-        htmlBody: req.body.message.htmlBody
+        htmlBody: htmlBody,
+        textBody: textBody
       },
       data: {
         categories: req.body.city
@@ -111,15 +109,15 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
       name: req.kauth.grant.access_token.content.name,
       email: req.kauth.grant.access_token.content.email
     }
-    data.message.htmlBody = `${
-      data.message.htmlBody
-    }<a href="{unsubscription_url}">Unsubscribe from this service</a>`
+    data.message.htmlBody = `${data.message.htmlBody}<a href="{unsubscription_url}">Unsubscribe from this service</a>`
+    data.message.textBody =
+      data.message.textBody +
+      '\n\nTo unsubscribe from this service, open {unsubscription_url} in browser.'
 
     try {
-      const response = await axios.post(
-        notifybcRootUrl + '/api/notifications',
-        data
-      )
+      await axios.post(notifybcRootUrl + '/api/notifications', data)
+      data.channel = 'sms'
+      await axios.post(notifybcRootUrl + '/api/notifications', data)
       res.redirect('/advisory_sent.html')
     } catch (error) {
       res.status(error.response.status).end(error.response.statusText)
