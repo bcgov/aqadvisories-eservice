@@ -163,10 +163,19 @@
                     <script>
                         var id = document.getElementById('message')
                         var url = window.location.href;
-                        if (url.match(/[?&]err=/)) {
-                            id.innerHTML = 'Sorry, the page you are trying to access has expired.'
-                        } else {
-                            id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
+                        if (url.match(/[?&]channel=email/)) {
+                            if (url.match(/[?&]err=/)) {
+                                id.innerHTML = 'Sorry, the page you are trying to access has expired.'
+                            } else {
+                                id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
+                            }
+                        }
+                        else if (url.match(/[?&]channel=sms/)) {
+                            if (url.match(/[?&]err=/)) {
+                                id.innerHTML = 'Sorry, the page you are trying to access has expired.'
+                            } else {
+                                id.innerHTML = '<h2>Unsubscribe Confirmation</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement text message.</p>'
+                            }
                         }
                     </script>
                 </div>
