@@ -175,14 +175,14 @@
                                 <div>
 
                                     <div class="form-group">
-                                        <label for="subjectlineInput" class="control-label">Subject Line (required)</label>
+                                        <label for="subjectlineInput" class="control-label">Subject Line <span style="color: red;">(required)</span></label>
                                         <br/>(e.g. Air Quality Advisory Issued for...)
                                         <input type="text" name="message[subject]" class="form-control" id="subjectlineInput" aria-required="true" aria-describedby="helpBlock" required autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <label for="advisoryInputText">Advisory Text</label>
+                                        <label for="advisoryInputText">Email Advisory Text <span style="color: red;">(required)</span></label>
 
-                                        <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]">
+                                        <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]" required>
                                             <p>Posted To: </p>
 
                                             <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all Air Quality Advisories</a></p>
@@ -219,13 +219,14 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="advisorySMSInputText">Advisory Text for SMS</label>
+                                        <label for="advisoryInputText">SMS Advisory Text - <span style="color: red;">IMPORTANT: Keep message to 160 characters and under</span></label>
 
-                                        <textarea class="form-control" rows="8" id="" name="">
-                                            <p>Posted To: </p>
+                                        <textarea class="form-control" rows="5" id="summernote" name="message[smsBody]"></textarea>
+                                      <div id="the-count">
+    <span id="current">0</span>
+    <span id="maximum">/ 160</span>
+  </div>
 
-                                            <p>Visit: AQSS URL</p>
-                                        </textarea>
                                     </div>
 
                                 </div>
@@ -384,6 +385,13 @@
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" name="city" class="aqa" value="Williams Lake">Williams Lake</label>
+                                            </div>
+                                            
+                                            <hr/>
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" value="TEST">TEST Community</label> - Do not use, for sending on test notifications only.
                                             </div>
 
                                         </fieldset>
@@ -772,12 +780,50 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="./js/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="./js/bootstrap.min.js"></script> -->
+    <script>
+    $('textarea').keyup(function() {
+    
+  var characterCount = $(this).val().length,
+      current = $('#current'),
+      maximum = $('#maximum'),
+      theCount = $('#the-count');
+    
+  current.text(characterCount);
+ 
+
+  if (characterCount < 70) {
+    current.css('color', '#666');
+  }
+  if (characterCount > 70 && characterCount < 90) {
+    current.css('color', '#6d5555');
+  }
+  if (characterCount > 90 && characterCount < 100) {
+    current.css('color', '#793535');
+  }
+  if (characterCount > 100 && characterCount < 120) {
+    current.css('color', '#841c1c');
+  }
+  if (characterCount > 120 && characterCount < 139) {
+    current.css('color', '#8f0001');
+  }
+  
+  if (characterCount >= 160) {
+    maximum.css('color', '#ff0000');
+    current.css('color', '#ff0000');
+    theCount.css('font-weight','bold');
+  } else {
+    maximum.css('color','#666');
+    theCount.css('font-weight','normal');
+  }
+  
+      
+});
+    </script>
     <script src="./js/misc.js"></script>
     <script src="./js/navMenu.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
-
+    
 
 </body>
 
