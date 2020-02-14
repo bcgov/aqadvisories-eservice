@@ -136,6 +136,7 @@
     <!-- /HEADER -->
     <!-- BODY CONTENT -->
     <form id="myForm" action="/post/subscriptions" method="post" role="form">
+        <input id="token" type="hidden" name="token"/> 
         <div id="main-content" role="main" class="template container env-container">
             <!-- PAGE CONTENT -->
             <div class="row">
@@ -174,10 +175,10 @@
                                         </div>
                                         <div class="form-group">
                                             <legend>
-                                                <label for="InputPhone" class="control-label">Phone Number to Recieve SMS Text Notifications (optional)</label><span><br />Example format: 250-555-5555</span>
+                                                <label for="InputPhone" class="control-label"><span style="color: red;"><sup>*</sup>NEW PILOT SERVICE</span><br/>Phone Number to Recieve SMS Text Notifications (optional)</label><span><br />Required format example: 250-555-5555</span>
                                             </legend>
                                             <input type="tel" name="phone" class="form-control" id="InputPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-<p><sup>*</sup> Standard rates charged by your carrier may apply.</p>
+<p><sup>*</sup> We are currently testing the SMS notification service for 2020. Standard rates charged by your carrier may apply. <a href="#" target="_blank">Learn more about how this pilot and how this feature works</a>.</p>
                                         </div>
                                     </fieldset>
                                 </div>
@@ -1084,8 +1085,7 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
     <script src="./js/validation.js"></script>
-
-
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeOitcUAAAAAIdx7rI5W27QySOqaML-qrlzuYhN"></script>
 </body>
 
 </html>
