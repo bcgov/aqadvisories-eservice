@@ -10,6 +10,7 @@ const Keycloak = require('keycloak-connect')
 const axios = require('axios')
 const bodyParser = require('body-parser')
 const htmlToText = require('html-to-text')
+const qs = require('qs')
 
 app.get('/ping', (req, res) => res.send('ok'))
 
@@ -38,6 +39,29 @@ app.get('/admin.html', keycloak.protect(role))
 
 app.post('/post/subscriptions', async (req, res) => {
   try {
+    if (!req.body.token) {
+      res.status(403).end()
+    }
+    const reCaptchaRes = await axios.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      qs.stringify({
+        secret: process.env.recaptcha_secret,
+        response: req.body.token
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    )
+    if (
+      !reCaptchaRes.data ||
+      !reCaptchaRes.data.success ||
+      reCaptchaRes.data.score < 0.5 ||
+      reCaptchaRes.data.action !== 'submit'
+    ) {
+      res.status(403).end()
+    }
     let data = {
       serviceName: 'envAirQuality',
       channel: 'email',

@@ -1,6 +1,7 @@
 node_modules/
 keycloak.json
 sessions/
+.vscode/
 *.bak
 static/subscriptionRT.html
 static/subscription-with-SMSEmail.html
