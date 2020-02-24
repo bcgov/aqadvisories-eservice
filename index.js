@@ -110,6 +110,7 @@ app.post('/post/subscriptions', async (req, res) => {
 app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
   try {
     const htmlBody = req.body.message.htmlBody || ''
+    const smsBody = req.body.message.smsBody || ''
     const textBody = htmlToText.fromString(htmlBody)
     let data = {
       serviceName: 'envAirQuality',
@@ -145,7 +146,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
       data.message.textBody =
         data.message.subject +
         '\n' +
-        data.message.smsBody +
+        smsBody +
         '\nTo unsubscribe, open {unsubscription_url} in browser.'
       await axios.post(notifybcRootUrl + '/api/notifications', data)
       res.redirect('/advisory_sent.html')
