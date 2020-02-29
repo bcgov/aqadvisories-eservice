@@ -69,7 +69,9 @@ table.floatThead-table {
 
 input[type=checkbox]:checked {
     box-shadow: 0 0 0 3px orange;
+    /* outline: 3px solid #3B99FC; */
 }
+
 
 fieldset:focus-within {
     /* background: #dff0d8; */
