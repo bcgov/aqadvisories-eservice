@@ -14,13 +14,13 @@ const qs = require('qs')
 
 app.get('/ping', (req, res) => res.send('ok'))
 
-let storeOptions = { logFn: () => {} }
+const storeOptions = { logFn: () => {} }
 if (process.env.file_store_path) {
   storeOptions.path = process.env.file_store_path
 }
 var store = new FileStore(storeOptions)
 
-let keycloak = new Keycloak({ store: store, idpHint: 'idir' })
+const keycloak = new Keycloak({ store: store, idpHint: 'idir' })
 if (process.env.trust_proxy) {
   app.set('trust proxy', process.env.trust_proxy)
 }
@@ -62,7 +62,7 @@ app.post('/post/subscriptions', async (req, res) => {
     ) {
       res.status(403).end()
     }
-    let data = {
+    const data = {
       serviceName: 'envAirQuality',
       channel: 'email',
       city: req.body.city,
@@ -83,7 +83,7 @@ app.post('/post/subscriptions', async (req, res) => {
         )}</li></ul>`
         data.data.citiesText = `${data.city.join(', ')}`
         data.data.cities = data.city
-      } else if (typeof data.city == 'string') {
+      } else if (typeof data.city === 'string') {
         data.broadcastPushNotificationFilter = `contains(categories,'${data.city}')`
         data.data.citiesHtml = `<ul><li>${data.city}</li></ul>`
         data.data.citiesText = `${data.city}`
@@ -112,7 +112,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
     const htmlBody = req.body.message.htmlBody || ''
     const smsBody = req.body.message.smsBody || ''
     const textBody = htmlToText.fromString(htmlBody)
-    let data = {
+    const data = {
       serviceName: 'envAirQuality',
       channel: 'email',
       isBroadcast: true,
@@ -127,7 +127,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
         categories: req.body.city
       }
     }
-    if (typeof data.data.categories == 'string') {
+    if (typeof data.data.categories === 'string') {
       data.data.categories = [data.data.categories]
     }
     data.data.sender = {
