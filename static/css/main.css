@@ -1678,6 +1678,22 @@ img.back-to-top:hover {
 	 .noScreen{}
 	
 }
+
+.alert>ul {
+	padding-left: 30px;
+}
+
+.alert>ol {
+	padding-left: 40px;
+}
+
+#main-content .alert {
+	
+}
+
+#main-content .alert:before {
+	top: 3px;
+}
 	
 .alert-success:before {
   position: relative;
@@ -1706,6 +1722,26 @@ img.back-to-top:hover {
   line-height: 1;
   -moz-osx-font-smoothing: grayscale;
   content: "\e086";
+}
+
+
+.alert-information:before {
+  position: relative;
+  top: 1px;
+  margin-right: 10px;
+  display: inline-block;
+  font-family: 'FontAwesome';
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f05a";
+  font-size: larger;
+}
+
+.alert-information {
+    background-color: #D9EAF7;
 }
 
 .alert-warning:before {
