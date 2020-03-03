@@ -46,16 +46,13 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" href="./css/ie10-viewport-bug-workaround.css">
 
+    <!-- FONTS -->
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
     <!-- STANDARD CSS -->
     <link type="text/css" href="./css/main.css" rel="stylesheet">
 
-
-    <!-- FONTS -->
-    <link rel="stylesheet" href="./css/font-awesome.min.css">
-
     <!-- CUSTOM ENV CSS -->
     <link href="./css/env-main.css" rel="stylesheet">
-    <link href="./css/env-form.css" rel="stylesheet">
 
     <link href="./css/aqadvisories.css" rel="stylesheet">
 
@@ -146,7 +143,6 @@
                     <div id="pageIntro">
                         <p>Subscribe to receive notifications of Air Quality Advisories and Smoky Skies Bulletins for your area.</p>
                     </div>
-                    <hr />
                 </div>
                 <div class="row">
                     <div id="main-content" class="contentPageMainColumn">
@@ -182,7 +178,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-5 col-lg-offset-1">
+                            <div class="col-lg-5 col-lg-offset-1" style="margin-top: 20px;">
                                 <div class="alert alert-information" role="alert" aria-live="polite" id="helpblock">
                                     <h3>How do I subscribe?</h3>
                                     <ul>
@@ -208,7 +204,7 @@
                                     <div id="helpBlock">
                                         <p><strong>Air quality advisories</strong> and <strong>Smoky Skies Bulletins</strong> are issued for the following communities below. More communities with Air Quality Advisories may be added in the future. If you do not see your specific community, you could select the closest one. Other communities that only have Smoky Skies bulletins are listed on the right.</p>
 
-                                        <p><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Are you unsure which Smoky Skies region you fall under? Click on a community name to open our weather forecast regional map or your can <a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c" target="_blank" aria-label="weather forecast regional map">access the map here</a>. Return to this page after you have found your region's name.</p>
+                                        <div class="alert alert-information" role="alert" aria-live="polite"><p>Are you unsure which Smoky Skies region you fall under? Click on a community name to open our weather forecast regional map or your can <a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c" target="_blank" aria-label="weather forecast regional map">access the map here</a>. Return to this page after you have found your region's name.</p></div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -856,10 +852,7 @@
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="row aqa-ssb-row">
-                                    <p><strong><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Looking for Greater Vancouver and the Lower Fraser Valley areas?</strong></p>
-                                    <p><a href="http://www.metrovancouver.org/services/air-quality/mailing-list/Pages/default.aspx" target="_blank">Visit Metro Vancouver's Air Quality and Climate Change Mailing List</a> to sign-up for air quality notifications for these areas.</p>
-                                </div>
+                                
                             </div>
                             <div class="col-md-4">
 
@@ -1030,28 +1023,34 @@
                                 </div>
 
 
-                                <div class="row">
+                               <!-- <div class="row">
                                     <div class="alert alert-information" role="alert" aria-live="polite" style="margin: 10px;">
                                         <a name="vancouver"></a>
                                         <p><sup>1</sup> The Province and Metro Vancouver share responsibility for airshed management and air quality notifications in British Columbia.</p>
                                         <p>If you are looking for Air Quality notifications for Metro Vancouver and the Lower Fraser Valley, <a href="http://www.metrovancouver.org/services/air-quality/mailing-list/Pages/default.aspx" target="_blank">visit Metro Vancouver's Air Quality and Climate Change Mailing List</a>.</p>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
 
                         <div class="row">
-
+<div class="col-lg">
+    
+    <div class="alert alert-information" role="alert" aria-live="polite">
+        
+        <h2>Looking for Greater Vancouver and the Lower Fraser Valley areas?</h2>
+                                    <p><sup>1</sup> The Province and Metro Vancouver share responsibility for airshed management and air quality notifications in British Columbia.</p><p><a href="http://www.metrovancouver.org/services/air-quality/mailing-list/Pages/default.aspx" target="_blank">Visit Metro Vancouver's Air Quality and Climate Change Mailing List</a> to sign-up for air quality notifications for these areas.</p>
+    </div>
                             <div class="alert alert-warning" role="alert">
                                 <h2>Privacy and Collection Notice</h2>
-                                <p>Email addresses are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Should you have any questions about the collection or use of this information, please contact us by email at <a href="mailto:bcairquality@gov.bc.ca">bcairquality@gov.bc.ca</a>, by phone at +1 (778) 698-4448 or by mail at PO Box 9338, Stn Prov Govt, Victoria, B.C. V8W 9M1, attn.: Environmental and Climate Monitoring Section, Knowledge Management Branch.
+                                <p><strong>Please read before subscribing. </strong>Email addresses are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Should you have any questions about the collection or use of this information, please contact us by email at <a href="mailto:bcairquality@gov.bc.ca">bcairquality@gov.bc.ca</a>, by phone at +1 (778) 698-4448 or by mail at PO Box 9338, Stn Prov Govt, Victoria, B.C. V8W 9M1, attn.: Environmental and Climate Monitoring Section, Knowledge Management Branch.
                                 </p>
 
                             </div>
 
 
-
+<hr />
 
 
 
@@ -1060,12 +1059,12 @@
 
 
 
-                                <input type="submit" class="btn btn-primary" value="Subscribe" id="checkBtn" onClick="valthis()" />
+                                <input type="submit" class="btn btn-primary" value="Subscribe" role="button" id="checkBtn" onClick="valthis()" />
 
 
                             </p>
 
-
+</div>
 
                         </div>
 
@@ -1087,9 +1086,6 @@
         </div>
     </form>
     <!-- /BODY CONTENT -->
-    <div id="shareIcons">
-
-    </div>
 
     <!-- FOOTER -->
     <div id="footer" role="contentinfo">
