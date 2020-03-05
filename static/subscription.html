@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="form-group">
                                             <legend>
-                                                <label for="InputPhone" class="control-label">Phone Number to Recieve Text (SMS) Notifications<sup>*</sup> (optional)</label><span class="context"><br />Required format example: 250-555-5555</span>
+                                                <label for="InputPhone" class="control-label">Phone Number to Recieve Text Message Notifications<sup>*</sup> (optional)</label><span class="context"><br />Required format example: 250-555-5555</span>
                                             </legend>
                                             <input type="tel" name="phone" class="form-control" id="InputPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                                             <p><sup>*</sup> Standard rates charged by your carrier may apply.</p>
@@ -185,7 +185,7 @@
                                         <li><strong>Step 1.</strong> Enter and confirm your email address. As an option, if you would like to also receive SMS text notifications, enter your mobile phone number<sup>*</sup></li>
                                         <li><strong>Step 2.</strong> Select the communities and regions you would like to receive notifications for</li>
                                         <li><strong>Step 3.</strong> Review the information you are submitting and then select the Subscribe button</li>
-                                        <li><strong>Step 4.</strong> You will receive an email (and SMS text message if applicable) asking you to confirm your subscription. Follow the instructions in the message to complete your subscription.</li>
+                                        <li><strong>Step 4.</strong> You will receive an email (or text message if applicable) asking you to confirm your subscription. Follow the instructions in the message to complete your subscription.</li>
                                     </ul>
                                     <p><a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">Learn more about the Air Quality Subscription Service</a>.</p>
                                 </div>
@@ -1053,11 +1053,8 @@
 <hr />
 
 
-<p><span style="padding-right: 15px;"><i class="fas fa-camera"></i><button type="button" role="button" class="reset-btn btn btn-link">Reset the form and begin selecting again.</button></span></p>
-                            <p style="text-align: right;padding-bottom: 20px"><strong>Ready to Subscribe?</strong> Select the subscribe button to submit your subscription <input type="submit" class="btn btn-primary" value="Subscribe" role="button" id="checkBtn" onClick="valthis()" />
-
-
-                            </p>
+<p style="text-align: right;"><i class="fas fa-camera"></i><button type="button" role="button" class="reset-btn btn btn-link">Reset the form and begin selecting again.</button></p>
+    <p style="padding-bottom: 20px"><input type="submit" class="btn btn-primary" value="Subscribe" role="button" id="checkBtn" onClick="valthis()" /><span style="padding-right: 10px;"></span><strong>Ready to Subscribe?</strong> Select the subscribe button to submit your subscription.</p>
 
 </div>
 
