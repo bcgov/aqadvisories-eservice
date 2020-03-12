@@ -1,8 +1,8 @@
 node_modules/
 keycloak.json
 sessions/
-.vscode/
 *.bak
+.env
 static/subscriptionRT.html
 static/subscription-with-SMSEmail.html
 static/backup/July30/subscription-not-accessible.html

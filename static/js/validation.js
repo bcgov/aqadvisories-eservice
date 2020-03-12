@@ -41,6 +41,7 @@ $(document).ready(function() {
       alert('You must subscribe to at least one notification list.')
     } else {
       if (
+        $('#myForm')[0].reportValidity() &&
         confirm(
           'Please confirm: do you want to subscribe to these notifcation lists?'
         )
