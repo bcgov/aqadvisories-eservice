@@ -38,3 +38,5 @@ backup/Iterations/subscription-2.html
 static/subscription-4.html
 *.db
 *.db
+static/js/validation-old.js
+static/js/validation-old.js

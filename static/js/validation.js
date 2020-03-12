@@ -31,15 +31,7 @@ $(document).ready(function() {
 
 ///FORM VALIDATION
 
-//match email
-// function check(input) {
-  if (input.value != document.getElementById('InputEmail').value) {
-    input.setCustomValidity('The email address must match.')
-  } else {
-    // input is valid -- reset the error message
-    input.setCustomValidity('')
-  }
-} //
+
 // checkbox minimum selected
 $(document).ready(function() {
   $('#checkBtn').click(function() {
