@@ -40,7 +40,7 @@ app.get('/admin.html', keycloak.protect(role))
 app.post('/post/subscriptions', async (req, res) => {
   try {
     if (!req.body.token) {
-      res.status(403).end()
+      return res.status(403).end()
     }
     const reCaptchaRes = await axios.post(
       'https://www.google.com/recaptcha/api/siteverify',
