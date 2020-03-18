@@ -142,10 +142,9 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
     try {
       await axios.post(notifybcRootUrl + '/api/notifications', data)
       data.channel = 'sms'
-      // fold subject into body for sms
       if (smsBody.trim().length > 0) {
         data.message.textBody =
-          smsBody + '\nTo unsubscribe, open URL {unsubscription_url} .'
+          smsBody + '\n\nTo unsubscribe, open URL {unsubscription_url} .'
         await axios.post(notifybcRootUrl + '/api/notifications', data)
       }
       res.redirect('/advisory_sent.html')
