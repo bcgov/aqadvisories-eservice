@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="description" content="This goal of the program is to improve communication between governments and citizens during air quality events in a timely manner." />
+    <meta name="author" content="Ministry of Environment and Climate Change Strategy" />
+    <meta name="navigaton_title" content="Air Quality Subscription Service - BC Air Quality" />
+    <meta name="dcterms.publisher" content="Province of British Columbia" />
+    <meta name="dcterms.created" content="2019-02-14" />
+    <meta name="dcterms.modified" content="2019-02-19" />
+    <meta name="security_label" content="Public" />
+    <meta name="security_classification" content="Low" />
+    <meta name="dcterms.subject" content="Science and Technology" />
+    <meta name="dcterms.creator" content="Ministry of Environment and Climate Change Strategy" />
+    <meta name="dcsext.creator" content="Ministry of Environment and Climate Change Strategy" />
+    <meta name="dcterms.language" content="eng" />
+    <meta name="keywords" content="Air Quality Subscription Service, air quality">
+    <link rel="apple-touch-icon" sizes="57x57" href="./icons/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="./icons/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="./icons/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./icons/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="./icons/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="./icons/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="./icons/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./icons/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png" />
+    <link rel="manifest" href="./icons/manifest.json" />
+    <link rel="icon" type="image/png" href="./images/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="./icons/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>Air Quality Subscription Service - BC Air Quality - Province of British Columbia</title>
+
+    <!-- BOOTSTRAP CORE CSS v3.3.6 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" href="./css/ie10-viewport-bug-workaround.css">
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <!-- STANDARD CSS -->
+    <link type="text/css" href="./css/main.css" rel="stylesheet">
+
+    <!-- CUSTOM ENV CSS -->
+    <link href="./css/env-main.css" rel="stylesheet">
+
+    <link href="./css/aqadvisories.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div id="header" role="banner">
+        <div id="header-main" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div id="header-main-row" class="row">
+                    <!-- GOV & ENV TITLE -->
+                    <div class="col-sm-3 col-md-2 col-lg-2 header-main-left">
+                        <div id="logo">
+                            <a href="http://gov.bc.ca/"><img src="./images/gov3_bc_logo.png" alt="Province of British Columbia" title="Province of British Columbia logo"></a>
+                        </div>
+                        <div id="access">
+                            <ul>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a href="#main-content-anchor" aria-label="Skip to main content">Skip to main content</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a href="#navigation-anchor" aria-label="Skip to navigation">Skip to navigation</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a href="http://gov.bc.ca/webaccessibility/" aria-label="Accessibility Statement">Accessibility Statement</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="navbar-toggle env-button-custom collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-label="Burger Navigation">
+                            <img src="./images/menu-open-mobile.png" alt="menu button">
+                        </button>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-6 hidden-xs">
+                        <div class="bcgov-title">
+                            <h1>BC Air Quality</h1>
+                        </div>
+                    </div>
+                    <!-- GOV TITLE -->
+                    <!-- COLLAPSING NAVBAR -->
+                    <div id="navbar" class="collapse navbar-collapse" role="navigation">
+                        <a id="navigation-anchor"></a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air
+                                    Quality Health Index</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current
+                                    Air Quality Data</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air
+                                    Data Archive</a></li>
+                        </ul>
+                    </div>
+                    <!-- /COLLAPSING NAVBAR -->
+                </div>
+            </div>
+            <div class="navigationRibbon">
+                <div class="level2Navigation">
+                    <div class="container">
+                        <a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air Quality
+                            Health Index</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current Air
+                            Quality Data</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air Data
+                            Archive</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER -->
+    <!-- BODY CONTENT -->
+    <form id="myForm" action="/post/subscriptions" method="post" role="form">
+        <input id="token" type="hidden" name="token" />
+        <div id="main-content" role="main" class="template container env-container">
+            <!-- PAGE CONTENT -->
+            <div class="row">
+                <div class="row">
+                    <a id="main-content-anchor"></a>
+                    <h1>Air Quality Health Index Alerts - Air Quality Subscription Service </h1>
+                    <div id="pageIntro">
+                        <p>Subscribe to receive notifications of <strong>Elevated Air Quality Health Index Alerts</strong> for your area.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="main-content" class="contentPageMainColumn">
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h2>1. Enter and confirm your contact information</h2>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <legend>
+                                                <label for="InputEmail" class="control-label">Email Address (required)</label>
+                                            </legend>
+                                            <input type="email" class="form-control" id="InputEmail" name="userChannelId" aria-required="true" aria-describedby="helpBlock" required>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <legend>
+                                                <label for="InputConfirmEmail" class="control-label">Confirm Your Email Address (required)</label>
+                                            </legend>
+                                            <input type="email" class="form-control" id="InputConfirmEmail" oninput="check(this)" aria-required="true" required>
+
+                                        </div> 
+                                        <!-- <div class="form-group">
+                                            <legend>
+                                                <label for="InputPhone" class="control-label">Phone Number to Recieve Text Message Notifications<sup>*</sup> (optional)</label><span class="context"><br />Required format example: 250-555-5555</span>
+                                            </legend>
+                                            <input type="tel" name="phone" class="form-control" id="InputPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                                            <p><sup>*</sup> Standard rates charged by your carrier may apply.</p>
+                                        </div> -->
+                                    </fieldset>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-5 col-lg-offset-1" style="margin-top: 20px;">
+                                <div class="alert alert-information" role="alert" aria-live="polite" id="helpblock">
+                                    <h3>How do I subscribe?</h3>
+                                    <ul>
+                                        <li><strong>Step 1.</strong> Enter and confirm your email address. <!-- As an option, if you would like to also receive SMS text notifications, enter your mobile phone number<sup>*</sup> --></li>
+                                        <li><strong>Step 2.</strong> Select the communities and regions you would like to receive notifications for</li>
+                                        <li><strong>Step 3.</strong> Review the information you are submitting and then select the Subscribe button</li>
+                                        <li><strong>Step 4.</strong> You will receive an email <!-- (or text message if applicable) --> asking you to confirm your subscription. Follow the instructions in the message to complete your subscription.</li>
+                                    </ul>
+                                    <p><a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">Learn more about the Air Quality Subscription Service</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-8">
+
+
+                                <div class="row">
+
+                                    <legend>
+                                        <h2>1. Subscribe to Air Quality Health Index Alert</h2>
+                                    </legend>
+                                    <div id="helpBlock">
+                                        <p><strong>Air Quality Health Index Alerts </strong> are issued for the following communities below. </p><p>More communities with Air Quality Health Index Alerts may be added in the future. If you do not see your specific community, you can select the closest one.</p>
+
+                                        <!-- <div class="alert alert-information" role="alert" aria-live="polite"><p>Are you unsure which Smoky Skies region you fall under? Click on a region name to open our weather forecast regional map or your can <a href="https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=c16208253dc048b09970c8f65681f92c" target="_blank">access the map here</a>. Return to this page after you have found your region's name.</p></div> -->
+                                    </div>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            <legend>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="selectAll"> Select all Air Quality Healh Index Stations</label>
+                                                </div>
+                                            </legend>
+                                        </div>
+                                    
+                                    </fieldset>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg">
+                                        <h3 class="list-header">Communities with Air Quality Health Index Stations</h3>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-6">
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="castlegar-aqhi">Castlegar</label>
+                                            </div>
+                                           
+                                        </div>
+                                </fieldset>
+                                </div>   
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Central Fraser Valley</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Central Okanagan</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Comox Valley</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Cranbrook</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Duncan</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Eastern Fraser Valley</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Fort St John</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Kamloops</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Kitimat</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Metro Vancouver North East</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Metro Vancouver North West</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Metro Vancouver South East</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                           
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Metro Vancouver South West</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                         
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Nanaimo</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">North Okanagan</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Prince_George</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Quesnel</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Smithers</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">South Okanagan</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Squamish</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Terrace</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Victoria</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">West Shore</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Whistler</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                    <div class="row aqa-ssb-row">
+                                    <fieldset>
+                                        <div class="col-lg">
+                                            
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="city" class="aqa" value="-aqhi">Williams</label>
+                                            </div>
+                                           
+                                        </div>
+                                         </fieldset>
+                                </div>
+                                </div>      
+                                       
+                                   
+                                </div>        
+                            <div class="col-md-4">
+
+
+                                <div style="padding: 15px;" class="ssb-bk aqa-ssb-row">
+                                
+                                        <legend>
+                                            <h3>Other Air Quality Subscription Services</h3>
+                                        </legend>
+                                        <p>Subscribe to receive notifications of <strong>Air Quality Advisories</strong> and <strong>Smoky Skies Bulletins</strong> for your area. <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_blank">Learn more about these types of notifications</a>.</p>
+
+                                </div>
+
+
+                               <!-- <div class="row">
+                                    <div class="alert alert-information" role="alert" aria-live="polite" style="margin: 10px;">
+                                        <a name="vancouver"></a>
+                                        <p><sup>1</sup> The Province and Metro Vancouver share responsibility for airshed management and air quality notifications in British Columbia.</p>
+                                        <p>If you are looking for Air Quality notifications for Metro Vancouver and the Lower Fraser Valley, <a href="http://www.metrovancouver.org/services/air-quality/mailing-list/Pages/default.aspx" target="_blank">visit Metro Vancouver's Air Quality and Climate Change Mailing List</a>.</p>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                        </div>
+<hr />
+                        <div class="row">
+<div class="col-lg">
+    
+   <!-- <div class="alert alert-information" role="alert" aria-live="polite">
+        
+        <h2><sup>1</sup> Looking for Metro Vancouver and the Lower Fraser Valley areas?</h2>
+                                    <p>The Province and Metro Vancouver share responsibility for airshed management and air quality notifications in British Columbia.</p><p><a href="http://www.metrovancouver.org/services/air-quality/mailing-list/Pages/default.aspx" target="_blank">Visit Metro Vancouver's Air Quality and Climate Change Mailing List</a> to sign-up for air quality notifications for these areas.</p>
+    </div> -->
+                            <div class="alert alert-warning" role="alert">
+                                <h2>Privacy and Collection Notice</h2>
+                                <p><strong>Please read before subscribing. </strong>Email addresses are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Should you have any questions about the collection or use of this information, please contact us by email at <a href="mailto:bcairquality@gov.bc.ca">bcairquality@gov.bc.ca</a>, by phone at +1 (778) 698-4448 or by mail at PO Box 9338, Stn Prov Govt, Victoria, B.C. V8W 9M1, attn.: Environmental and Climate Monitoring Section, Knowledge Management Branch.
+                                </p>
+
+                            </div>
+
+
+<hr />
+
+
+<p style="text-align: right;"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><button type="button" role="button" class="reset-btn btn btn-link">Reset the form and begin selecting again.</button></p>
+    <p style="padding-bottom: 20px"><input type="submit" class="btn btn-primary" value="Subscribe" role="button" id="checkBtn" onClick="valthis()" /><span style="padding-right: 10px;"></span><strong>Ready to Subscribe?</strong> Select the subscribe button to submit your subscription.</p>
+
+</div>
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <hr />
+
+
+            </div>
+            <!-- PAGE CONTENT -->
+        </div>
+    </form>
+    <!-- /BODY CONTENT -->
+
+    <!-- FOOTER -->
+    <div id="footer" role="contentinfo">
+        <img class="back-to-top" src="./images/back-to-top.png" alt="Back to top link" title="Back to top" style="display: inline;">
+        <div id="footerWrapper">
+            <div id="footerAdminSection">
+                <div id="footerAdminLinksContainer" class="container">
+                    <div id="footerAdminLinks" class="row">
+                        <ul class="inline">
+                            <li>
+                                <a href="http://gov.bc.ca/" target="_self">Home</a>
+                            </li>
+                            <li>
+                                <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">About this site</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/disclaimer/" target="_self">Disclaimer</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/privacy/" target="_self">Privacy</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/webaccessibility/" target="_self">Accessibility</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/copyright" target="_self">Copyright</a>
+                            </li>
+                            <li>
+                                <a href="http://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B" target="_self">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /FOOTER -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/misc.js"></script>
+    <script src="./js/navMenu.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/validation.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeOitcUAAAAAIdx7rI5W27QySOqaML-qrlzuYhN"></script>
+</body>
+
+</html>
