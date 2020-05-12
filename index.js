@@ -30,7 +30,7 @@ app.use(
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    store: store
+    store: store,
   })
 )
 app.use(keycloak.middleware())
@@ -46,12 +46,12 @@ app.post('/post/subscriptions', async (req, res) => {
       'https://www.google.com/recaptcha/api/siteverify',
       qs.stringify({
         secret: process.env.recaptcha_secret,
-        response: req.body.token
+        response: req.body.token,
       }),
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       }
     )
     if (
@@ -68,13 +68,13 @@ app.post('/post/subscriptions', async (req, res) => {
       city: req.body.city,
       userChannelId: req.body.userChannelId,
       data: {
-        creator: { ip: req.ip }
-      }
+        creator: { ip: req.ip },
+      },
     }
     if (data.city) {
       if (data.city instanceof Array) {
         data.broadcastPushNotificationFilter = data.city
-          .map(e => {
+          .map((e) => {
             return "contains(categories,'" + e + "')"
           })
           .join('||')
@@ -121,18 +121,18 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
         from: 'BC Air Quality <donotreply@gov.bc.ca>',
         subject: req.body.message.subject,
         htmlBody: htmlBody,
-        textBody: textBody
+        textBody: textBody,
       },
       data: {
-        categories: req.body.city
-      }
+        categories: req.body.city,
+      },
     }
     if (typeof data.data.categories === 'string') {
       data.data.categories = [data.data.categories]
     }
     data.data.sender = {
       name: req.kauth.grant.access_token.content.name,
-      email: req.kauth.grant.access_token.content.email
+      email: req.kauth.grant.access_token.content.email,
     }
     data.message.htmlBody = `${data.message.htmlBody}<a href="{unsubscription_url}">Unsubscribe from this service</a>`
     data.message.textBody =
@@ -144,7 +144,10 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
       data.channel = 'sms'
       if (smsBody.trim().length > 0) {
         data.message.textBody =
-          smsBody + '\n\nTo unsubscribe, open URL {unsubscription_url} .'
+          smsBody +
+          '\n\nReply ' +
+          process.env.swift_unsubscription_keyword +
+          ' to opt-out.'
         await axios.post(notifybcRootUrl + '/api/notifications', data)
       }
       res.redirect('/advisory_sent.html')
