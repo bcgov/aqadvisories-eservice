@@ -148,6 +148,7 @@
                     <script>
                         var id = document.getElementById('message')
                         var url = window.location.href;
+                        if (url.match(/[?&]channel=email/)) {
                         if (url.match(/[?&]err=/)) {
                             id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                         } else {
