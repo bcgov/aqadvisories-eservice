@@ -92,7 +92,9 @@ app.post('/post/subscriptions', async (req, res) => {
       delete data.city
     }
     try {
-      await axios.post(notifybcRootUrl + '/api/subscriptions', data)
+      if (req.body.userChannelId) {
+        await axios.post(notifybcRootUrl + '/api/subscriptions', data)
+      }
       // send sms subscription if phone # is supplied
       if (req.body.phone) {
         data.channel = 'sms'
