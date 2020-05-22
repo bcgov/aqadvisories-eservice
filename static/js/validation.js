@@ -31,8 +31,15 @@ $(document).ready(function() {
 
 ///FORM VALIDATION
 
-// checkbox minimum selected
+// fields checkbox minimum selected
 $(document).ready(function() {
+$('#checkBtn').click(function() {
+   if (myForm.userChannelId.value == ""
+	&& myForm.phone.value == "") {
+alert( 'You need to fill out at least your email address or a mobile phone number to subscribe' );
+     return false;
+    } 
+  })      
   $('#checkBtn').click(function() {
     checked = $('input[type=checkbox]:checked').length
     if (!checked) {
