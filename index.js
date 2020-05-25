@@ -139,7 +139,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
     data.message.htmlBody = `${data.message.htmlBody}<a href="{unsubscription_url}">Unsubscribe from this service</a>`
     data.message.textBody =
       data.message.textBody +
-      '\n\nTo unsubscribe from this service, open {unsubscription_url} in browser.'
+      '\n\nTo unsubscribe, open {unsubscription_url} in browser.'
 
     try {
       await axios.post(notifybcRootUrl + '/api/notifications', data)
@@ -149,7 +149,7 @@ app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
           smsBody +
           '\n\nReply ' +
           process.env.swift_unsubscription_keyword +
-          ' to opt-out.'
+          ' to unsubscribe.'
         await axios.post(notifybcRootUrl + '/api/notifications', data)
       }
       res.redirect('/advisory_sent.html')
