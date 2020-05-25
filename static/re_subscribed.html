@@ -12,7 +12,7 @@
     <meta name="navigaton_title" content="Air Quality Subscription Service - BC Air Quality" />
     <meta name="dcterms.publisher" content="Province of British Columbia" />
     <meta name="dcterms.created" content="2019-02-14" />
-    <meta name="dcterms.modified" content="2019-02-19" />
+    <meta name="dcterms.modified" content="2020-05-29" />
     <meta name="security_label" content="Public" />
     <meta name="security_classification" content="Low" />
     <meta name="dcterms.subject" content="Science and Technology" />
@@ -152,13 +152,13 @@
                         if (url.match(/[?&]err=/)) {
                             id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                         } else {
-                            id.innerHTML = '<h2>Re-subscription Confirmation Email Notifications</h2><p>You have re-subscribed to the Air Quality Subscription Service. Your original subscription notification list has been restored.</p>'
+                            id.innerHTML = '<h2>Re-subscription Confirmation Email Notifications</h2><p>You have sucessfuly re-subscribed to the Air Quality Subscription Service. Your original email subscription notification list has been restored.</p>'
                         }
                     } else if (url.match(/[?&]channel=sms/)) {
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                             } else {
-                                id.innerHTML = '<h2>Re-subscription Confirmation for Text Message Notifications</h2><p>You have re-subscribed to the Air Quality Subscription Service. Your original subscription notification list has been restored.</p>'
+                                id.innerHTML = '<h2>Re-subscription Confirmation for Text Message Notifications</h2><p>You have sucessfully re-subscribed to the Air Quality Subscription Service. Your original text message subscription notification list has been restored.</p>'
                             }
                         }
 
