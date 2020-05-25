@@ -12,7 +12,7 @@
     <meta name="navigaton_title" content="Air Quality Subscription Service - BC Air Quality" />
     <meta name="dcterms.publisher" content="Province of British Columbia" />
     <meta name="dcterms.created" content="2019-02-14" />
-    <meta name="dcterms.modified" content="2019-02-19" />
+    <meta name="dcterms.modified" content="2020-05-29" />
     <meta name="security_label" content="Public" />
     <meta name="security_classification" content="Low" />
     <meta name="dcterms.subject" content="Science and Technology" />
@@ -169,10 +169,10 @@
                                         </div> -->
                                         <div class="form-group">
                                             <legend>
-                                                <label for="InputPhone" class="control-label">Phone Number to Recieve Text Message Notifications<sup>*</sup></label><span class="context"><br />Required format example: 250-555-5555</span>
+                                                <label for="InputPhone" class="control-label">Mobile Phone Number<sup>*</sup></label><span class="context"><br />Required format example: 250-555-5555</span>
                                             </legend>
                                             <input type="tel" name="phone" class="form-control" id="InputPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-                                            <p class="context"><sup>*</sup> Standard rates charged by your carrier may apply.</p>
+                                            <p class="context"><sup>*</sup>To recieve SMS text message notifications. Standard rates charged by your carrier may apply.</p>
                                         </div>
                                     </fieldset>
                                 </div>
@@ -199,7 +199,7 @@
                                 <div class="row">
 
                                     <legend>
-                                        <h2>2. Subscribe to Air Quality Advisories and/or Smoky Skies Bulletins</h2>
+                                        <h2>2. Subscribe to Air Quality Advisories and Smoky Skies Bulletins</h2>
                                     </legend>
                                     <div id="helpBlock">
                                         <p><strong>Air quality advisories</strong> and <strong>Smoky Skies Bulletins</strong> are issued for the following communities and regions below. <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">Learn the diferences between Air quality advisories and Smoky Skies Bulletins on our Air Advisories page.</a></p><p>More communities with Air Quality Advisories may be added in the future. If you do not see your specific community, you can select the closest one. Other communities/regions that only have Smoky Skies bulletins are listed on the right.</p>
@@ -1048,6 +1048,7 @@
                                 <h2>Privacy and Collection Notice</h2>
                                 <p><strong>Please read before subscribing. </strong>Email addresses and mobile phone numbers are collected under section 26(c) of the Freedom of Information and Protection of Privacy Act, for the purpose of providing content updates. Should you have any questions about the collection or use of this information, please contact us by email at <a href="mailto:bcairquality@gov.bc.ca">bcairquality@gov.bc.ca</a>, by phone at +1 (778) 698-4448 or by mail at PO Box 9338, Stn Prov Govt, Victoria, B.C. V8W 9M1, attn.: Environmental and Climate Monitoring Section, Knowledge Management Branch.
                                 </p>
+                                <p><a href="#" data-toggle="modal" data-target="#myModal">Read our Service Disclaimer</a></p>
 
                             </div>
 
@@ -1118,6 +1119,38 @@
     </div>
     <!-- /FOOTER -->
 
+    <!-- MODALS -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Disclaimer - Air Quality Subscription Service</h4>
+                </div>
+                <div class="modal-body">
+                    
+    <ul>
+        <li>The Air Quality Subscription Service notification service is provided as a public service by the Government of British Columbia.</li>
+        <li>Under no circumstances will the Government of British Columbia be liable to any person or business entity for any direct, indirect, special, incidental, consequential, or other damages based on any use of this Web site or any other Web site to which this site is linked, including, without limitation, any lost profits, business interruption, or loss of programs or information, even if the Government of British Columbia has been specifically advised of the possibility of such damages.</li>
+        <li>This notification service and all of the information it contains are provided "as-is" without warranty of any kind, whether express or implied. All implied warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, and non- infringement, are hereby disclaimed.</li>
+        <li>Please note that air quality data may be missing for many reasons that are beyond our control. This includes local power or communications outages, instrument calibration cycles or failure. These causes may impact the timely delivery of Air Quality Advisory notifications.</li>
+</ul>
+<p>Contact <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B" target="_blank">BC Air Quality</a> for any issues, questions or comments about the Air Quality Subscription Service.
+</p>
+
+
+                    </div>
+
+               
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                </div>
+        </div>
+    </div>
+    
+    <!-- /MODALS -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
