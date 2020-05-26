@@ -167,13 +167,13 @@
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                             } else {
-                                id.innerHTML = '<h2>Unsubscribe Confirmation for Email Notifications</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service for Email Notifications.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Unsubscribe Confirmation for Email Notifications</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service for Email Notifications.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
                             }
                         } else if (url.match(/[?&]channel=sms/)) {
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                             } else {
-                                id.innerHTML = '<h2>Unsubscribe Confirmation for Text Message Notifications</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service for Text Message Notifications.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement text message.</p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Unsubscribe Confirmation for Text Message Notifications</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service for Text Message Notifications.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement text message.</p>'
                             }
                         }
 

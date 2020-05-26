@@ -152,13 +152,13 @@
                         if (url.match(/[?&]err=/)) {
                             id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                         } else {
-                            id.innerHTML = '<h2>Re-subscription Confirmation Email Notifications</h2><p>You have sucessfuly re-subscribed to the Air Quality Subscription Service. Your original email subscription notification list has been restored.</p>'
+                            id.innerHTML = '<h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Re-subscription Confirmation Email Notifications</h2><p>You have sucessfuly re-subscribed to the Air Quality Subscription Service. Your original email subscription notification list has been restored.</p>'
                         }
                     } else if (url.match(/[?&]channel=sms/)) {
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                             } else {
-                                id.innerHTML = '<h2>Re-subscription Confirmation for Text Message Notifications</h2><p>You have sucessfully re-subscribed to the Air Quality Subscription Service. Your original text message subscription notification list has been restored.</p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Re-subscription Confirmation for Text Message Notifications</h2><p>You have sucessfully re-subscribed to the Air Quality Subscription Service. Your original text message subscription notification list has been restored.</p>'
                             }
                         }
 
