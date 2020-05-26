@@ -126,9 +126,7 @@ fieldset:focus-within {
     h4 {
         display: none;
     }
-    h4.modal-title {
-        display: block;
-    }
+    
     .modal-body li {
     line-height: 1.5;
     padding-top: 10px;
