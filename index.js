@@ -36,6 +36,7 @@ app.use(
 app.use(keycloak.middleware())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/admin.html', keycloak.protect(role))
+app.get('/stats.html', keycloak.protect(role))
 
 app.post('/post/subscriptions', async (req, res) => {
   try {
