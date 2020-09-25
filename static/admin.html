@@ -14,7 +14,7 @@
     <meta name="navigaton_title" content="Air Quality Subscription Service - BC Air Quality" />
     <meta name="dcterms.publisher" content="Province of British Columbia" />
     <meta name="dcterms.created" content="2019-02-14" />
-    <meta name="dcterms.modified" content="2020-02-24" />
+    <meta name="dcterms.modified" content="2020-09-21" />
     <meta name="security_label" content="CONFIDENTIAL" />
     <meta name="security_classification" content="HIGH" />
     <meta name="dcterms.subject" content="Science and Technology" />
@@ -131,9 +131,9 @@
                             <li><a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air
                                     Quality Health Index</a></li>
                             <li><a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current
-                                    Air Quality Data</a></li>
-                            <li><a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air
-                                    Data Archive</a></li>
+                                    air quality data</a></li>
+                            <li><a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC air
+                                    data archive</a></li>
                         </ul>
                     </div>
                     <!-- /COLLAPSING NAVBAR -->
@@ -144,10 +144,10 @@
                     <div class="container">
                         <a href="http://www2.gov.bc.ca/gov/content?id=956DEE07D8F744D2B8A7620FD241C161">Air Quality
                             Health Index</a>
-                        <a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current Air
-                            Quality Data</a>
-                        <a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air Data
-                            Archive</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current air
+                            quality data</a>
+                        <a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC air data
+                            archive</a>
 
 
                     </div>
@@ -162,7 +162,7 @@
     <div id="main-content" class="template container env-container">
         <!-- PAGE CONTENT -->
         <div class="row">
-            <h1>Air Quality Subscription Service</h1>
+            <h1>Air quality subscription service</h1>
 
             <div class="row">
                 <div id="main-content" role="main" class="contentPageMainColumn">
@@ -181,20 +181,22 @@
                                         <label for="advisoryInputText">Email Advisory Text <span style="color: red;">(required)</span></label>
 
                                         <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]" required>
-                                            <p>Posted To: </p>
+                                            <p><br/></p>
+                                            
 
-                                            <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all Air Quality Advisories</a></p>
+                                            <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all air quality advisories.</a></p>
                                         </textarea>
                                         <script>
                                             $('#summernote').summernote({
                                                 placeholder: 'Insert notification text here...',
                                                 tabSize: 2,
-                                                height: 200,
+                                                height: 300,
                                                 toolbar: [
                                                     // [groupName, [list of button]]
                                                     ['style', ['bold', 'italic', 'underline']],
                                                     ['font', ['superscript', 'subscript']],
                                                     ['para', ['ul', 'ol', 'paragraph']],
+                                                    ['insert', ['template2']],
                                                     ['insert', ['template']],
                                                 ],
                                                 template: {
@@ -210,6 +212,13 @@
                                                         'torchard': 'Trina Orchard'
                                                     }
                                                 },
+                                                template2: {
+                                                    path: './js/tpls',
+                                                    list: {
+                                                        'AQAtext1': 'Air Quality Advisory Text #1',
+                                                        'SSBtext1': 'Smoky Skies Bulletin Text #1'
+                                                    }
+                                                },   
                                             });
 
                                         </script>
@@ -754,7 +763,7 @@
 
                                     </p>
                                 </div>
-                                <p>Build date: June 8, 2020 - Ver 5.3</p>
+                                <p>Build date: Sept, 2020 - Ver 6.0</p>
 
                             </div>
 

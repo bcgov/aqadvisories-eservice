@@ -12,7 +12,8 @@
     }
 }(function ($) {
     $.extend($.summernote.options, {
-        template: {}
+        template: {},
+        template2: {}
     });
 
     // Extend plugins for adding templates
@@ -75,6 +76,70 @@
                                 })
                                 .fail(function () {
                                     alert('template not found in ' + path);
+                                });
+                        }
+                    })
+                ]);
+
+                // create jQuery object from button instance.
+                return button.render();
+            });
+        },
+        'template2': function (context) {
+            var ui = $.summernote.ui;
+            var options = context.options.template2;
+            var defaultOptions = {
+                label: 'Text Template',
+                tooltip: 'Insert Text',
+                path: '',
+                list: {}
+            };
+
+            // Assign default values if not supplied
+            for (var propertyName in defaultOptions) {
+                if (options.hasOwnProperty(propertyName) === false) {
+                    options[propertyName] = defaultOptions[propertyName];
+                }
+            }
+
+            // add template2 button
+            context.memo('button.template2', function () {
+                // initialize list
+                var htmlDropdownList = '';
+                for (var htmlTemplate in options.list) {
+                    if (options.list.hasOwnProperty(htmlTemplate)) {
+                        htmlDropdownList += '<li><a href="#" data-value="' + htmlTemplate + '">' + options.list[htmlTemplate] + '</a></li>';
+                    }
+                }
+
+                // create button
+                var button = ui.buttonGroup([
+                    ui.button({
+                        className: 'dropdown-toggle',
+                        contents: '<span class="template"/> ' + options.label + ' <span class="caret"></span>',
+                        tooltip: options.tooltip,
+                        data: {
+                            toggle: 'dropdown'
+                        }
+                    }),
+                    ui.dropdown({
+                        className: 'dropdown-template',
+                        items: htmlDropdownList,
+                        click: function (event) {
+                            event.preventDefault();
+
+                            var $button = $(event.target);
+                            var value = $button.data('value');
+                            var path = options.path + '/' + value + '.html';
+
+                            $.get(path)
+                                .done(function (data) {
+                                    var node = document.createElement('span');
+                                    node.innerHTML = data + '<p>&nbsp;</p>';
+                                    context.invoke('editor.insertNode', node);
+                                })
+                                .fail(function () {
+                                    alert('template2 not found in ' + path);
                                 });
                         }
                     })
