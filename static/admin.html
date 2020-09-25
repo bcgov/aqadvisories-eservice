@@ -79,7 +79,6 @@
     <!-- <script src="./js/summernote-lite.js"></script> -->
     <script src="./js/summernote-ext-template.js"></script>
     <script src="./js/validation-admin.js"></script>
-
     <style type="text/css">
         fieldset:focus-within {
             background: white;
@@ -173,12 +172,12 @@
                                 <div>
 
                                     <div class="form-group">
-                                        <label for="subjectlineInput" class="control-label">Subject Line <span style="color: red;">(required)</span></label>
-                                        <br />(e.g. Air Quality Advisory Issued for...)
+                                        <label for="subjectlineInput" class="control-label">Email subject line <span style="color: red;">(required)</span></label>
+                                        <br />(e.g. Air quality advisory issued for...)
                                         <input type="text" name="message[subject]" class="form-control" id="subjectlineInput" aria-required="true" aria-describedby="helpBlock" required autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <label for="advisoryInputText">Email Advisory Text <span style="color: red;">(required)</span></label>
+                                        <label for="advisoryInputText">Email body text <span style="color: red;">(required)</span></label> <sup>*</sup>Remember to place your cursor in the text box below.
 
                                         <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]" required>
                                             <p><br/></p>
@@ -225,8 +224,8 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="advisoryInputText">SMS Advisory Text (Optional) - NOTE: To shorten URL links, use <a href="
-                                            https://hootsuite.com/dashboard/" target="_blank">Hootsuite</a> (<a href="#" data-toggle="modal" data-target="#myModal">refer to instructions</a>). Try to keep SMS text messages to 150 characters or less. </label>
+                                        <label for="advisoryInputText">SMS advisory text (Optional)</label><br/><sup>*</sup> Shorten URL links using <a href="
+                                            https://hootsuite.com/dashboard/" target="_blank">Hootsuite</a> (<a href="#" data-toggle="modal" data-target="#myModal">refer to instructions</a>). Try to keep SMS text messages to 150 characters or less. 
 
                                         <textarea class="form-control" rows="5" id="summernote" name="message[smsBody]"></textarea>
                                         <div id="the-count">
@@ -861,6 +860,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="./js/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    
     <script>
         $('textarea').keyup(function() {
 
