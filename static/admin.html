@@ -180,7 +180,7 @@
                                         <label for="advisoryInputText">Email body text <span style="color: red;">(required)</span></label> <sup>*</sup>Remember to place your cursor in the text box below.
 
                                         <textarea class="form-control" rows="10" id="summernote" name="message[htmlBody]" required>
-                                            <p><br/></p>
+                                            <p>Posted to:</p>
                                             
 
                                             <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all air quality advisories.</a></p>
@@ -195,7 +195,6 @@
                                                     ['style', ['bold', 'italic', 'underline']],
                                                     ['font', ['superscript', 'subscript']],
                                                     ['para', ['ul', 'ol', 'paragraph']],
-                                                    ['insert', ['template2']],
                                                     ['insert', ['template']],
                                                 ],
                                                 template: {
@@ -210,7 +209,29 @@
                                                         'aseagram': 'Annie Seagram',
                                                         'torchard': 'Trina Orchard'
                                                     }
-                                                },
+                                                }, 
+                                            });
+
+                                        </script>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="advisoryInputText">SMS advisory text (Optional)</label><br/><sup>*</sup> Shorten URL links using <a href="
+                                            https://hootsuite.com/dashboard/" target="_blank">Hootsuite</a> (<a href="#" data-toggle="modal" data-target="#myModal">refer to instructions</a>). Try to keep SMS text messages to 150 characters or less. 
+
+                                        <textarea class="form-control" rows="3" id="summernote2" name="message[smsBody]"></textarea>
+                                        <!-- <div id="the-count">
+                                            <span id="current">0</span>
+                                            <span id="maximum">/ 150</span>
+                                        </div> -->
+                                     
+                                        <script>
+                                            $('#summernote2').summernote({
+                                                height: 100,	
+                                                toolbar: [
+                                                    // [groupName, [list of button]]
+                                                    ['insert', ['template2']],
+                                                ],
                                                 template2: {
                                                     path: './js/tpls',
                                                     list: {
@@ -221,25 +242,10 @@
                                             });
 
                                         </script>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="advisoryInputText">SMS advisory text (Optional)</label><br/><sup>*</sup> Shorten URL links using <a href="
-                                            https://hootsuite.com/dashboard/" target="_blank">Hootsuite</a> (<a href="#" data-toggle="modal" data-target="#myModal">refer to instructions</a>). Try to keep SMS text messages to 150 characters or less. 
-
-                                        <textarea class="form-control" rows="5" id="summernote" name="message[smsBody]"></textarea>
-                                        <div id="the-count">
-                                            <span id="current">0</span>
-                                            <span id="maximum">/ 150</span>
-                                        </div>
-
                                     </div>
 
+                                     
                                 </div>
-
-
-
-
 
                                 <div class="row">
 
@@ -860,9 +866,9 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="./js/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    
-    <script>
-        $('textarea').keyup(function() {
+   
+    <!-- <script>
+        $('#textarea').keyup(function() {
 
             var characterCount = $(this).val().length,
                 current = $('#current'),
@@ -900,7 +906,7 @@
 
         });
 
-    </script>
+    </script> -->
     <script src="./js/misc.js"></script>
     <script src="./js/navMenu.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
