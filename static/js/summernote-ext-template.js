@@ -26,6 +26,7 @@
             var defaultOptions = {
                 label: 'Posted by',
                 tooltip: 'Insert Signature',
+                propertyName: 'summernote',
                 path: '',
                 list: {}
             };
