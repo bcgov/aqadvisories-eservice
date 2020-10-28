@@ -146,9 +146,9 @@
                             Health Index</a>
                         <a href="https://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current air
                             quality data</a>
-                        <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air quality advisories</a>
-                        <a href="https://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC air data
-                            archive</a>
+                        <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air Quality Advisories</a>
+                        <a href="https://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air Data
+                            Archive</a>
 
 
                     </div>
@@ -161,21 +161,28 @@
 
 
     <div id="main-content" class="template container env-container">
-        <!-- PAGE CONTENT -->
-        <div class="row">
-            <h1>Air quality subscription service</h1>
-
+        <!-- PAGE CONTENT -->            
             <div class="row">
+            <h1>Staff Admin: Air Quality Subscription Service</h1>  
                 <div id="main-content" role="main" class="contentPageMainColumn">
+                    <div class="col-lg-6"><p>Post your air quality notification below.</p></div>
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="alert alert-information" role="alert" aria-live="polite" id="helpblock"><h3>Information</h3>
+                <ul><li><a href="http://wwwt.env.gov.bc.ca/epd/bcairquality/aqadvisories/stats.html" target="_blank">Subscriber statisitics </a><sup>*</sup></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal">How to use URL shortener in Hootsuite</a></li>
+                </ul>
+                    <p class="context"><sup>*</sup> BC Government network or VPN access required</p>
+                </div>
+            </div>
                     <form id="myForm" action="/post/notifications" method="post">
                         <div class="row">
                             <div id="main-content" role="main" class="contentPageMainColumn col-md-12 col-lg-12">
-                                <p>Post your Air quality notification below.</p>
+                                
                                 <div>
 
                                     <div class="form-group">
                                         <label for="subjectlineInput" class="control-label">Email subject line <span style="color: red;">(required)</span></label>
-                                        <br />(e.g. Air quality advisory issued for...)
+                                        <br />(e.g. Air Quality Advisory issued for...)
                                         <input type="text" name="message[subject]" class="form-control" id="subjectlineInput" aria-required="true" aria-describedby="helpBlock" required autofocus>
                                     </div>
                                     <div class="form-group">
@@ -185,7 +192,7 @@
                                             <p>Posted to:</p>
                                             
 
-                                            <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all air quality advisories.</a></p>
+                                            <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all Air Quality Advisories.</a></p>
                                         </textarea>
                                         <script>
                                             $('#summernote').summernote({
@@ -795,8 +802,6 @@
 
             <hr />
 
-
-        </div>
         <!-- PAGE CONTENT -->
     </div>
     <!-- /BODY CONTENT -->
