@@ -26,6 +26,10 @@ legend {
     margin-left: 225px;
 }
 
+#submit-area {
+    margin-bottom: 150px;
+}
+
 table.floatThead-table {
     border-top: none;
     border-bottom: none;
