@@ -1,5 +1,7 @@
+[![img](https://img.shields.io/badge/Lifecycle-Stable-97ca00)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+[![Build Status](https://jenkins-ef3999-tools.apps.silver.devops.gov.bc.ca/buildStatus/icon?job=build+aqadvisories-eservice+and+deploy+to+dev)](https://jenkins-ef3999-tools.apps.silver.devops.gov.bc.ca/job/build%20aqadvisories-eservice%20and%20deploy%20to%20dev/)
 
-[![Build Status](https://jenkins-zffq6u-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=build+aqadvisories-eservice+and+deploy+to+dev)](https://jenkins-zffq6u-tools.pathfinder.gov.bc.ca/job/build%20aqadvisories-eservice%20and%20deploy%20to%20dev/)
+
 
 # aqadvisories-eservice
 An Air Quality notification and subscription service utlizing NotifyBC https://github.com/bcgov/MyGovBC-notification-server
