@@ -110,7 +110,7 @@ app.post('/post/subscriptions', async (req, res) => {
     res.status(500).end(ex)
   }
 })
-app.post('/post/notifications', keycloak.protect(role), async (req, res) => {
+app.post('/post/notifications', keycloak.protect(), async (req, res) => {
   try {
     const htmlBody = req.body.message.htmlBody || ''
     const smsBody = req.body.message.smsBody || ''
