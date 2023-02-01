@@ -1,3 +1,4 @@
 #!/bin/bash
+sudo chown -R 1005760000:0 "/opt/app-root/src/.npm/_cacache"
 cp -rL --remove-destination /mnt/configs/* /opt/app-root/src
 /usr/libexec/s2i/run
