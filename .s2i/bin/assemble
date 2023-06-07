@@ -14,6 +14,5 @@ fi
 echo node version $(node -v)
 echo "---> Building your Node application from source"
 npm i
-sudo chown -R 1005720000:0 "/opt/app-root/src/.npm"
 popd
 mv /tmp/src/* ./
