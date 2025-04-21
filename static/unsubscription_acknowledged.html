@@ -109,7 +109,7 @@
                                     Quality Health Index</a></li>
                             <li><a href="https://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Latest
                                     air quality data</a></li>
-                            <li><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air quality advisories</a></li>
+                            <li><a href="https://aqwarnings.gov.bc.ca">Air quality warnings</a></li>
                             <li><a href="https://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">B.C. Air
                                     data archive</a></li>
                         </ul>
@@ -124,7 +124,7 @@
                             Health Index</a>
                         <a href="https://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Latest air
                             quality data</a>
-                        <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air quality advisories</a>
+                        <a href="https://aqwarnings.gov.bc.ca">Air quality warnings</a>
                         <a href="https://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">B.C. Air data
                             archive</a>
 
@@ -153,13 +153,13 @@
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                             } else {
-                                id.innerHTML = '<h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Unsubscribe Confirmation for Email Notifications</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service for Email Notifications.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Unsubscribe Confirmation for Email Notifications</h2><p>You have successfully unsubscribed from the Air Quality Warning Subscription Service for Email Notifications.</p> <p>If you change your mind, you will find a re-subscribe link in your unsubscription acknowledgement email.</p>'
                             }
                         } else if (url.match(/[?&]channel=sms/)) {
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = 'Sorry, the page you are trying to access has expired. For questions or support, <a href="https://www2.gov.bc.ca/gov/content?id=8D53E57633F94760A3BC8D5426FB1D4B">please contact us.</a>'
                             } else {
-                                id.innerHTML = '<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Unsubscribe Confirmation for Text Message Notifications</h2><p>You have successfully unsubscribed from the Air Quality Advisory Subscription Service for Text Message Notifications.</p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Unsubscribe Confirmation for Text Message Notifications</h2><p>You have successfully unsubscribed from the Air Quality Warning Subscription Service for Text Message Notifications.</p>'
                             }
                         }
 

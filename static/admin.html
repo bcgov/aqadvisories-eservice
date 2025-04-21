@@ -131,7 +131,7 @@
                                     Quality Health Index</a></li>
                             <li><a href="https://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Latest
                                     air quality data</a></li>
-                            <li><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air Quality Advisories</a></li>
+                            <li><a href="https://aqwarnings.gov.bc.ca">Air Quality Warnings</a></li>
                             <li><a href="https://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">Air
                                     Data Archive</a></li>
                         </ul>
@@ -146,7 +146,7 @@
                             Health Index</a>
                         <a href="https://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Latest air
                             quality data</a>
-                        <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air Quality Advisories</a>
+                        <a href="https://aqwarnings.gov.bc.ca">Air Quality Warnings</a>
                         <a href="https://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">Air Data
                             Archive</a>
 
@@ -182,7 +182,7 @@
 
                                     <div class="form-group">
                                         <label for="subjectlineInput" class="control-label">Email subject line <span style="color: red;">(required)</span></label>
-                                        <br />(e.g. Air Quality Advisory issued for...)
+                                        <br />(e.g. Air Quality Warning issued for...)
                                         <input type="text" name="message[subject]" class="form-control" id="subjectlineInput" aria-required="true" aria-describedby="helpBlock" required autofocus>
                                     </div>
                                     <div class="form-group">
@@ -192,7 +192,7 @@
                                             <p>Posted to:</p>
                                             
 
-                                            <p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A" target="_blank">See all Air Quality Advisories.</a></p>
+                                            <p><a href="https://aqwarnings.gov.bc.ca" target="_blank">See all Air quality warnings.</a></p>
                                         </textarea>
                                         <script>
                                             $('#summernote').summernote({
@@ -233,8 +233,8 @@
 
 <div><select id="dropdown">
     <option value="">Template Text</option>
-    <option value="An Air Quality Advisory has been issued/continued for #community#. For more information, see:">Air Quality Advisory – Issue/Continued</option>
-    <option value="An Air Quality Advisory has ended for #community#. For more information, see:">Air Quality Advisory – Ended</option>
+    <option value="An Air Quality Warning has been issued/continued for #community#. For more information, see:">Air Quality Warning – Issue/Continued</option>
+    <option value="An Air Quality Warning has ended for #community#. For more information, see:">Air Quality Warning – Ended</option>
     <option value="A Dust Advisory has been issued/continued for #community#. For more information, see:">Dust Advisory – Issue/Continued</option>
     <option value="A Dust Advisory has ended for #community#. For more information, see:">Dust Advisory – Ended</option>
     <option value="A Smoky Skies Bulletin has been issued/continued for an area of interest to you. For more information, see:">Smoky Skies Bulletin – Issue/Continued</option>
@@ -257,8 +257,8 @@
                                                 template2: {
                                                     path: './js/tpls',
                                                     list: {
-                                                        'AQAtext1': 'Air Quality Advisory – Issue/Continued',
-                                                        'AQAtext2': 'Air Quality Advisory – Ended',
+                                                        'AQAtext1': 'Air Quality Warning – Issue/Continued',
+                                                        'AQAtext2': 'Air Quality Warning – Ended',
                                                         'SSBtext1': 'Smoky Skies Bulletin – Issue/Continued',
                                                         'SSBtext2': 'Smoky Skies Bulletin – Ended'
                                                     }
@@ -278,7 +278,7 @@
 
                                         <fieldset>
                                             <p>
-                                                <legend><strong>Air Quality Advisory Community Notification Lists</strong></legend>
+                                                <legend><strong>Air Quality Warning Community Notification Lists</strong></legend>
                                             </p>
                                             <div class="checkbox">
                                                 <p>
