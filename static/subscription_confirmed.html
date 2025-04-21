@@ -21,7 +21,7 @@
     <meta name="dcterms.creator" content="Ministry of Environment and Parks" />
     <meta name="dcsext.creator" content="Ministry of Environment and Parks" />
     <meta name="dcterms.language" content="eng" />
-    <meta name="keywords" content="Air Quality Advisory Subscription Service, air quality">
+    <meta name="keywords" content="Air Quality Warning Subscription Service, air quality">
     <link rel="icon" type="image/png" href="./images/favicon.ico" />
     <meta name="theme-color" content="#ffffff" />
 
@@ -96,7 +96,7 @@
                                     Quality Health Index</a></li>
                             <li><a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current
                                     air quality data</a></li>
-                            <li><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air Quality Advisories</a></li>
+                            <li><a href="https://aqwarnings.gov.bc.ca">Air Quality Warnings</a></li>
                             <li><a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air
                                     Data Archive</a></li>
                         </ul>
@@ -111,7 +111,7 @@
                             Health Index</a>
                         <a href="http://www2.gov.bc.ca/gov/content?id=292EC5BD62A149A192B7DD2CE155E33E">Current air
                             quality data</a>
-                        <a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">Air Quality Advisories</a>
+                        <a href="https://aqwarnings.gov.bc.ca">Air Quality Warnings</a>
                         <a href="http://www2.gov.bc.ca/gov/content?id=AAC0F931795D44E794702332A37D81F5">BC Air Data
                             Archive</a>
 
@@ -140,13 +140,13 @@
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = '<p>We are sorry, an error has occurred in our system. Did you already click on the confirmation link in your email? If so, then your subscription has already been confirmed. If you are still seeing this error, <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">please contact us</a>.</p>'
                             } else {
-                                id.innerHTML = '<h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Email Subscription Confirmation</h2><p><strong>Your email subscription to the Air Quality Subscription Service has been confirmed.</strong> <p>Please save and refer to your email confirmation to view which list you have subscribed to.</p><p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">View current Air Quality Advisories</a></p><p>Learn more about the <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">Air Quality Subscription Service</a></p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Email Subscription Confirmation</h2><p><strong>Your email subscription to the Air Quality Subscription Service has been confirmed.</strong> <p>Please save and refer to your email confirmation to view which list you have subscribed to.</p><p><a href="https://aqwarnings.gov.bc.ca">View current Air Quality Warnings</a></p><p>Learn more about the <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">Air Quality Subscription Service</a></p>'
                             }
                         } else if (url.match(/[?&]channel=sms/)) {
                             if (url.match(/[?&]err=/)) {
                                 id.innerHTML = '<p>We are sorry, an error has occurred in our system. Did you already click on the confirmation link in your text message? If so, then your subscription has been confirmed. If you are still seeing this error, <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">please contact us</a>.</p>'
                             } else {
-                                id.innerHTML = '<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Text Notification Subscription Confirmation</h2><p><strong>Your text notification subscription to the Air Quality Subscription Service has been confirmed.</strong></p><p><a href="https://www2.gov.bc.ca/gov/content?id=92C667E752E847978060C6EC70EDD57A">View current Air Quality Advisories</a></p><p>Learn more about the <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">Air Quality Subscription Service</a></p>'
+                                id.innerHTML = '<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Text Notification Subscription Confirmation</h2><p><strong>Your text notification subscription to the Air Quality Subscription Service has been confirmed.</strong></p><p><a href="https://aqwarnings.gov.bc.ca">View current Air Quality Warnings</a></p><p>Learn more about the <a href="https://www2.gov.bc.ca/gov/content?id=2F89F266A1BE40EC8926C45A05E28BCD" target="_self">Air Quality Subscription Service</a></p>'
                             }
                         }
 
