@@ -162,6 +162,33 @@ app.post('/post/notifications', keycloak.protect(), async (req, res) => {
   }
 })
 
+app.delete('/api/unsubscribe/:subscriptionId/:unsubscriptionCode', async (req, res) => {
+  const { subscriptionId, unsubscriptionCode } = req.params;
+
+  // Validate subscriptionId and unsubscriptionCode
+  const isValidId = /^[a-zA-Z0-9_-]+$/.test(subscriptionId);
+  const isValidCode = /^[a-zA-Z0-9]+$/.test(unsubscriptionCode);
+
+  if (!subscriptionId || !unsubscriptionCode || !isValidId || !isValidCode) {
+    return res.status(400).json({ error: 'Invalid subscriptionId or unsubscriptionCode' });
+  }
+
+  try {
+    const unsubscribeUrl = `${notifybcRootUrl}/api/subscriptions/${subscriptionId}?unsubscriptionCode=${unsubscriptionCode}&additionalServices=_all`;
+    console.log(`Attempting to unsubscribe via: ${unsubscribeUrl}`);
+    const notifyResponse = await axios.delete(unsubscribeUrl);
+    console.log(notifyResponse)
+    res.status(200).json({ message: 'Unsubscription successful' });
+  } catch (error) {
+    console.error('Unsubscription failed:', error.response ? error.response.data : error.message);
+    const status = error.response ? error.response.status : 500;
+    const message = error.response ? error.response.data : 'Internal server error during unsubscription';
+    res.status(status).json({ error: message });
+  }
+});
+
+app.delete('/api/subscriptions/{id}?unsubscriptionCode={unsubscriptionCode}&additionalServices[]=')
+
 app.use(express.static('static'))
 
 app.listen(port, () =>

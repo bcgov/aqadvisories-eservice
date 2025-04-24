@@ -52,7 +52,7 @@ alert( 'You need to fill out at least your email address or a mobile phone numbe
     event.preventDefault()
     if (
       !confirm(
-        'Please confirm: do you want to subscribe to these notifcation lists?'
+        'Please confirm: do you want to subscribe to these notification lists?'
       )
     ) {
       return false

@@ -39,7 +39,7 @@ $(document).ready(function () {
             alert("You must select at least one notification list.");
             return false;
         } else {
-            return confirm('Please confirm: do you want to post to these notifcation lists?');
+            return confirm('Please confirm: do you want to post to these notification lists?');
         }
 
     });
