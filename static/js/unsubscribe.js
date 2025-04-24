@@ -1,7 +1,7 @@
 async function handleUnsubscribe(subscriptionId, unsubscriptionCode) {
   const messageDiv = document.getElementById('message');
   try {
-    const response = await fetch(`/unsubscribe/${subscriptionId}/${unsubscriptionCode}`, {
+    const response = await fetch(`${window.location.origin}/unsubscribe/${subscriptionId}/${unsubscriptionCode}`, {
       method: 'DELETE',
     });
 
@@ -10,7 +10,7 @@ async function handleUnsubscribe(subscriptionId, unsubscriptionCode) {
     } else {
       const errorData = await response.json();
       console.error("Backend unsubscription failed:", errorData);
-      messageDiv.innerHTML = `<div class="alert alert-danger">Error: Could not unsubscribe. 'Please try again later.'}</div>`;
+      messageDiv.innerHTML = `<div class="alert alert-danger">Error: Could not unsubscribe. Please try again later.</div>`;
     }
   } catch (error) {
     console.error("Error calling backend for unsubscription:", error);
