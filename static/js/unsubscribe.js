@@ -1,7 +1,7 @@
 async function handleUnsubscribe(subscriptionId, unsubscriptionCode) {
   const messageDiv = document.getElementById('message');
   try {
-    const response = await fetch(`/api/unsubscribe/${subscriptionId}/${unsubscriptionCode}`, {
+    const response = await fetch(`/unsubscribe/${subscriptionId}/${unsubscriptionCode}`, {
       method: 'DELETE',
     });
 
