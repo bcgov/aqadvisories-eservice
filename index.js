@@ -165,10 +165,6 @@ app.post('/post/notifications', keycloak.protect(), async (req, res) => {
 app.delete('/api/unsubscribe/:subscriptionId/:unsubscriptionCode', async (req, res) => {
   const { subscriptionId, unsubscriptionCode } = req.params;
 
-  // Validate subscriptionId and unsubscriptionCode
-  const isValidId = /^[a-zA-Z0-9_-]+$/.test(subscriptionId);
-  const isValidCode = /^[a-zA-Z0-9]+$/.test(unsubscriptionCode);
-
   if (!subscriptionId || !unsubscriptionCode || !isValidId || !isValidCode) {
     return res.status(400).json({ error: 'Invalid subscriptionId or unsubscriptionCode' });
   }
