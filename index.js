@@ -174,7 +174,6 @@ app.delete('/unsubscribe/:subscriptionId/:unsubscriptionCode', async (req, res) 
 
   try {
     const unsubscribeUrl = `${notifybcRootUrl}/api/subscriptions/${subscriptionId}?unsubscriptionCode=${unsubscriptionCode}&additionalServices=_all`;
-    console.log(`Attempting to unsubscribe via: ${unsubscribeUrl}`);
     const notifyResponse = await axios.delete(unsubscribeUrl);
     res.status(200).json({ message: 'Unsubscription successful' });
   } catch (error) {
