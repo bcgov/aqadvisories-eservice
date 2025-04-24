@@ -10,7 +10,7 @@ async function handleUnsubscribe(subscriptionId, unsubscriptionCode) {
     } else {
       const errorData = await response.json();
       console.error("Backend unsubscription failed:", errorData);
-      messageDiv.innerHTML = `<div class="alert alert-danger">Error: Could not unsubscribe. ${errorData.error || 'Please try again later.'}</div>`;
+      messageDiv.innerHTML = `<div class="alert alert-danger">Error: Could not unsubscribe. 'Please try again later.'}</div>`;
     }
   } catch (error) {
     console.error("Error calling backend for unsubscription:", error);
