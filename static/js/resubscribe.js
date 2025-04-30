@@ -1,17 +1,13 @@
 async function handleResubscribe(subscriptionId, unsubscriptionCode) {
   const messageDiv = document.getElementById('message');
   try {
-    const apiUrl = `${window.location.origin}/api/subscriptions/${subscriptionId}/unsubscribe/undo?unsubscriptionCode=${unsubscriptionCode}`;
-
+    const apiUrl = `${window.location.origin}/resubscribe/${subscriptionId}/${unsubscriptionCode}`;
     const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      method: 'GET',
     });
 
     if (response.ok) {
-      window.location.href = `/resubscription_acknowledged.html?channel=email`;
+      window.location.href = `/re_subscribed.html?channel=email`;
     } else {
       const errorData = await response.json();
       console.error("Backend resubscription failed:", errorData);

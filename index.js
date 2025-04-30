@@ -184,6 +184,29 @@ app.delete('/unsubscribe/:subscriptionId/:unsubscriptionCode', async (req, res) 
   }
 });
 
+app.get('/resubscribe/:subscriptionId/:unsubscriptionCode', async (req, res) => {
+  const { subscriptionId, unsubscriptionCode } = req.params;
+
+  const isValidId = subscriptionId && /^[a-zA-Z0-9]+$/.test(subscriptionId); // numbers and letters
+  const isValidCode = unsubscriptionCode && /^\d+$/.test(unsubscriptionCode); // numbers
+
+  if (!subscriptionId || !unsubscriptionCode || !isValidId || !isValidCode) {
+    return res.status(400).json({ error: 'Invalid subscriptionId or unsubscriptionCode' });
+  }
+
+  try {
+    const resubscribeUrl = `${notifybcRootUrl}/api/subscriptions/${subscriptionId}/unsubscribe/undo?unsubscriptionCode=${unsubscriptionCode}`;
+    const notifyResponse = await axios.get(resubscribeUrl);
+    res.status(200).json({ message: 'Resubscription successful' });
+  } catch (error) {
+    console.log(error)
+    console.error('Resubscription failed:', error.response ? error.response.data : error.message);
+    const status = error.response ? error.response.status : 500;
+    const message = error.response ? error.response.data : 'Internal server error during resubscription';
+    res.status(status).json({ error: message });
+  }
+})
+
 app.use(express.static('static'))
 
 app.listen(port, () =>
