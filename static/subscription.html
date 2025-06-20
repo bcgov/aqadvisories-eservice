@@ -1243,19 +1243,21 @@
     <script src="./js/navMenu.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
-    <script type="application/javascript" src="js/jquery-input-mask-phone-number.min.js"></script>
-     <script>
-           $(document).ready(function () {
-    $('#InputPhone').usPhoneFormat({
-        format: 'xxx-xxx-xxxx',
-    });   
-});
-
-//Default xxx-xxx-xxxx  
-$(document).ready(function () {
-    $('#InputPhone').usPhoneFormat();   
-});
-        </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var phoneInput = document.getElementById('InputPhone');
+            phoneInput.addEventListener('input', function (e) {
+                let value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
+                let formatted = value;
+                if (value.length > 6) {
+                    formatted = value.replace(/(\d{3})(\d{3})(\d{1,4})/, '$1-$2-$3');
+                } else if (value.length > 3) {
+                    formatted = value.replace(/(\d{3})(\d{1,3})/, '$1-$2');
+                }
+                phoneInput.value = formatted;
+            });
+        });
+    </script>
     <script src="./js/validation.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6LeOitcUAAAAAIdx7rI5W27QySOqaML-qrlzuYhN"></script>
 </body>
