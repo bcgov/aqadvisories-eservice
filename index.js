@@ -11,6 +11,9 @@ const axios = require('axios')
 const bodyParser = require('body-parser')
 const htmlToText = require('html-to-text')
 const qs = require('qs')
+// same module the subscription form loads in the browser, so client and server
+// enforce one definition of a valid sms number
+const nanp = require('./static/js/nanp')
 
 app.get('/ping', (req, res) => res.send('ok'))
 
@@ -61,7 +64,21 @@ app.post('/post/subscriptions', async (req, res) => {
       reCaptchaRes.data.score < 0.5 ||
       reCaptchaRes.data.action !== 'submit'
     ) {
-      res.status(403).end()
+      return res.status(403).end()
+    }
+    // Validate the sms number up front, so an invalid one never leaves behind a
+    // half-completed submission with the email subscription already created.
+    const rawPhone =
+      typeof req.body.phone === 'string' ? req.body.phone.trim() : ''
+    // the input mask can leave a stray separator behind when the field is cleared
+    const phoneSupplied = /[0-9]/.test(rawPhone)
+    const phone = phoneSupplied ? nanp.normalize(rawPhone) : null
+    if (phoneSupplied && !phone) {
+      return res
+        .status(400)
+        .end(
+          'Please enter a valid 10-digit mobile phone number in the format ###-###-####.'
+        )
     }
     const data = {
       serviceName: 'envAirQuality',
@@ -96,10 +113,10 @@ app.post('/post/subscriptions', async (req, res) => {
       if (req.body.userChannelId) {
         await axios.post(notifybcRootUrl + '/api/subscriptions', data)
       }
-      // send sms subscription if phone # is supplied
-      if (req.body.phone) {
+      // send sms subscription if a valid phone # is supplied
+      if (phone) {
         data.channel = 'sms'
-        data.userChannelId = req.body.phone
+        data.userChannelId = phone
         await axios.post(notifybcRootUrl + '/api/subscriptions', data)
       }
       res.redirect('/subscription_sent.html')
