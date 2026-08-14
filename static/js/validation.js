@@ -31,6 +31,27 @@ $(document).ready(function() {
 
 ///FORM VALIDATION
 
+// The form is submitted natively further down (see the reCAPTCHA handler), and
+// a native submit skips the browser's own constraint validation. So the phone
+// pattern has to be re-checked here or it is never enforced.
+// nanp is provided by js/nanp.js, which the server requires as well.
+function validatePhoneField() {
+  var phone = $.trim($('#InputPhone').val())
+  // the input mask can leave a stray separator behind when the field is cleared
+  if (!/[0-9]/.test(phone)) {
+    return true
+  }
+  if (nanp.isValid(phone)) {
+    return true
+  }
+  alert(
+    'Please enter a valid 10-digit mobile phone number in the format ###-###-####.\n\n' +
+      'Do not include the country code. The area code and the next three digits must each start with a number from 2 to 9.'
+  )
+  $('#InputPhone').focus()
+  return false
+}
+
 // fields checkbox minimum selected
 $(document).ready(function() {
 $('#checkBtn').click(function() {
@@ -50,6 +71,9 @@ alert( 'You need to fill out at least your email address or a mobile phone numbe
   })
   $('#myForm').submit(function(event) {
     event.preventDefault()
+    if (!validatePhoneField()) {
+      return false
+    }
     if (
       !confirm(
         'Please confirm: do you want to subscribe to these notification lists?'
