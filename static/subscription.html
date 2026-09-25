@@ -160,9 +160,13 @@
                                             </legend>
                                             <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-phone" aria-hidden="true"></i></span>
-                                            <input type="tel" name="phone" class="form-control" id="InputPhone" inputmode="numeric" maxlength="12" autocomplete="tel-national" pattern="[2-9][0-9]{2}-[2-9][0-9]{2}-[0-9]{4}" title="Enter a 10-digit North American mobile number in the format ###-###-####. The area code and the next three digits must each start with a number from 2 to 9." aria-describedby="phoneHelpBlock">
+                                            <input type="tel" name="phone" class="form-control" id="InputPhone" inputmode="numeric" maxlength="12" autocomplete="tel-national" pattern="[2-9][0-9]{2}-[2-9][0-9]{2}-[0-9]{4}" title="Enter a 10-digit North American mobile number in the format ###-###-####. The area code and the next three digits must each start with a number from 2 to 9." aria-describedby="phoneHelpBlock phoneOptInBlock">
                                             </div>
-                                            <p class="context" id="phoneHelpBlock">Standard rates charged by your network carrier may apply.<br/>Use the format ###-###-#### (10 digits, no country code)</p>
+                                            <p class="context" id="phoneHelpBlock">Use the format ###-###-#### (10 digits, no country code)</p>
+                                            <div class="checkbox">
+                                                <label for="InputSmsConsent">
+                                                    <input type="checkbox" name="smsConsent" id="InputSmsConsent" value="yes"> <span class="context" id="phoneOptInBlock">I agree to receive SMS text messages from the BC Air Quality Subscription Service for air quality warnings in my selected areas. Message and data rates may apply. A confirmation text will be sent to complete my subscription.</span></label>
+                                            </div>
                                         </div>
                                     </fieldset>
                                 </div>

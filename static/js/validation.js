@@ -41,15 +41,22 @@ function validatePhoneField() {
   if (!/[0-9]/.test(phone)) {
     return true
   }
-  if (nanp.isValid(phone)) {
-    return true
+  if (!nanp.isValid(phone)) {
+    alert(
+      'Please enter a valid 10-digit mobile phone number in the format ###-###-####.\n\n' +
+        'Do not include the country code. The area code and the next three digits must each start with a number from 2 to 9.'
+    )
+    $('#InputPhone').focus()
+    return false
   }
-  alert(
-    'Please enter a valid 10-digit mobile phone number in the format ###-###-####.\n\n' +
-      'Do not include the country code. The area code and the next three digits must each start with a number from 2 to 9.'
-  )
-  $('#InputPhone').focus()
-  return false
+  if (!$('#InputSmsConsent').prop('checked')) {
+    alert(
+      'To receive SMS text messages, you must check the box agreeing to receive them.'
+    )
+    $('#InputSmsConsent').focus()
+    return false
+  }
+  return true
 }
 
 // fields checkbox minimum selected
@@ -62,7 +69,8 @@ alert( 'You need to fill out at least your email address or a mobile phone numbe
     } 
   })      
   $('#checkBtn').click(function() {
-    checked = $('input[type=checkbox]:checked').length
+    // the SMS consent box is not a notification list, so it doesn't count here
+    checked = $('input[type=checkbox]:checked').not('#InputSmsConsent').length
     if (!checked) {
       alert('You must subscribe to at least one notification list.')
       return false
