@@ -80,6 +80,11 @@ app.post('/post/subscriptions', async (req, res) => {
           'Please enter a valid 10-digit mobile phone number in the format ###-###-####.'
         )
     }
+    if (phone && req.body.smsConsent !== 'yes') {
+      return res
+        .status(400)
+        .end('You must agree to receive SMS text messages to subscribe by SMS.')
+    }
     const data = {
       serviceName: 'envAirQuality',
       channel: 'email',
@@ -117,6 +122,7 @@ app.post('/post/subscriptions', async (req, res) => {
       if (phone) {
         data.channel = 'sms'
         data.userChannelId = phone
+        data.data.smsConsent = { agreed: true, at: new Date().toISOString() }
         await axios.post(notifybcRootUrl + '/api/subscriptions', data)
       }
       res.redirect('/subscription_sent.html')
