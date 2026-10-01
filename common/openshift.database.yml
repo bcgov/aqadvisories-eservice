@@ -1,0 +1,176 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+  - name: NAME
+    description: Product name
+    required: true
+  - name: COMPONENT
+    description: Component name
+    value: database
+  - name: ZONE
+    description: Deployment zone, e.g. pr-### or prod
+    required: true
+  - name: MONGO_VERSION
+    description: >-
+      MongoDB version tag for the Docker Hub mongo image. The backend uses
+      loopback-connector-mongodb 5 (mongodb driver 3.6), which supports MongoDB up to 4.4.
+    value: "4.4"
+  - name: DB_PVC_SIZE
+    description: Volume space available for data
+    value: 1Gi
+  - name: MEMORY_LIMIT
+    description: Memory limit for the database container (bounds the pod's working set).
+    value: 4Gi
+  - name: WT_CACHE_GB
+    description: >-
+      WiredTiger cache size in GB. Set explicitly because older mongod versions size the
+      cache from node RAM rather than the container limit; keep it well under MEMORY_LIMIT.
+    value: "1"
+
+objects:
+  - apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      # Governing Service required by the StatefulSet. With a single replica the
+      # ClusterIP Service below doubles as both the governing service and the
+      # connection endpoint; no separate headless Service is needed.
+      serviceName: ${NAME}-${ZONE}-${COMPONENT}
+      replicas: 1
+      selector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-${COMPONENT}
+      template:
+        metadata:
+          labels:
+            app: ${NAME}-${ZONE}
+            deployment: ${NAME}-${ZONE}-${COMPONENT}
+        spec:
+          # Give mongod time to flush and shut down cleanly on SIGTERM during a node drain.
+          terminationGracePeriodSeconds: 60
+          containers:
+            - name: ${NAME}-${ZONE}
+              image: mongo:${MONGO_VERSION}
+              imagePullPolicy: Always
+              args:
+                - --bind_ip_all
+                - --wiredTigerCacheSizeGB
+                - ${WT_CACHE_GB}
+              ports:
+                - name: mongodb
+                  containerPort: 27017
+              # Reuses the Secret from common/openshift.init.yml. The entrypoint creates
+              # the root user (in the "admin" db) on first start only, when /data/db is
+              # empty, so the backend connects with ?authSource=admin.
+              env:
+                - name: MONGO_INITDB_DATABASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-name
+                - name: MONGO_INITDB_ROOT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-password
+                - name: MONGO_INITDB_ROOT_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-user
+                # OpenShift's random UID has no writable home; the mongo shell writes history there
+                - name: HOME
+                  value: /tmp
+              volumeMounts:
+                - name: data
+                  mountPath: /data/db
+                - name: configdb
+                  mountPath: /data/configdb
+                - name: tmp
+                  mountPath: /tmp
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 256Mi
+                limits:
+                  memory: ${MEMORY_LIMIT}
+              # restricted-v2 SCC hardening. The image's VOLUME paths (/data/db,
+              # /data/configdb) are owned by uid 999, so both are mounted from
+              # volumes that OpenShift's fsGroup makes writable for the assigned UID.
+              # OpenShift assigns the UID/GID from the namespace range; do not hard-code it.
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                capabilities:
+                  drop: ["ALL"]
+                seccompProfile:
+                  type: RuntimeDefault
+              # "ping" needs no authentication. mongo <= 5 ships the legacy "mongo"
+              # shell, mongo >= 6 only "mongosh", so use whichever exists.
+              readinessProbe:
+                exec:
+                  command:
+                    - sh
+                    - -c
+                    - >-
+                      if command -v mongosh >/dev/null; then sh=mongosh; else sh=mongo; fi;
+                      $sh --quiet --eval 'quit(db.adminCommand("ping").ok ? 0 : 1)'
+                successThreshold: 1
+                failureThreshold: 5
+                initialDelaySeconds: 15
+                periodSeconds: 15
+                timeoutSeconds: 10
+              livenessProbe:
+                exec:
+                  command:
+                    - sh
+                    - -c
+                    - >-
+                      if command -v mongosh >/dev/null; then sh=mongosh; else sh=mongo; fi;
+                      $sh --quiet --eval 'quit(db.adminCommand("ping").ok ? 0 : 1)'
+                successThreshold: 1
+                failureThreshold: 5
+                initialDelaySeconds: 30
+                periodSeconds: 15
+                timeoutSeconds: 10
+          volumes:
+            - name: configdb
+              emptyDir: {}
+            - name: tmp
+              emptyDir: {}
+      # Per-pod PVC managed by the StatefulSet. The claim-template name is fixed
+      # ("data"): volumeClaimTemplates are immutable once the StatefulSet exists,
+      # so the name must not embed MONGO_VERSION. A major MongoDB upgrade is a
+      # deliberate migration (one major version at a time, setting
+      # featureCompatibilityVersion), never an automatic volume swap.
+      # netapp-block-standard (RWO block) suits a single-writer DB and supports resize-up only.
+      volumeClaimTemplates:
+        - metadata:
+            labels:
+              app: ${NAME}-${ZONE}
+            name: data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            storageClassName: netapp-block-standard
+            resources:
+              requests:
+                storage: ${DB_PVC_SIZE}
+  # ClusterIP Service: the backend connects here via ${NAME}-${ZONE}-${COMPONENT}:27017, e.g.
+  # mongodb://<database-user>:<database-password>@${NAME}-${ZONE}-${COMPONENT}:27017/<database-name>?authSource=admin
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      ports:
+        - name: mongodb
+          port: 27017
+          targetPort: 27017
+      selector:
+        deployment: ${NAME}-${ZONE}-${COMPONENT}

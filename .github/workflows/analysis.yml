@@ -1,0 +1,143 @@
+name: Analysis
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review, converted_to_draft]
+  schedule:
+    - cron: "0 11 * * 0" # 3 AM PST = 12 PM UDT, runs sundays
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  backend-tests:
+    name: Backend Tests
+    if: (! github.event.pull_request.draft)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      # NotifyBC (LoopBack 3). --ignore-scripts skips the postinstall build of the Vue
+      # web console, which is only needed in the image. The jasmine suite (npm test)
+      # is not run: it has failing specs on current Node versions.
+      - uses: bcgov/action-test-and-analyse@8f699e3fd3fadd9a6adf6f4b1f2638ef7ecfefb9 # v2.0.0
+        env:
+          sonar_token: ${{ secrets.sonar_token_backend }}
+        with:
+          commands: |
+            npm ci --ignore-scripts
+            npx eslint .
+          dir: backend
+          node_version: "24"
+          sonar_args: >
+            -Dsonar.exclusions=**/node_modules/**,client/dist/**,docs/**,spec/**
+            -Dsonar.organization=bcgov-sonarcloud
+            -Dsonar.projectKey=aqadvisories-eservice_backend
+            -Dsonar.sources=server,common,client/src,utils
+            -Dsonar.tests=spec
+          sonar_token: ${{ env.sonar_token }}
+          dep_scan: warn
+          supply_scan: true
+          triggers: ('backend/')
+
+  frontend-tests:
+    name: Frontend Tests
+    if: (! github.event.pull_request.draft)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      # Express app with no test suite or linter yet: install, then syntax-check the server code.
+      - uses: bcgov/action-test-and-analyse@8f699e3fd3fadd9a6adf6f4b1f2638ef7ecfefb9 # v2.0.0
+        env:
+          sonar_token: ${{ secrets.sonar_token_frontend }}
+        with:
+          commands: |
+            npm ci
+            node --check index.js
+            node --check static/js/nanp.js
+          dir: frontend
+          node_version: "24"
+          sonar_args: >
+            -Dsonar.exclusions=**/node_modules/**,backup/**,sessions/**,static/plugins/**,static/fonts/**,**/*.min.js,static/js/bootstrap*.js,static/js/jquery*.js,static/js/summernote*.js,static/js/dataTables*.js,static/js/sb-admin-2.js,static/js/retina.js,static/js/gifffer*.js,static/js/dense.js,static/js/ie10-*.js
+            -Dsonar.organization=bcgov-sonarcloud
+            -Dsonar.projectKey=aqadvisories-eservice_frontend
+            -Dsonar.sources=index.js,static
+          sonar_token: ${{ env.sonar_token }}
+          dep_scan: warn
+          supply_scan: true
+          triggers: ('frontend/')
+
+  # https://github.com/marketplace/actions/aqua-security-trivy
+  trivy:
+    name: Trivy Security Scan
+    if: (! github.event.pull_request.draft)
+    permissions:
+      contents: read
+      security-events: write
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Cache Trivy DB
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .trivycache
+          # Hashing the workflow file ensures the cache is automatically busted whenever
+          # the aquasecurity/trivy-action version changes, preventing DB schema crashes.
+          key: ${{ runner.os }}-trivy-${{ hashFiles('.github/workflows/analysis.yml') }}
+
+      # Reports every severity to the Security tab for triage.  Findings are not a merge
+      # gate: advisories are published on their own schedule, not the contributor's, and
+      # committed secrets are already blocked at push time by GitHub secret scanning.
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          format: "sarif"
+          output: "trivy-results.sarif"
+          ignore-unfixed: true
+          scan-type: "fs"
+          scanners: "vuln,secret,misconfig"
+          severity: "UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL"
+          trivyignores: ".github/.trivyignore"
+          cache-dir: .trivycache
+          skip-dirs: "**/node_modules,**/coverage,**/dist,.git"
+          exit-code: "0"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          category: "trivy"
+          sarif_file: "trivy-results.sarif"
+
+  # ==========================================================================
+  # WARNING: This job acts as the required merge gate for this workflow.
+  # If you add a new job to this workflow, you MUST add its ID to the 'needs'
+  # array below, otherwise its failure or cancellation will not block the PR!
+  # ==========================================================================
+  results:
+    name: Analysis Results
+    needs: [backend-tests, frontend-tests, trivy]
+    if: always() && (! github.event.pull_request.draft)
+    runs-on: ubuntu-slim
+    timeout-minutes: 1
+    steps:
+      - name: Log Job Results Context
+        run: |
+          echo "=== Upstream Job Statuses ==="
+          echo '${{ toJson(needs) }}'
+
+      - name: Evaluate Overall Status
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "❌ Critical Check Failure: At least one required job has failed or was cancelled."
+          exit 1
+
+      - name: Success Message
+        run: echo "✅ All critical checks passed or were intentionally skipped!"

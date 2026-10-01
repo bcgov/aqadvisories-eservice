@@ -1,0 +1,98 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+  - name: NAME
+    description: Product name
+    value: quickstart-openshift
+  - name: MONGO_DATABASE
+    description: MongoDB database name
+    value: app
+  - name: ZONE
+    description: Deployment zone, e.g. pr-### or prod
+    required: true
+  - name: DB_PASSWORD
+    description: >-
+      Password for the MongoDB root user. It is embedded in database-uri, so use
+      URL-safe characters only (letters, digits, - . _ ~).
+    required: true
+objects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${NAME}-${ZONE}-database
+      labels:
+        app: ${NAME}-${ZONE}
+    # Read by common/openshift.database.yml (MONGO_INITDB_*) and the backend.
+    # MongoDB creates this user as root in the "admin" db on first start only,
+    # so changing the password here later does not change it in the database.
+    stringData:
+      database-name: ${MONGO_DATABASE}
+      database-password: ${DB_PASSWORD}
+      database-user: ${NAME}
+      database-uri: mongodb://${NAME}:${DB_PASSWORD}@${NAME}-${ZONE}-database:27017/${MONGO_DATABASE}?authSource=admin
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: ${NAME}-${ZONE}-frontend-ingress
+      labels:
+        app: ${NAME}-${ZONE}
+    spec:
+      podSelector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-frontend
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+      policyTypes:
+        - Ingress
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: ${NAME}-${ZONE}-backend-ingress
+      labels:
+        app: ${NAME}-${ZONE}
+    spec:
+      podSelector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-backend
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-frontend
+            # NotifyBC calls its own API through the backend Service to send large
+            # broadcasts in chunks (more than broadcastSubscriberChunkSize subscribers)
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-backend
+      policyTypes:
+        - Ingress
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: ${NAME}-${ZONE}-database-ingress
+      labels:
+        app: ${NAME}-${ZONE}
+    spec:
+      podSelector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-database
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-backend
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-backend-cron
+          ports:
+            - protocol: TCP
+              port: 27017
+      policyTypes:
+        - Ingress

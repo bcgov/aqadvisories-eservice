@@ -1,0 +1,29 @@
+{
+  "name": "rss",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "serviceName": {
+      "type": "string",
+      "required": true
+    },
+    "items": {
+      "type": [
+        {
+          "_notifyBCLastPoll": "date",
+          "pubDate": "date"
+        }
+      ]
+    },
+    "lastPoll": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,358 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+  - name: NAME
+    description: Module name
+    required: true
+  - name: COMPONENT
+    description: Component name
+    value: backend
+  - name: ZONE
+    description: Deployment zone, e.g. pr-### or prod
+    required: true
+  - name: IMAGE_TAG
+    description: Image tag to use
+    required: true
+  - name: REGISTRY
+    description: Container registry to import from
+    value: ghcr.io
+  - name: ORG_NAME
+    description: Organization name
+    value: bcgov
+  - name: DOMAIN
+    value: apps.silver.devops.gov.bc.ca
+  - name: MIN_REPLICAS
+    description: The minimum amount of replicas for the horizontal pod autoscaler.
+    value: "2"
+  - name: MAX_REPLICAS
+    description: The maximum amount of replicas for the horizontal pod autoscaler.
+    value: "5"
+  - name: CPU_REQUEST
+    value: "100m"
+  - name: MEMORY_REQUEST
+    value: "128Mi"
+  - name: MEMORY_LIMIT
+    description: Memory limit for the container (bounds the pod's working set).
+    value: "4Gi"
+objects:
+  # NotifyBC runs in two roles:
+  #  - web (NOTIFYBC_NODE_ROLE=slave): serves the API; scaled by the HPA below.
+  #  - cron (any other role): a singleton that runs the cron jobs, db schema
+  #    auto-update and generates the RSA key pair. Web pods wait for that key
+  #    before listening, so the cron pod must be running for web pods to start.
+  # NOTIFYBC_WORKER_PROCESS_COUNT=1 disables NotifyBC's in-pod cluster mode, which
+  # would otherwise fork one cron worker per pod; scaling is done with pods instead.
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      selector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-${COMPONENT}
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 1
+          maxSurge: 1
+      template:
+        metadata:
+          labels:
+            app: ${NAME}-${ZONE}
+            deployment: ${NAME}-${ZONE}-${COMPONENT}
+        spec:
+          terminationGracePeriodSeconds: 30
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        deployment: ${NAME}-${ZONE}-${COMPONENT}
+                    topologyKey: kubernetes.io/hostname
+          initContainers:
+            - name: wait-for-db
+              image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
+              command:
+                - node
+                - -e
+                - |
+                  const net = require('net')
+                  const host = '${NAME}-${ZONE}-database'
+                  // ~5 min: a new environment first provisions the database volume
+                  const maxRetries = 60
+                  let attempt = 1
+                  console.log('Waiting for database to be reachable...')
+                  ;(function tryConnect() {
+                    const socket = net.connect(27017, host, () => {
+                      console.log('Database is UP!')
+                      socket.end()
+                      process.exit(0)
+                    })
+                    socket.setTimeout(3000, () => socket.destroy(new Error('timeout')))
+                    socket.on('error', () => {
+                      if (attempt >= maxRetries) {
+                        console.error('ERROR: Database ' + host + ':27017 is not reachable after ' + maxRetries + ' attempts.')
+                        process.exit(1)
+                      }
+                      console.log('Database not ready (attempt ' + attempt + '/' + maxRetries + '), sleeping...')
+                      attempt++
+                      setTimeout(tryConnect, 5000)
+                    })
+                  })()
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+                seccompProfile:
+                  type: RuntimeDefault
+          containers:
+            - name: ${NAME}
+              image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              # run node directly: "npm start" needs a writable HOME and does not forward SIGTERM
+              command: ["node", "."]
+              ports:
+                - name: http
+                  containerPort: 3000
+              env:
+                - name: NODE_ENV
+                  value: production
+                - name: NOTIFYBC_NODE_ROLE
+                  value: slave
+                - name: NOTIFYBC_WORKER_PROCESS_COUNT
+                  value: "1"
+                # read by server/datasources.production.js
+                - name: MONGODB_URI
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-uri
+                - name: HOME
+                  value: /tmp
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  memory: ${MEMORY_LIMIT}
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+                seccompProfile:
+                  type: RuntimeDefault
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp
+              # "/" renders the web console and needs no auth; the API needs admin access.
+              # Web pods only listen once the cron pod has created the RSA key.
+              startupProbe:
+                httpGet:
+                  path: /
+                  port: http
+                periodSeconds: 5
+                failureThreshold: 60
+              readinessProbe:
+                httpGet:
+                  path: /
+                  port: http
+                periodSeconds: 5
+                failureThreshold: 3
+              livenessProbe:
+                httpGet:
+                  path: /
+                  port: http
+                periodSeconds: 10
+                failureThreshold: 3
+              lifecycle:
+                preStop:
+                  exec:
+                    command: ["sleep", "10"]
+          volumes:
+            - name: tmp
+              emptyDir:
+                medium: Memory
+                sizeLimit: 256Mi
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}-cron
+    spec:
+      # singleton: Recreate so an old and a new cron pod never run the jobs at the same time
+      replicas: 1
+      selector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-${COMPONENT}-cron
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          labels:
+            app: ${NAME}-${ZONE}
+            deployment: ${NAME}-${ZONE}-${COMPONENT}-cron
+        spec:
+          terminationGracePeriodSeconds: 30
+          initContainers:
+            - name: wait-for-db
+              image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
+              command:
+                - node
+                - -e
+                - |
+                  const net = require('net')
+                  const host = '${NAME}-${ZONE}-database'
+                  // ~5 min: a new environment first provisions the database volume
+                  const maxRetries = 60
+                  let attempt = 1
+                  console.log('Waiting for database to be reachable...')
+                  ;(function tryConnect() {
+                    const socket = net.connect(27017, host, () => {
+                      console.log('Database is UP!')
+                      socket.end()
+                      process.exit(0)
+                    })
+                    socket.setTimeout(3000, () => socket.destroy(new Error('timeout')))
+                    socket.on('error', () => {
+                      if (attempt >= maxRetries) {
+                        console.error('ERROR: Database ' + host + ':27017 is not reachable after ' + maxRetries + ' attempts.')
+                        process.exit(1)
+                      }
+                      console.log('Database not ready (attempt ' + attempt + '/' + maxRetries + '), sleeping...')
+                      attempt++
+                      setTimeout(tryConnect, 5000)
+                    })
+                  })()
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+                seccompProfile:
+                  type: RuntimeDefault
+          containers:
+            - name: ${NAME}
+              image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              command: ["node", "."]
+              ports:
+                - name: http
+                  containerPort: 3000
+              env:
+                - name: NODE_ENV
+                  value: production
+                - name: NOTIFYBC_NODE_ROLE
+                  value: master
+                - name: NOTIFYBC_WORKER_PROCESS_COUNT
+                  value: "1"
+                - name: MONGODB_URI
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-uri
+                - name: HOME
+                  value: /tmp
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  memory: ${MEMORY_LIMIT}
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+                seccompProfile:
+                  type: RuntimeDefault
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp
+              startupProbe:
+                httpGet:
+                  path: /
+                  port: http
+                periodSeconds: 5
+                failureThreshold: 30
+              livenessProbe:
+                httpGet:
+                  path: /
+                  port: http
+                periodSeconds: 10
+                failureThreshold: 3
+          volumes:
+            - name: tmp
+              emptyDir:
+                medium: Memory
+                sizeLimit: 256Mi
+  # routes to the web pods only; the cron pod receives no traffic
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      ports:
+        - name: http
+          port: 80
+          targetPort: 3000
+      selector:
+        deployment: ${NAME}-${ZONE}-${COMPONENT}
+  - apiVersion: autoscaling/v2
+    kind: HorizontalPodAutoscaler
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: ${NAME}-${ZONE}-${COMPONENT}
+      minReplicas: ${{MIN_REPLICAS}}
+      maxReplicas: ${{MAX_REPLICAS}}
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 80
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 30
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 60
+          selectPolicy: Max
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Percent
+              value: 50
+              periodSeconds: 60
+          selectPolicy: Max
+  - apiVersion: policy/v1
+    kind: PodDisruptionBudget
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-${COMPONENT}

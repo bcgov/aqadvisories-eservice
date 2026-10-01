@@ -1,0 +1,25 @@
+x-sender: no_reply@invlid.local
+x-receiver: test@win2012
+Received: from localhost ([xxx.xx.xx.xxx]) by win2012 with Microsoft SMTPSVC(8.0.9200.16384);
+	 Wed, 16 Aug 2017 10:07:44 -0700
+Content-Type: text/html
+From: no_reply@invlid.local
+To: test@win2012
+Subject: Despite unpopularity, Victoria fadsasdfasd
+Message-ID: <ac9e6821-1a72-6b9e-16ed-53fb10f73dba@invlid.local>
+X-Mailer: nodemailer (2.7.2; +https://nodemailer.com/; SMTP
+ (pool)/2.8.2[client:2.12.0])
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Aug 2017 17:07:40 +0000
+MIME-Version: 1.0
+Return-Path: no_reply@invlid.local
+X-OriginalArrivalTime: 16 Aug 2017 17:07:44.0566 (UTC) FILETIME=[2D680D60:01D316B2]
+
+Lorem ipsum dolor sit amet, facete debitis dolores nam eu, nemore =
+voluptatum interesset at mel. Duo et legimus vituperata, mei adipisci =
+prodesset conclusionemque an. Mnesarchum adversarium eam eu, ad postea =
+labore vituperatoribus eam. Dicam convenire vis ei, id vis quod luptatum. =
+Expetenda consequat at quo, mel inermis volumus intellegam ut, mei vocibus =
+inciderint ea. At error viris has.<p><a href=3D'http://foo.com'>link</a><a =
+href=3D'http://localhost:3000/api/subscriptions/597fc6b8559473fc2b592544/un=
+subscribe?unsubscriptionCode=3D88453'>nsubscription</a></p>

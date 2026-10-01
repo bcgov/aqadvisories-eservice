@@ -1,0 +1,8 @@
+{
+  "realm": "wtzxgrm1",
+  "auth-server-url": "https://test.oidc.gov.bc.ca/auth",
+  "ssl-required": "external",
+  "resource": "air-qss",
+  "public-client": true,
+  "confidential-port": 0
+}

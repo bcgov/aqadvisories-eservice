@@ -1,0 +1,12 @@
+{
+  "loopback-component-explorer": {
+    "mountPath": "/explorer",
+    "uiDirs": "node_modules/iframe-resizer/js",
+    "apiInfo": {
+      "title": "NotifyBC",
+      "description": "A versatile notification API server",
+      "license": "Apache 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  }
+}
