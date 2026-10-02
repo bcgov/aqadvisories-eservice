@@ -1,0 +1,21 @@
+{
+  "name": "notify-bc",
+  "version": "0.0.1",
+  "description": "A versatile notification API server",
+  "main": "index.js",
+  "authors": {
+    "name": "Fred Wen",
+    "email": "fred.wen@gov.bc.ca"
+  },
+  "repository": "https://github.com/bcgov/NotifyBC",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@dovyp/vuepress-plugin-clipboard-copy": "^1.0.0-alpha.7",
+    "axios": "^0.21.0",
+    "vuepress": "^1.5.3"
+  }
+}

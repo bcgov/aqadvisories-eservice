@@ -1,0 +1,68 @@
+name: Reusable Tests
+
+on:
+  workflow_call:
+    inputs:
+      ### Required
+      target:
+        description: PR number, test or prod
+        default: ${{ github.event.number }}
+        type: string
+
+env:
+  DOMAIN: apps.silver.devops.gov.bc.ca
+  PREFIX: ${{ github.event.repository.name }}-${{ inputs.target }}
+
+permissions: {}
+
+jobs:
+  integration-tests:
+    name: Integration
+    runs-on: ubuntu-24.04
+    # the readiness wait below alone can take up to ~10 min
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        name: Setup Node
+        with:
+          node-version: 24
+      - id: cache-npm
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-cache-node-modules-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      # The backend (NotifyBC) has no public route; it is reached through the frontend.
+      # An unknown subscription returns 404 from NotifyBC, or 500 while it is unreachable.
+      - name: Wait for frontend and backend
+        env:
+          BASE_URL: https://${{ env.PREFIX }}.${{ env.DOMAIN }}
+        run: |
+          probe="${BASE_URL}/unsubscribe/000000000000000000000000/123"
+          echo "Waiting for ${BASE_URL}/ping and the backend behind it..."
+          for i in {1..30}; do
+            ping=$(curl -k --connect-timeout 5 --max-time 5 -s -o /dev/null -w "%{http_code}" "${BASE_URL}/ping" || true)
+            backend=$(curl -k --connect-timeout 5 --max-time 5 -s -o /dev/null -w "%{http_code}" -X DELETE "$probe" || true)
+            if [ "$ping" -eq 200 ] && [ "$backend" -eq 404 ]; then
+              echo "Frontend and backend are up!"
+              exit 0
+            fi
+            echo "Not ready (frontend HTTP $ping, backend probe HTTP $backend), retrying in 10s... ($i/30)"
+            sleep 10
+          done
+          echo "ERROR: Frontend/backend did not become ready in time."
+          exit 1
+
+      - name: Run Integration Tests
+        env:
+          API_NAME: aqadvisories
+          BASE_URL: https://${{ env.PREFIX }}.${{ env.DOMAIN }}
+        run: |
+          cd common/tests/integration
+          npm ci
+          node src/main.js

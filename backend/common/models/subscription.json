@@ -1,0 +1,252 @@
+{
+  "name": "subscription",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "serviceName_state_channel": {
+      "keys": {
+        "serviceName": 1,
+        "state": 1,
+        "channel": 1
+      }
+    },
+    "created": {
+      "keys": {
+        "created": 1
+      }
+    },
+    "$**_text": {
+      "keys": {
+        "$**": "text"
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true,
+    "replaceOnPUT": true
+  },
+  "mixins": {
+    "Common": {}
+  },
+  "properties": {
+    "serviceName": {
+      "type": "string",
+      "required": true
+    },
+    "channel": {
+      "type": "string",
+      "required": true,
+      "default": "email"
+    },
+    "userChannelId": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "required": true,
+      "default": "unconfirmed"
+    },
+    "confirmationRequest": {
+      "type": "object",
+      "description": "Contains email template, a boolean field to indicate whether to send confirmation message, confirmation code regex or encrypted confirmation code"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "broadcastPushNotificationFilter": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date",
+      "default": "$now"
+    },
+    "updated": {
+      "type": "date",
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "prototype.deleteItemById": {
+      "accepts": [
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        },
+        {
+          "arg": "unsubscriptionCode",
+          "required": false,
+          "description": "unsubscription code, may be required for unauthenticated user request",
+          "type": "string",
+          "http": {
+            "source": "query"
+          }
+        },
+        {
+          "arg": "additionalServices",
+          "required": false,
+          "description": "additonal services to unsubscribe. Can be an array or a string. For string, if value is _all, then unsubscribe all subscribed services.",
+          "type": "any",
+          "http": {
+            "source": "query"
+          }
+        },
+        {
+          "arg": "userChannelId",
+          "required": false,
+          "description": "optional. Used in validation along with unsubscriptionCode if populated. Custom smtp server created for unsubscription by email should populate this field.",
+          "type": "string",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "message",
+          "type": "any",
+          "root": true,
+          "description": "operation outcome"
+        }
+      ],
+      "description": "unsubscribe by id",
+      "http": [
+        {
+          "path": "/",
+          "verb": "delete"
+        },
+        {
+          "path": "/unsubscribe",
+          "verb": "get"
+        }
+      ]
+    },
+    "prototype.unDeleteItemById": {
+      "accepts": [
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        },
+        {
+          "arg": "unsubscriptionCode",
+          "required": false,
+          "description": "unsubscription code, may be required for unauthenticated user request",
+          "type": "string",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "message",
+          "type": "any",
+          "root": true,
+          "description": "operation outcome"
+        }
+      ],
+      "description": "revert anonymous unsubscription by id",
+      "http": [
+        {
+          "path": "/unsubscribe/undo",
+          "verb": "get"
+        }
+      ]
+    },
+    "prototype.verify": {
+      "accepts": [
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        },
+        {
+          "arg": "confirmationCode",
+          "type": "string",
+          "required": true,
+          "description": "confirmation code",
+          "http": {
+            "source": "query"
+          }
+        },
+        {
+          "arg": "replace",
+          "type": "boolean",
+          "required": false,
+          "description": "whether or not replacing existing subscriptions",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "string",
+          "root": true,
+          "description": "result"
+        }
+      ],
+      "description": "verify confirmation code",
+      "http": [
+        {
+          "path": "/verify",
+          "verb": "get"
+        }
+      ]
+    },
+    "getSubscribedServiceNames": {
+      "accepts": [
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": ["string"],
+          "root": true,
+          "description": "operation outcome"
+        }
+      ],
+      "description": "unique list of subscribed service names",
+      "http": [
+        {
+          "path": "/services",
+          "verb": "get"
+        }
+      ]
+    },
+    "handleSwiftUnsubscription": {
+      "accepts": [
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "any",
+          "root": true,
+          "description": "operation outcome"
+        }
+      ],
+      "description": "handle unsubscription from Swift keyword redirect",
+      "http": [
+        {
+          "path": "/swift",
+          "verb": "post"
+        }
+      ]
+    }
+  }
+}
