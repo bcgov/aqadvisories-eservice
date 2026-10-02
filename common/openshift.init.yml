@@ -10,11 +10,19 @@ parameters:
   - name: ZONE
     description: Deployment zone, e.g. pr-### or prod
     required: true
+  - name: DB_USER
+    description: >-
+      MongoDB user the backend connects as. On a new (empty) volume it is created as
+      root; with an existing volume it must be a user that already exists in that data.
+    required: true
   - name: DB_PASSWORD
     description: >-
-      Password for the MongoDB root user. It is embedded in database-uri, so use
+      Password for DB_USER. It is embedded in database-uri, so use
       URL-safe characters only (letters, digits, - . _ ~).
     required: true
+  - name: DB_AUTH_SOURCE
+    description: Database that DB_USER is defined in (root users live in "admin").
+    value: admin
 objects:
   - apiVersion: v1
     kind: Secret
@@ -28,8 +36,8 @@ objects:
     stringData:
       database-name: ${MONGO_DATABASE}
       database-password: ${DB_PASSWORD}
-      database-user: ${NAME}
-      database-uri: mongodb://${NAME}:${DB_PASSWORD}@${NAME}-${ZONE}-database:27017/${MONGO_DATABASE}?authSource=admin
+      database-user: ${DB_USER}
+      database-uri: mongodb://${DB_USER}:${DB_PASSWORD}@${NAME}-${ZONE}-database:27017/${MONGO_DATABASE}?authSource=${DB_AUTH_SOURCE}
   - apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:

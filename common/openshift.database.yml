@@ -15,9 +15,12 @@ parameters:
       MongoDB version tag for the Docker Hub mongo image. The backend uses
       loopback-connector-mongodb 5 (mongodb driver 3.6), which supports MongoDB up to 4.4.
     value: "4.4"
-  - name: DB_PVC_SIZE
-    description: Volume space available for data
-    value: 1Gi
+  - name: DB_PVC_NAME
+    description: >-
+      Existing PersistentVolumeClaim holding the MongoDB data. Not created by this
+      template: the deploy workflow creates <NAME>-<ZONE>-database when it is missing,
+      or uses an existing claim named by the DB_PVC_NAME GitHub variable.
+    required: true
   - name: MEMORY_LIMIT
     description: Memory limit for the database container (bounds the pod's working set).
     value: 4Gi
@@ -137,28 +140,17 @@ objects:
                 periodSeconds: 15
                 timeoutSeconds: 10
           volumes:
+            # A standalone claim (not a volumeClaimTemplate), so an environment can reuse
+            # an existing volume and its data. The claim is never created, resized or
+            # deleted here. A major MongoDB upgrade is a deliberate migration (one major
+            # version at a time, setting featureCompatibilityVersion), never a volume swap.
+            - name: data
+              persistentVolumeClaim:
+                claimName: ${DB_PVC_NAME}
             - name: configdb
               emptyDir: {}
             - name: tmp
               emptyDir: {}
-      # Per-pod PVC managed by the StatefulSet. The claim-template name is fixed
-      # ("data"): volumeClaimTemplates are immutable once the StatefulSet exists,
-      # so the name must not embed MONGO_VERSION. A major MongoDB upgrade is a
-      # deliberate migration (one major version at a time, setting
-      # featureCompatibilityVersion), never an automatic volume swap.
-      # netapp-block-standard (RWO block) suits a single-writer DB and supports resize-up only.
-      volumeClaimTemplates:
-        - metadata:
-            labels:
-              app: ${NAME}-${ZONE}
-            name: data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            storageClassName: netapp-block-standard
-            resources:
-              requests:
-                storage: ${DB_PVC_SIZE}
   # ClusterIP Service: the backend connects here via ${NAME}-${ZONE}-${COMPONENT}:27017, e.g.
   # mongodb://<database-user>:<database-password>@${NAME}-${ZONE}-${COMPONENT}:27017/<database-name>?authSource=admin
   - apiVersion: v1
