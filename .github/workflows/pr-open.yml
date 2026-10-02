@@ -40,6 +40,7 @@ jobs:
     needs: [builds]
     uses: ./.github/workflows/reusable-deploy.yml
     secrets:
+      db_admin_password: ${{ secrets.db_admin_password }}
       db_password: ${{ secrets.db_password }}
       oc_namespace: ${{ secrets.oc_namespace }}
       oc_token: ${{ secrets.oc_token }}

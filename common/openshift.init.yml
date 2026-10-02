@@ -12,17 +12,22 @@ parameters:
     required: true
   - name: DB_USER
     description: >-
-      MongoDB user the backend connects as. On a new (empty) volume it is created as
-      root; with an existing volume it must be a user that already exists in that data.
+      MongoDB user the backend connects as. On a new (empty) volume it is created in
+      MONGO_DATABASE; with an existing volume it must be a user that already exists in that data.
     required: true
   - name: DB_PASSWORD
     description: >-
       Password for DB_USER. It is embedded in database-uri, so use
       URL-safe characters only (letters, digits, - . _ ~).
     required: true
+  - name: DB_ADMIN_PASSWORD
+    description: Password for the MongoDB "admin" user (MONGODB_ADMIN_PASSWORD). Not used by the backend.
+    required: true
   - name: DB_AUTH_SOURCE
-    description: Database that DB_USER is defined in (root users live in "admin").
-    value: admin
+    description: >-
+      Database that DB_USER is defined in. The Red Hat image creates it in MONGO_DATABASE,
+      so keep the two equal unless an existing volume defines the user elsewhere.
+    value: app
 objects:
   - apiVersion: v1
     kind: Secret
@@ -30,10 +35,9 @@ objects:
       name: ${NAME}-${ZONE}-database
       labels:
         app: ${NAME}-${ZONE}
-    # Read by common/openshift.database.yml (MONGO_INITDB_*) and the backend.
-    # MongoDB creates this user as root in the "admin" db on first start only,
-    # so changing the password here later does not change it in the database.
+    # Read by common/openshift.database.yml (MONGODB_*) and the backend.
     stringData:
+      database-admin-password: ${DB_ADMIN_PASSWORD}
       database-name: ${MONGO_DATABASE}
       database-password: ${DB_PASSWORD}
       database-user: ${DB_USER}

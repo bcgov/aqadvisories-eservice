@@ -10,11 +10,12 @@ parameters:
   - name: ZONE
     description: Deployment zone, e.g. pr-### or prod
     required: true
-  - name: MONGO_VERSION
+  - name: MONGO_IMAGE
     description: >-
-      MongoDB version tag for the Docker Hub mongo image. The backend uses
-      loopback-connector-mongodb 5 (mongodb driver 3.6), which supports MongoDB up to 4.4.
-    value: "4.4"
+      Red Hat MongoDB image (registry.redhat.io/rhscl/mongodb-36-rhel7:1), pulled from the
+      cluster's shared "openshift" namespace and pinned to the digest the existing mongodb2
+      DeploymentConfig runs. The backend uses loopback-connector-mongodb 5 (mongodb driver 3.6).
+    value: image-registry.openshift-image-registry.svc:5000/openshift/mongodb@sha256:8dc9932eabd30f2ee4d0b882500c65b48f3c2fbbd85bfd51d0d18410af404a39
   - name: DB_PVC_NAME
     description: >-
       Existing PersistentVolumeClaim holding the MongoDB data. Not created by this
@@ -23,12 +24,7 @@ parameters:
     required: true
   - name: MEMORY_LIMIT
     description: Memory limit for the database container (bounds the pod's working set).
-    value: 4Gi
-  - name: WT_CACHE_GB
-    description: >-
-      WiredTiger cache size in GB. Set explicitly because older mongod versions size the
-      cache from node RAM rather than the container limit; keep it well under MEMORY_LIMIT.
-    value: "1"
+    value: 1Gi
 
 objects:
   - apiVersion: apps/v1
@@ -56,54 +52,49 @@ objects:
           terminationGracePeriodSeconds: 60
           containers:
             - name: ${NAME}-${ZONE}
-              image: mongo:${MONGO_VERSION}
-              imagePullPolicy: Always
-              args:
-                - --bind_ip_all
-                - --wiredTigerCacheSizeGB
-                - ${WT_CACHE_GB}
+              image: ${MONGO_IMAGE}
+              imagePullPolicy: IfNotPresent
+              # No command override: the image's run-mongod creates the admin user and
+              # MONGODB_USER (in MONGODB_DATABASE) on an empty volume, then runs mongod --auth.
+              # mongodb2 runs "mongod --auth" directly, which only works on a volume whose
+              # users already exist.
               ports:
                 - name: mongodb
                   containerPort: 27017
-              # Reuses the Secret from common/openshift.init.yml. The entrypoint creates
-              # the root user (in the "admin" db) on first start only, when /data/db is
-              # empty, so the backend connects with ?authSource=admin.
+              # Reuses the Secret from common/openshift.init.yml. MONGODB_USER lives in
+              # MONGODB_DATABASE, so the backend connects with ?authSource=<database-name>.
               env:
-                - name: MONGO_INITDB_DATABASE
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}-${ZONE}-database
-                      key: database-name
-                - name: MONGO_INITDB_ROOT_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}-${ZONE}-database
-                      key: database-password
-                - name: MONGO_INITDB_ROOT_USERNAME
+                - name: MONGODB_USER
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}-${ZONE}-database
                       key: database-user
-                # OpenShift's random UID has no writable home; the mongo shell writes history there
-                - name: HOME
-                  value: /tmp
+                - name: MONGODB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-password
+                - name: MONGODB_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-admin-password
+                - name: MONGODB_DATABASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-database
+                      key: database-name
               volumeMounts:
                 - name: data
-                  mountPath: /data/db
-                - name: configdb
-                  mountPath: /data/configdb
-                - name: tmp
-                  mountPath: /tmp
+                  mountPath: /var/lib/mongodb/data
               resources:
                 requests:
                   cpu: 50m
-                  memory: 256Mi
+                  memory: ${MEMORY_LIMIT}
                 limits:
                   memory: ${MEMORY_LIMIT}
-              # restricted-v2 SCC hardening. The image's VOLUME paths (/data/db,
-              # /data/configdb) are owned by uid 999, so both are mounted from
-              # volumes that OpenShift's fsGroup makes writable for the assigned UID.
-              # OpenShift assigns the UID/GID from the namespace range; do not hard-code it.
+              # restricted-v2 SCC hardening. The image supports OpenShift's random UID;
+              # fsGroup makes the volume writable. Do not hard-code the UID/GID.
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsNonRoot: true
@@ -111,34 +102,26 @@ objects:
                   drop: ["ALL"]
                 seccompProfile:
                   type: RuntimeDefault
-              # "ping" needs no authentication. mongo <= 5 ships the legacy "mongo"
-              # shell, mongo >= 6 only "mongosh", so use whichever exists.
               readinessProbe:
                 exec:
                   command:
-                    - sh
+                    - /bin/sh
+                    - -i
                     - -c
-                    - >-
-                      if command -v mongosh >/dev/null; then sh=mongosh; else sh=mongo; fi;
-                      $sh --quiet --eval 'quit(db.adminCommand("ping").ok ? 0 : 1)'
+                    - mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval="quit()"
                 successThreshold: 1
-                failureThreshold: 5
-                initialDelaySeconds: 15
-                periodSeconds: 15
-                timeoutSeconds: 10
+                failureThreshold: 3
+                initialDelaySeconds: 3
+                periodSeconds: 10
+                timeoutSeconds: 1
               livenessProbe:
-                exec:
-                  command:
-                    - sh
-                    - -c
-                    - >-
-                      if command -v mongosh >/dev/null; then sh=mongosh; else sh=mongo; fi;
-                      $sh --quiet --eval 'quit(db.adminCommand("ping").ok ? 0 : 1)'
+                tcpSocket:
+                  port: 27017
                 successThreshold: 1
-                failureThreshold: 5
+                failureThreshold: 3
                 initialDelaySeconds: 30
-                periodSeconds: 15
-                timeoutSeconds: 10
+                periodSeconds: 10
+                timeoutSeconds: 1
           volumes:
             # A standalone claim (not a volumeClaimTemplate), so an environment can reuse
             # an existing volume and its data. The claim is never created, resized or
@@ -147,12 +130,8 @@ objects:
             - name: data
               persistentVolumeClaim:
                 claimName: ${DB_PVC_NAME}
-            - name: configdb
-              emptyDir: {}
-            - name: tmp
-              emptyDir: {}
   # ClusterIP Service: the backend connects here via ${NAME}-${ZONE}-${COMPONENT}:27017, e.g.
-  # mongodb://<database-user>:<database-password>@${NAME}-${ZONE}-${COMPONENT}:27017/<database-name>?authSource=admin
+  # mongodb://<database-user>:<database-password>@${NAME}-${ZONE}-${COMPONENT}:27017/<database-name>?authSource=<database-name>
   - apiVersion: v1
     kind: Service
     metadata:

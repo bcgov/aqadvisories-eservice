@@ -103,12 +103,15 @@ Here is the arrangement of secrets, variables and environments for this reposito
 | none        | `secrets.oc_namespace` | PR namespace (repository-level)                 |
 | none        | `secrets.oc_token`     | PR service token (repository-level)             |
 | none        | `secrets.db_password`  | PR database password (repository-level)         |
+| none        | `secrets.db_admin_password` | PR database admin password (repository-level) |
 | test        | `secrets.oc_namespace` | TEST namespace (environment-level)              |
 | test        | `secrets.oc_token`     | TEST service token (environment-level)          |
 | test        | `secrets.db_password`  | TEST database password (environment-level)       |
+| test        | `secrets.db_admin_password` | TEST database admin password (environment-level) |
 | prod        | `secrets.oc_namespace` | PROD namespace (environment-level)              |
 | prod        | `secrets.oc_token`     | PROD service token (environment-level)          |
 | prod        | `secrets.db_password`  | PROD database password (environment-level)       |
+| prod        | `secrets.db_admin_password` | PROD database admin password (environment-level) |
 | prod (opt)  | `vars.ROUTE_HOST`      | Vanity URL hostname (repository or environment) |
 | prod (opt)  | `secrets.TLS_CERTIFICATE` | Leaf certificate PEM for vanity URL          |
 | prod (opt)  | `secrets.TLS_PRIVATE_KEY` | Private key PEM for vanity URL               |
@@ -171,11 +174,17 @@ BC Government employees can request SonarCloud projects by creating an [issue](h
 
 **db_password**
 
-The password used for the PostgreSQL database. This **MUST** be a strong, unique password and **DISTINCT** across all environments (pr, test, prod). Reusing the same password in development/PRs as in production is a critical security risk.
+The password the backend uses for the MongoDB database user. Use URL-safe characters only (letters, digits, `- . _ ~`), since it is embedded in the connection string. This **MUST** be a strong, unique password and **DISTINCT** across all environments (pr, test, prod). Reusing the same password in development/PRs as in production is a critical security risk.
 
 * Reference: `${{ secrets.db_password }}`
 * Minimum 12 characters recommended for production.
 * **Pro-tip**: Use a password manager (like BitWarden, 1Password, or KeePass) to generate and store long, random, and unique passwords for each environment. Avoid simple, guessable passwords like `password` or `secure`.
+
+**db_admin_password**
+
+The password for MongoDB's `admin` user (`MONGODB_ADMIN_PASSWORD`), created alongside the database user on an empty volume. The backend does not use it. When reusing an existing volume, it must match that volume's admin password. Same strength and uniqueness rules as `db_password`.
+
+* Reference: `${{ secrets.db_admin_password }}`
 
 **`SYSDIG_API_TOKEN`**
 
