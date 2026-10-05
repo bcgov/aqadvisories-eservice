@@ -167,4 +167,5 @@ jobs:
             ${{ matrix.parameters }}
             ${{ matrix.name == 'database' && format('-p DB_PVC_NAME="{0}"', vars.DB_PVC_NAME || format('{0}-{1}-database', github.event.repository.name, inputs.target)) || '' }}
             ${{ matrix.name == 'database' && vars.MONGO_IMAGE && format('-p MONGO_IMAGE="{0}"', vars.MONGO_IMAGE) || '' }}
+            ${{ matrix.name == 'backend' && vars.INBOUND_SMTP_DOMAIN && format('-p INBOUND_SMTP_DOMAIN="{0}"', vars.INBOUND_SMTP_DOMAIN) || '' }}
           triggers: ${{ inputs.triggers }}

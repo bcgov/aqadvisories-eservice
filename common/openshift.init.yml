@@ -81,6 +81,15 @@ objects:
                 matchLabels:
                   app: ${NAME}-${ZONE}
                   deployment: ${NAME}-${ZONE}-backend
+        # Inbound SMTP from the router (passthrough SMTP Route); the API on 3000 stays
+        # reachable only through the frontend
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+          ports:
+            - protocol: TCP
+              port: 2525
       policyTypes:
         - Ingress
   - apiVersion: networking.k8s.io/v1

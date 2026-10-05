@@ -23,17 +23,28 @@ parameters:
     value: apps.silver.devops.gov.bc.ca
   - name: MIN_REPLICAS
     description: The minimum amount of replicas for the horizontal pod autoscaler.
-    value: "2"
+    value: "1"
   - name: MAX_REPLICAS
     description: The maximum amount of replicas for the horizontal pod autoscaler.
-    value: "5"
-  - name: CPU_REQUEST
+    value: "1"
+  - name: CPU_REQUEST_SLAVE
+    description: CPU request for the web pods (NOTIFYBC_NODE_ROLE=slave).
     value: "100m"
+  - name: CPU_REQUEST_MASTER
+    description: CPU request for the cron pod (NOTIFYBC_NODE_ROLE=master).
+    value: "200m"
   - name: MEMORY_REQUEST
-    value: "128Mi"
+    value: "512Mi"
   - name: MEMORY_LIMIT
     description: Memory limit for the container (bounds the pod's working set).
-    value: "4Gi"
+    value: "1Gi"
+  - name: INBOUND_SMTP_DOMAIN
+    description: >-
+      Email domain whose MX reaches NotifyBC's inbound SMTP server (list-unsubscribe by
+      email and bounce handling), via a TCP proxy to the SMTP Route over TLS. Empty
+      disables it. When set, outgoing emails use it for the List-Unsubscribe header and
+      envelope sender, so only set it once that mail routing works.
+    value: ""
 objects:
   # NotifyBC runs in two roles:
   #  - web (NOTIFYBC_NODE_ROLE=slave): serves the API; scaled by the HPA below.
@@ -55,7 +66,8 @@ objects:
       strategy:
         type: RollingUpdate
         rollingUpdate:
-          maxUnavailable: 1
+          # 0 so a single replica keeps serving until its replacement is ready
+          maxUnavailable: 0
           maxSurge: 1
       template:
         metadata:
@@ -120,6 +132,8 @@ objects:
               ports:
                 - name: http
                   containerPort: 3000
+                - name: smtp
+                  containerPort: 2525
               env:
                 - name: NODE_ENV
                   value: production
@@ -127,6 +141,9 @@ objects:
                   value: slave
                 - name: NOTIFYBC_WORKER_PROCESS_COUNT
                   value: "1"
+                # read by server/config.production.js; empty disables inbound SMTP
+                - name: INBOUND_SMTP_DOMAIN
+                  value: ${INBOUND_SMTP_DOMAIN}
                 # read by server/datasources.production.js
                 - name: MONGODB_URI
                   valueFrom:
@@ -137,7 +154,7 @@ objects:
                   value: /tmp
               resources:
                 requests:
-                  cpu: ${CPU_REQUEST}
+                  cpu: ${CPU_REQUEST_SLAVE}
                   memory: ${MEMORY_REQUEST}
                 limits:
                   memory: ${MEMORY_LIMIT}
@@ -255,6 +272,9 @@ objects:
                   value: master
                 - name: NOTIFYBC_WORKER_PROCESS_COUNT
                   value: "1"
+                # emails sent by the cron jobs use the same List-Unsubscribe/bounce domain
+                - name: INBOUND_SMTP_DOMAIN
+                  value: ${INBOUND_SMTP_DOMAIN}
                 - name: MONGODB_URI
                   valueFrom:
                     secretKeyRef:
@@ -264,7 +284,7 @@ objects:
                   value: /tmp
               resources:
                 requests:
-                  cpu: ${CPU_REQUEST}
+                  cpu: ${CPU_REQUEST_MASTER}
                   memory: ${MEMORY_REQUEST}
                 limits:
                   memory: ${MEMORY_LIMIT}
@@ -308,8 +328,32 @@ objects:
         - name: http
           port: 80
           targetPort: 3000
+        - name: smtp
+          port: 2525
+          targetPort: 2525
       selector:
         deployment: ${NAME}-${ZONE}-${COMPONENT}
+  # Inbound SMTP: OpenShift only exposes 80/443, so a TCP proxy listening on port 25
+  # for INBOUND_SMTP_DOMAIN connects to this host on 443 over TLS (e.g. nginx stream
+  # with proxy_ssl on, proxy_ssl_server_name on, proxy_ssl_verify off); see
+  # docs/docs/config/inboundSmtpServer.md. Nothing listens on 2525 while
+  # INBOUND_SMTP_DOMAIN is empty.
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}-smtp
+    spec:
+      host: ${NAME}-${ZONE}-smtp.${DOMAIN}
+      port:
+        targetPort: smtp
+      to:
+        kind: Service
+        name: ${NAME}-${ZONE}-${COMPONENT}
+        weight: 100
+      tls:
+        termination: passthrough
   - apiVersion: autoscaling/v2
     kind: HorizontalPodAutoscaler
     metadata:
