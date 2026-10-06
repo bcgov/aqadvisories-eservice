@@ -28,6 +28,9 @@ on:
       db_password:
         description: Database password
         required: true
+      gcnotify_account_key:
+        description: GC Notify API key for SMS; when unset, the notify-bc ConfigMap's key is used
+        required: false
       oc_namespace:
         description: OpenShift namespace
         required: true
@@ -55,6 +58,7 @@ jobs:
         env:
           DB_ADMIN_PASSWORD: ${{ secrets.db_admin_password }}
           DB_PASSWORD: ${{ secrets.db_password }}
+          GCNOTIFY_ACCOUNT_KEY: ${{ secrets.gcnotify_account_key }}
         with:
           file: common/openshift.init.yml
           oc_namespace: ${{ secrets.oc_namespace }}
@@ -71,6 +75,7 @@ jobs:
           # The Red Hat image creates DB_USER in the app database, so authSource defaults to it.
           parameters: -p DB_PASSWORD="$DB_PASSWORD"
             -p DB_ADMIN_PASSWORD="$DB_ADMIN_PASSWORD"
+            -p GCNOTIFY_ACCOUNT_KEY="$GCNOTIFY_ACCOUNT_KEY"
             -p ZONE="${{ inputs.target }}"
             -p NAME="${{ github.event.repository.name }}"
             -p DB_USER="${{ vars.DB_USER || github.event.repository.name }}"
@@ -168,4 +173,5 @@ jobs:
             ${{ matrix.name == 'database' && format('-p DB_PVC_NAME="{0}"', vars.DB_PVC_NAME || format('{0}-{1}-database', github.event.repository.name, inputs.target)) || '' }}
             ${{ matrix.name == 'database' && vars.MONGO_IMAGE && format('-p MONGO_IMAGE="{0}"', vars.MONGO_IMAGE) || '' }}
             ${{ matrix.name == 'backend' && vars.INBOUND_SMTP_DOMAIN && format('-p INBOUND_SMTP_DOMAIN="{0}"', vars.INBOUND_SMTP_DOMAIN) || '' }}
+            ${{ matrix.name == 'backend' && vars.GCNOTIFY_BASE_URL && format('-p GCNOTIFY_BASE_URL="{0}"', vars.GCNOTIFY_BASE_URL) || '' }}
           triggers: ${{ inputs.triggers }}

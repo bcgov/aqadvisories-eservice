@@ -37,10 +37,22 @@ parameters:
   - name: NOTIFICATION_SENDER_ROLE
     description: Keycloak role allowed to send advisories (the app's default spelling is kept).
     value: 'realm:notificaton-sender'
+  - name: SESSION_PVC_NAME
+    description: >-
+      Existing ReadWriteMany PersistentVolumeClaim (not created here) holding the
+      session-file-store sessions, shared by every frontend pod. It must exist in the
+      namespace, otherwise the frontend pods stay in ContainerCreating.
+    value: aqaess-session-file-store
+  - name: KEYCLOAK_CONFIGMAP
+    description: >-
+      Existing ConfigMap (not created here) whose keycloak.json (SSO server, realm,
+      client and its credentials) replaces the image's file. It must exist in the
+      namespace, otherwise the frontend pods stay in ContainerCreating.
+    value: aqadvisories-eservice
 objects:
   # Optional per-environment secrets, read with optional: true so the app still starts
-  # without them (subscriptions then fail reCAPTCHA verification; SSO falls back to the
-  # image's keycloak.json). Create or update with:
+  # without them (subscriptions then fail reCAPTCHA verification). The keycloak-* keys
+  # override the mounted keycloak.json's server, realm and client. Create or update with:
   #   oc create secret generic <NAME>-<ZONE>-frontend \
   #     --from-literal=recaptcha-secret=... --from-literal=swift-unsubscription-keyword=STOP \
   #     --from-literal=keycloak-auth-server-url=https://.../auth \
@@ -142,11 +154,16 @@ objects:
                   drop: ['ALL']
                 seccompProfile:
                   type: RuntimeDefault
-              # session-file-store writes here (file_store_path in the image). Sessions are
-              # per pod; the Route's sticky-session cookie keeps a browser on one pod.
+              # session-file-store writes here (file_store_path in the image). The volume is
+              # shared (RWX), so a session survives pod restarts and works on any pod.
               volumeMounts:
                 - name: sessions
                   mountPath: /mnt/sessions
+                # index.js loads ./keycloak.json (WORKDIR /app); replaces the image's copy
+                - name: keycloak-config
+                  mountPath: /app/keycloak.json
+                  subPath: keycloak.json
+                  readOnly: true
               startupProbe:
                 httpGet:
                   path: /ping
@@ -171,8 +188,12 @@ objects:
                     command: ['sleep', '10']
           volumes:
             - name: sessions
-              emptyDir:
-                sizeLimit: 256Mi
+              persistentVolumeClaim:
+                claimName: ${SESSION_PVC_NAME}
+            # subPath mounts don't pick up ConfigMap edits; restart the pods after changing it
+            - name: keycloak-config
+              configMap:
+                name: ${KEYCLOAK_CONFIGMAP}
   - apiVersion: v1
     kind: Service
     metadata:

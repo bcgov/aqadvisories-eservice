@@ -28,6 +28,11 @@ parameters:
       Database that DB_USER is defined in. The Red Hat image creates it in MONGO_DATABASE,
       so keep the two equal unless an existing volume defines the user elsewhere.
     value: app
+  - name: GCNOTIFY_ACCOUNT_KEY
+    description: >-
+      GC Notify API key for SMS (sms.gcnotify.accountKey). Empty keeps the key from the
+      notify-bc ConfigMap's config.local.js.
+    value: ""
 objects:
   - apiVersion: v1
     kind: Secret
@@ -42,6 +47,15 @@ objects:
       database-password: ${DB_PASSWORD}
       database-user: ${DB_USER}
       database-uri: mongodb://${DB_USER}:${DB_PASSWORD}@${NAME}-${ZONE}-database:27017/${MONGO_DATABASE}?authSource=${DB_AUTH_SOURCE}
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${NAME}-${ZONE}-backend
+      labels:
+        app: ${NAME}-${ZONE}
+    # Read by backend/openshift.deploy.yml (GCNOTIFY_ACCOUNT_KEY -> server/config.production.js)
+    stringData:
+      gcnotify-account-key: ${GCNOTIFY_ACCOUNT_KEY}
   - apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:

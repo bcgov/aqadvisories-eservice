@@ -45,6 +45,17 @@ parameters:
       disables it. When set, outgoing emails use it for the List-Unsubscribe header and
       envelope sender, so only set it once that mail routing works.
     value: ""
+  - name: GCNOTIFY_BASE_URL
+    description: >-
+      GC Notify API base URL (sms.gcnotify.baseUrl), e.g. https://api.notification.canada.ca.
+      Empty keeps the value from the notify-bc ConfigMap's config.local.js.
+    value: ""
+  - name: NOTIFYBC_CONFIGMAP
+    description: >-
+      Existing ConfigMap (not created here) holding NotifyBC's config.local.js (SMTP, SMS,
+      templates, redirect URLs, adminIps) and middleware.local.json. It must exist in the
+      namespace, otherwise the backend pods stay in ContainerCreating.
+    value: notify-bc
 objects:
   # NotifyBC runs in two roles:
   #  - web (NOTIFYBC_NODE_ROLE=slave): serves the API; scaled by the HPA below.
@@ -152,6 +163,19 @@ objects:
                       key: database-uri
                 - name: HOME
                   value: /tmp
+                # read by server/config.production.js: NotifyBC's requests to itself (e.g.
+                # broadcast chunks) stay on this environment's Service, not httpHost
+                - name: INTERNAL_HTTP_HOST
+                  value: http://${NAME}-${ZONE}-${COMPONENT}
+                # read by server/config.production.js; overrides the ConfigMap's key when set
+                - name: GCNOTIFY_ACCOUNT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-${COMPONENT}
+                      key: gcnotify-account-key
+                      optional: true
+                - name: GCNOTIFY_BASE_URL
+                  value: ${GCNOTIFY_BASE_URL}
               resources:
                 requests:
                   cpu: ${CPU_REQUEST_SLAVE}
@@ -169,6 +193,16 @@ objects:
               volumeMounts:
                 - name: tmp
                   mountPath: /tmp
+                # loopback-boot merges these over config.json/middleware.json; the image
+                # runs "node ." and never copies from /mnt, so mount the files in place
+                - name: notifybc-config
+                  mountPath: /usr/src/app/server/config.local.js
+                  subPath: config.local.js
+                  readOnly: true
+                - name: notifybc-config
+                  mountPath: /usr/src/app/server/middleware.local.json
+                  subPath: middleware.local.json
+                  readOnly: true
               # "/" renders the web console and needs no auth; the API needs admin access.
               # Web pods only listen once the cron pod has created the RSA key.
               startupProbe:
@@ -198,6 +232,10 @@ objects:
               emptyDir:
                 medium: Memory
                 sizeLimit: 256Mi
+            # subPath mounts don't pick up ConfigMap edits; restart the pods after changing it
+            - name: notifybc-config
+              configMap:
+                name: ${NOTIFYBC_CONFIGMAP}
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -282,6 +320,19 @@ objects:
                       key: database-uri
                 - name: HOME
                   value: /tmp
+                # read by server/config.production.js: NotifyBC's requests to itself (e.g.
+                # broadcast chunks) stay on this environment's Service, not httpHost
+                - name: INTERNAL_HTTP_HOST
+                  value: http://${NAME}-${ZONE}-${COMPONENT}
+                # read by server/config.production.js; overrides the ConfigMap's key when set
+                - name: GCNOTIFY_ACCOUNT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-${COMPONENT}
+                      key: gcnotify-account-key
+                      optional: true
+                - name: GCNOTIFY_BASE_URL
+                  value: ${GCNOTIFY_BASE_URL}
               resources:
                 requests:
                   cpu: ${CPU_REQUEST_MASTER}
@@ -299,6 +350,16 @@ objects:
               volumeMounts:
                 - name: tmp
                   mountPath: /tmp
+                # loopback-boot merges these over config.json/middleware.json; the image
+                # runs "node ." and never copies from /mnt, so mount the files in place
+                - name: notifybc-config
+                  mountPath: /usr/src/app/server/config.local.js
+                  subPath: config.local.js
+                  readOnly: true
+                - name: notifybc-config
+                  mountPath: /usr/src/app/server/middleware.local.json
+                  subPath: middleware.local.json
+                  readOnly: true
               startupProbe:
                 httpGet:
                   path: /
@@ -316,6 +377,10 @@ objects:
               emptyDir:
                 medium: Memory
                 sizeLimit: 256Mi
+            # subPath mounts don't pick up ConfigMap edits; restart the pods after changing it
+            - name: notifybc-config
+              configMap:
+                name: ${NOTIFYBC_CONFIGMAP}
   # routes to the web pods only; the cron pod receives no traffic
   - apiVersion: v1
     kind: Service

@@ -42,6 +42,7 @@ jobs:
     secrets:
       db_admin_password: ${{ secrets.db_admin_password }}
       db_password: ${{ secrets.db_password }}
+      gcnotify_account_key: ${{ secrets.gcnotify_account_key }}
       oc_namespace: ${{ secrets.oc_namespace }}
       oc_token: ${{ secrets.oc_token }}
     with:

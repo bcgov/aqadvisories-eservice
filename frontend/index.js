@@ -26,8 +26,9 @@ if (process.env.file_store_path) {
 }
 var store = new FileStore(storeOptions)
 
-// keycloak.json (committed; a public client, no secret) holds the defaults. Each
-// environment can point at its own SSO server/realm/client with these env vars.
+// keycloak.json: the committed file holds local defaults; on OpenShift it is replaced by
+// the environment's ConfigMap copy (see openshift.deploy.yml). These env vars can still
+// override its SSO server/realm/client.
 const keycloakConfig = require('./keycloak.json')
 if (process.env.keycloak_auth_server_url) {
   keycloakConfig['auth-server-url'] = process.env.keycloak_auth_server_url
