@@ -23,20 +23,20 @@ parameters:
     value: apps.silver.devops.gov.bc.ca
   - name: MIN_REPLICAS
     description: The minimum amount of replicas for the horizontal pod autoscaler.
-    value: "2"
+    value: '2'
   - name: MAX_REPLICAS
     description: The maximum amount of replicas for the horizontal pod autoscaler.
-    value: "5"
+    value: '5'
   - name: CPU_REQUEST
-    value: "50m"
+    value: '50m'
   - name: MEMORY_REQUEST
-    value: "64Mi"
+    value: '64Mi'
   - name: MEMORY_LIMIT
     description: Memory limit for the container (bounds the pod's working set).
-    value: "1Gi"
+    value: '1Gi'
   - name: NOTIFICATION_SENDER_ROLE
     description: Keycloak role allowed to send advisories (the app's default spelling is kept).
-    value: "realm:notificaton-sender"
+    value: 'realm:notificaton-sender'
 objects:
   # Optional per-environment secrets, read with optional: true so the app still starts
   # without them (subscriptions then fail reCAPTCHA verification; SSO falls back to the
@@ -76,36 +76,6 @@ objects:
                       matchLabels:
                         deployment: ${NAME}-${ZONE}-${COMPONENT}
                     topologyKey: kubernetes.io/hostname
-          initContainers:
-            # NotifyBC's "/" serves its web console without auth. Backend web pods only
-            # listen once the backend cron pod is up, so allow a generous wait.
-            - name: wait-for-backend
-              image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
-              command:
-                - /bin/sh
-                - -c
-                - |
-                  echo "Waiting for backend to be reachable..."
-                  max_retries=60
-                  attempt=1
-                  until wget -q -T 5 -O /dev/null http://${NAME}-${ZONE}-backend/; do
-                    if [ "$attempt" -ge "$max_retries" ]; then
-                      echo "ERROR: Backend ${NAME}-${ZONE}-backend is not reachable after ${max_retries} attempts." >&2
-                      exit 1
-                    fi
-                    echo "Backend not ready (attempt ${attempt}/${max_retries}), sleeping..."
-                    attempt=$((attempt + 1))
-                    sleep 5
-                  done
-                  echo "Backend is UP!"
-              securityContext:
-                allowPrivilegeEscalation: false
-                runAsNonRoot: true
-                readOnlyRootFilesystem: true
-                capabilities:
-                  drop: ["ALL"]
-                seccompProfile:
-                  type: RuntimeDefault
           containers:
             - name: ${NAME}
               image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
@@ -115,7 +85,7 @@ objects:
                   containerPort: 3001
               env:
                 - name: port
-                  value: "3001"
+                  value: '3001'
                 # backend Service listens on 80 (-> NotifyBC 3000)
                 - name: notify_bc_root_url
                   value: http://${NAME}-${ZONE}-backend
@@ -169,7 +139,7 @@ objects:
                 runAsNonRoot: true
                 readOnlyRootFilesystem: true
                 capabilities:
-                  drop: ["ALL"]
+                  drop: ['ALL']
                 seccompProfile:
                   type: RuntimeDefault
               # session-file-store writes here (file_store_path in the image). Sessions are
@@ -198,7 +168,7 @@ objects:
               lifecycle:
                 preStop:
                   exec:
-                    command: ["sleep", "10"]
+                    command: ['sleep', '10']
           volumes:
             - name: sessions
               emptyDir:
