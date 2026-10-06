@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      # The backend (NotifyBC) has no public route; it is reached through the frontend.
+      # The backend (NotifyBC) is checked through the frontend, which proxies to it.
       # An unknown subscription returns 404 from NotifyBC, or 500 while it is unreachable.
       - name: Wait for frontend and backend
         env:

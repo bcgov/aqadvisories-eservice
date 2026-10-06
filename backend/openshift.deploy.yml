@@ -419,6 +419,46 @@ objects:
         weight: 100
       tls:
         termination: passthrough
+  # NotifyBC's API under the frontend's host: links in subscription emails point at
+  # {httpHost}/api/... (httpHost in the notify-bc ConfigMap). The router sends /api here
+  # and everything else to the frontend Route on the same host.
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}-api
+    spec:
+      host: ${NAME}-${ZONE}.${DOMAIN}
+      path: /api
+      port:
+        targetPort: http
+      to:
+        kind: Service
+        name: ${NAME}-${ZONE}-${COMPONENT}
+        weight: 100
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
+  # NotifyBC web console and API on its own host. Admin access is limited to the
+  # ConfigMap's adminIps (client IP taken from X-Forwarded-For via trustedReverseProxyIps).
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      host: ${NAME}-${ZONE}-${COMPONENT}.${DOMAIN}
+      port:
+        targetPort: http
+      to:
+        kind: Service
+        name: ${NAME}-${ZONE}-${COMPONENT}
+        weight: 100
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
   - apiVersion: autoscaling/v2
     kind: HorizontalPodAutoscaler
     metadata:
