@@ -60,6 +60,7 @@ app.get('/stats.html', keycloak.protect())
 app.post('/post/subscriptions', async (req, res) => {
   try {
     if (!req.body.token) {
+      console.warn('Subscription rejected: no reCAPTCHA token in the form post')
       return res.status(403).end()
     }
     const reCaptchaRes = await axios.post(
@@ -80,6 +81,17 @@ app.post('/post/subscriptions', async (req, res) => {
       reCaptchaRes.data.score < 0.5 ||
       reCaptchaRes.data.action !== 'submit'
     ) {
+      // e.g. error-codes "missing-input-secret" (recaptcha_secret unset) or
+      // "invalid-input-secret" (wrong key), a low score, or the wrong hostname
+      const { success, score, action, hostname } = reCaptchaRes.data || {}
+      console.warn('Subscription rejected by reCAPTCHA:', {
+        success,
+        score,
+        action,
+        hostname,
+        errorCodes: reCaptchaRes.data && reCaptchaRes.data['error-codes'],
+        secretConfigured: Boolean(process.env.recaptcha_secret),
+      })
       return res.status(403).end()
     }
     // Validate the sms number up front, so an invalid one never leaves behind a
