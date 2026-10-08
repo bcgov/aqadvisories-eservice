@@ -70,6 +70,11 @@ async function performTesting(testSuitesDir, testSuiteFile) {
   const testSuitePath = path.join(testSuitesDir, testSuiteFile);
   const testSuite = JSON.parse(await fs.promises.readFile(testSuitePath, "utf-8"));
   for (const testCase of testSuite.tests) {
+    // e.g. "skip_when_env": "RECAPTCHA_DISABLED" skips the case when that env var is "true"
+    if (testCase.skip_when_env && process.env[testCase.skip_when_env] === "true") {
+      console.info(`Skipping ${testCase.name}: ${testCase.skip_when_env}=true`);
+      continue;
+    }
     let id = null;
     for (const method of testCase.methods) {
       const responseId = await performEachMethod(BASE_URL, testCase, method, id);

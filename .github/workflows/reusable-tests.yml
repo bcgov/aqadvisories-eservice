@@ -8,6 +8,11 @@ on:
         description: PR number, test or prod
         default: ${{ github.event.number }}
         type: string
+      ### Optional
+      recaptcha_disabled:
+        description: The frontend was deployed with reCAPTCHA off (PRs); skips the tests that need it
+        default: false
+        type: boolean
 
 env:
   DOMAIN: apps.silver.devops.gov.bc.ca
@@ -62,6 +67,8 @@ jobs:
         env:
           API_NAME: aqadvisories
           BASE_URL: https://${{ env.PREFIX }}.${{ env.DOMAIN }}
+          # read by skip_when_env in the test suites
+          RECAPTCHA_DISABLED: ${{ inputs.recaptcha_disabled }}
         run: |
           cd common/tests/integration
           npm ci

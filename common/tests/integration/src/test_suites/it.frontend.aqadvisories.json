@@ -23,6 +23,7 @@
     },
     {
       "name": "Subscription without reCAPTCHA token is rejected",
+      "skip_when_env": "RECAPTCHA_DISABLED",
       "methods": ["POST"],
       "path": "/post/subscriptions",
       "headers": { "Content-Type": "application/x-www-form-urlencoded" },
