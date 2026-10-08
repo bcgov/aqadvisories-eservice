@@ -57,41 +57,56 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/admin.html', keycloak.protect())
 app.get('/stats.html', keycloak.protect())
 
+// PR environments only (recaptcha_disabled=true from pr-open.yml): their hostnames aren't on
+// the site key's domain list, so Google rejects every token there ("browser-error").
+const recaptchaDisabled = process.env.recaptcha_disabled === 'true'
+if (recaptchaDisabled) {
+  console.warn('reCAPTCHA verification is DISABLED: subscription forms are not bot-checked')
+}
+
+// true when Google accepts the form's reCAPTCHA v3 token as a human "submit"
+async function recaptchaPassed(token) {
+  if (!token) {
+    console.warn('Subscription rejected: no reCAPTCHA token in the form post')
+    return false
+  }
+  const reCaptchaRes = await axios.post(
+    'https://www.google.com/recaptcha/api/siteverify',
+    qs.stringify({
+      secret: process.env.recaptcha_secret,
+      response: token,
+    }),
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }
+  )
+  if (
+    !reCaptchaRes.data ||
+    !reCaptchaRes.data.success ||
+    reCaptchaRes.data.score < 0.5 ||
+    reCaptchaRes.data.action !== 'submit'
+  ) {
+    // e.g. error-codes "missing-input-secret" (recaptcha_secret unset) or
+    // "invalid-input-secret" (wrong key), a low score, or the wrong hostname
+    const { success, score, action, hostname } = reCaptchaRes.data || {}
+    console.warn('Subscription rejected by reCAPTCHA:', {
+      success,
+      score,
+      action,
+      hostname,
+      errorCodes: reCaptchaRes.data && reCaptchaRes.data['error-codes'],
+      secretConfigured: Boolean(process.env.recaptcha_secret),
+    })
+    return false
+  }
+  return true
+}
+
 app.post('/post/subscriptions', async (req, res) => {
   try {
-    if (!req.body.token) {
-      console.warn('Subscription rejected: no reCAPTCHA token in the form post')
-      return res.status(403).end()
-    }
-    const reCaptchaRes = await axios.post(
-      'https://www.google.com/recaptcha/api/siteverify',
-      qs.stringify({
-        secret: process.env.recaptcha_secret,
-        response: req.body.token,
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    )
-    if (
-      !reCaptchaRes.data ||
-      !reCaptchaRes.data.success ||
-      reCaptchaRes.data.score < 0.5 ||
-      reCaptchaRes.data.action !== 'submit'
-    ) {
-      // e.g. error-codes "missing-input-secret" (recaptcha_secret unset) or
-      // "invalid-input-secret" (wrong key), a low score, or the wrong hostname
-      const { success, score, action, hostname } = reCaptchaRes.data || {}
-      console.warn('Subscription rejected by reCAPTCHA:', {
-        success,
-        score,
-        action,
-        hostname,
-        errorCodes: reCaptchaRes.data && reCaptchaRes.data['error-codes'],
-        secretConfigured: Boolean(process.env.recaptcha_secret),
-      })
+    if (!recaptchaDisabled && !(await recaptchaPassed(req.body.token))) {
       return res.status(403).end()
     }
     // Validate the sms number up front, so an invalid one never leaves behind a

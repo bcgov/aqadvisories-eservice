@@ -50,6 +50,9 @@ jobs:
       target: ${{ github.event.number }}
       tag: ${{ github.event.pull_request.head.sha }}
       triggers: ('backend/', 'frontend/', 'common/', '.github/workflows/pr-open.yml')
+      # PR hostnames (<repo>-<PR>.apps.silver...) aren't on the reCAPTCHA site key's
+      # domain list, so Google rejects their tokens; TEST/PROD still verify
+      recaptcha_disabled: true
 
   tests:
     name: Tests

@@ -49,6 +49,11 @@ parameters:
       client and its credentials) replaces the image's file. It must exist in the
       namespace, otherwise the frontend pods stay in ContainerCreating.
     value: aqadvisories-eservice
+  - name: RECAPTCHA_DISABLED
+    description: >-
+      "true" skips reCAPTCHA verification of subscription forms. Only for PR environments,
+      whose hostnames the site key doesn't allow (Google rejects their tokens).
+    value: 'false'
   - name: TRUST_PROXY
     description: >-
       Express "trust proxy" setting: which proxy addresses may set X-Forwarded-*. A
@@ -115,6 +120,8 @@ objects:
                 # from. Set per environment with the TRUST_PROXY GitHub variable.
                 - name: trust_proxy
                   value: ${TRUST_PROXY}
+                - name: recaptcha_disabled
+                  value: ${RECAPTCHA_DISABLED}
                 - name: recaptcha_secret
                   valueFrom:
                     secretKeyRef:

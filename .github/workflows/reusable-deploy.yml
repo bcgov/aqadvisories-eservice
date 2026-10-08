@@ -20,6 +20,10 @@ on:
         description: Triggers for deployment
         default: ""
         type: string
+      recaptcha_disabled:
+        description: Skip reCAPTCHA verification in the frontend (PR environments only)
+        default: false
+        type: boolean
 
     secrets:
       db_admin_password:
@@ -181,4 +185,5 @@ jobs:
             ${{ matrix.name == 'backend' && vars.INBOUND_SMTP_DOMAIN && format('-p INBOUND_SMTP_DOMAIN="{0}"', vars.INBOUND_SMTP_DOMAIN) || '' }}
             ${{ matrix.name == 'backend' && vars.GCNOTIFY_BASE_URL && format('-p GCNOTIFY_BASE_URL="{0}"', vars.GCNOTIFY_BASE_URL) || '' }}
             ${{ matrix.name == 'frontend' && vars.TRUST_PROXY && format('-p TRUST_PROXY="{0}"', vars.TRUST_PROXY) || '' }}
+            ${{ matrix.name == 'frontend' && inputs.recaptcha_disabled && '-p RECAPTCHA_DISABLED=true' || '' }}
           triggers: ${{ inputs.triggers }}
