@@ -50,13 +50,12 @@ parameters:
       namespace, otherwise the frontend pods stay in ContainerCreating.
     value: aqadvisories-eservice
 objects:
-  # Optional per-environment secrets, read with optional: true so the app still starts
-  # without them (subscriptions then fail reCAPTCHA verification). The keycloak-* keys
-  # override the mounted keycloak.json's server, realm and client. Create or update with:
-  #   oc create secret generic <NAME>-<ZONE>-frontend \
-  #     --from-literal=recaptcha-secret=... --from-literal=swift-unsubscription-keyword=STOP \
-  #     --from-literal=keycloak-auth-server-url=https://.../auth \
-  #     --from-literal=keycloak-realm=... --from-literal=keycloak-client-id=...
+  # The <NAME>-<ZONE>-frontend Secret comes from common/openshift.init.yml: recaptcha-secret
+  # (GitHub secret recaptcha_secret) and swift-unsubscription-keyword (GitHub variable
+  # SWIFT_UNSUBSCRIPTION_KEYWORD, default STOP). Keys are read with optional: true so the
+  # app still starts without them (subscriptions then fail reCAPTCHA verification). The
+  # optional keycloak-* keys would override the mounted keycloak.json's server, realm and
+  # client, but init.yml doesn't set them.
   - apiVersion: apps/v1
     kind: Deployment
     metadata:

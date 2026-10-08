@@ -33,6 +33,14 @@ parameters:
       GC Notify API key for SMS (sms.gcnotify.accountKey). Empty keeps the key from the
       notify-bc ConfigMap's config.local.js.
     value: ""
+  - name: RECAPTCHA_SECRET
+    description: >-
+      Google reCAPTCHA secret key the frontend verifies subscription forms with. Empty
+      makes every subscription fail verification (HTTP 403).
+    value: ""
+  - name: SWIFT_UNSUBSCRIPTION_KEYWORD
+    description: Keyword SMS recipients reply with to unsubscribe ("Reply STOP to unsubscribe.").
+    value: STOP
 objects:
   - apiVersion: v1
     kind: Secret
@@ -56,6 +64,17 @@ objects:
     # Read by backend/openshift.deploy.yml (GCNOTIFY_ACCOUNT_KEY -> server/config.production.js)
     stringData:
       gcnotify-account-key: ${GCNOTIFY_ACCOUNT_KEY}
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${NAME}-${ZONE}-frontend
+      labels:
+        app: ${NAME}-${ZONE}
+    # Read by frontend/openshift.deploy.yml (recaptcha_secret, swift_unsubscription_keyword).
+    # Applied with overwrite, so keys added by hand are replaced on the next deploy.
+    stringData:
+      recaptcha-secret: ${RECAPTCHA_SECRET}
+      swift-unsubscription-keyword: ${SWIFT_UNSUBSCRIPTION_KEYWORD}
   - apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:

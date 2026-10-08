@@ -31,6 +31,9 @@ on:
       gcnotify_account_key:
         description: GC Notify API key for SMS; when unset, the notify-bc ConfigMap's key is used
         required: false
+      recaptcha_secret:
+        description: Google reCAPTCHA secret key; when unset, subscription forms fail verification
+        required: false
       oc_namespace:
         description: OpenShift namespace
         required: true
@@ -59,6 +62,7 @@ jobs:
           DB_ADMIN_PASSWORD: ${{ secrets.db_admin_password }}
           DB_PASSWORD: ${{ secrets.db_password }}
           GCNOTIFY_ACCOUNT_KEY: ${{ secrets.gcnotify_account_key }}
+          RECAPTCHA_SECRET: ${{ secrets.recaptcha_secret }}
         with:
           file: common/openshift.init.yml
           oc_namespace: ${{ secrets.oc_namespace }}
@@ -76,6 +80,8 @@ jobs:
           parameters: -p DB_PASSWORD="$DB_PASSWORD"
             -p DB_ADMIN_PASSWORD="$DB_ADMIN_PASSWORD"
             -p GCNOTIFY_ACCOUNT_KEY="$GCNOTIFY_ACCOUNT_KEY"
+            -p RECAPTCHA_SECRET="$RECAPTCHA_SECRET"
+            ${{ vars.SWIFT_UNSUBSCRIPTION_KEYWORD && format('-p SWIFT_UNSUBSCRIPTION_KEYWORD="{0}"', vars.SWIFT_UNSUBSCRIPTION_KEYWORD) || '' }}
             -p ZONE="${{ inputs.target }}"
             -p NAME="${{ github.event.repository.name }}"
             -p DB_USER="${{ vars.DB_USER || github.event.repository.name }}"
