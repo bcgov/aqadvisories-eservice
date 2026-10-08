@@ -49,6 +49,12 @@ parameters:
       client and its credentials) replaces the image's file. It must exist in the
       namespace, otherwise the frontend pods stay in ContainerCreating.
     value: aqadvisories-eservice
+  - name: TRUST_PROXY
+    description: >-
+      Express "trust proxy" setting: which proxy addresses may set X-Forwarded-*. A
+      preset name, IP or CIDR, or a comma-separated list (e.g. "uniquelocal" or
+      "10.0.0.0/8, 172.51.0.0/16"). Not "true": env values are strings, which crash express.
+    value: uniquelocal
 objects:
   # The <NAME>-<ZONE>-frontend Secret comes from common/openshift.init.yml: recaptcha-secret
   # (GitHub secret recaptcha_secret) and swift-unsubscription-keyword (GitHub variable
@@ -105,9 +111,10 @@ objects:
                 # behind the OpenShift router: use X-Forwarded-* for the client IP and
                 # https scheme (Keycloak builds its redirect URI from it). Env values are
                 # strings, which express parses as IPs/CIDRs or names ("true" would crash);
-                # "uniquelocal" trusts the private ranges the router connects from.
+                # the default "uniquelocal" trusts the private ranges the router connects
+                # from. Set per environment with the TRUST_PROXY GitHub variable.
                 - name: trust_proxy
-                  value: uniquelocal
+                  value: ${TRUST_PROXY}
                 - name: recaptcha_secret
                   valueFrom:
                     secretKeyRef:

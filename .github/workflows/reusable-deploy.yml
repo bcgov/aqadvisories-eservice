@@ -180,4 +180,5 @@ jobs:
             ${{ matrix.name == 'database' && vars.MONGO_IMAGE && format('-p MONGO_IMAGE="{0}"', vars.MONGO_IMAGE) || '' }}
             ${{ matrix.name == 'backend' && vars.INBOUND_SMTP_DOMAIN && format('-p INBOUND_SMTP_DOMAIN="{0}"', vars.INBOUND_SMTP_DOMAIN) || '' }}
             ${{ matrix.name == 'backend' && vars.GCNOTIFY_BASE_URL && format('-p GCNOTIFY_BASE_URL="{0}"', vars.GCNOTIFY_BASE_URL) || '' }}
+            ${{ matrix.name == 'frontend' && vars.TRUST_PROXY && format('-p TRUST_PROXY="{0}"', vars.TRUST_PROXY) || '' }}
           triggers: ${{ inputs.triggers }}
