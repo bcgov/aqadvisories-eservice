@@ -100,6 +100,19 @@ module.exports = function (Model, options) {
             }
           });
         } catch (ex) {
+          // GC Notify explains the failure in the response body, e.g. an invalid key.
+          // Log only whether the key has GC Notify's "ApiKey-v1 " scheme, never the key.
+          console.error(
+            'GC Notify SMS send failed:',
+            ex.response ? ex.response.status : ex.message,
+            ex.response ? JSON.stringify(ex.response.data) : '',
+            {
+              accountKeyConfigured: Boolean(smsConfig['accountKey']),
+              accountKeyHasApiKeyV1Prefix: /^ApiKey-v1 /.test(
+                smsConfig['accountKey'] || ''
+              )
+            }
+          );
           return cb && cb(ex);
         }
         cb && cb();
