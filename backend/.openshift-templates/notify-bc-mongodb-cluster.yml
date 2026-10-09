@@ -1,0 +1,381 @@
+apiVersion: v1
+kind: Template
+labels:
+  template: notify-bc
+metadata:
+  annotations:
+    description: NotifyBC app with a MongoDB replicaset database
+    iconClass: icon-nodejs
+    tags: instant-app,nodejs,mongodb
+  name: notify-bc
+objects:
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      annotations:
+        description: Keeps track of changes in the application image
+      name: notify-bc
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      annotations:
+        description: Defines how to deploy the application server
+      name: notify-bc-app
+    spec:
+      replicas: 1
+      strategy:
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            name: notify-bc-app
+        spec:
+          containers:
+            - env:
+                - name: NODE_ENV
+                  value: production
+                - name: DATABASE_SERVICE_NAME
+                  value: ${DATABASE_SERVICE_NAME}
+                - name: MONGODB_USER
+                  value: ${DATABASE_USER}
+                - name: MONGODB_PASSWORD
+                  value: ${DATABASE_PASSWORD}
+                - name: MONGODB_DATABASE
+                  value: ${DATABASE_NAME}
+                - name: MONGODB_ADMIN_PASSWORD
+                  value: ${DATABASE_ADMIN_PASSWORD}
+                - name: NOTIFYBC_NODE_ROLE
+                  value: slave
+                - name: NOTIFYBC_WORKER_PROCESS_COUNT
+                  value: 1
+              image: notify-bc
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 100
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              name: notify-bc
+              ports:
+                - containerPort: 3000
+                  protocol: TCP
+                - containerPort: 2525
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 100
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              resources:
+                limits:
+                  cpu: '1'
+                  memory: 1Gi
+                requests:
+                  cpu: 100m
+                  memory: 512Mi
+              volumeMounts:
+                - mountPath: /mnt
+                  name: config-volume
+          volumes:
+            - configMap:
+                name: notify-bc
+              name: config-volume
+      triggers:
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - notify-bc
+            from:
+              kind: ImageStreamTag
+              name: notify-bc:latest
+          type: ImageChange
+        - type: ConfigChange
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      annotations:
+        description: Defines how to deploy the application server
+      name: notify-bc-cron
+    spec:
+      replicas: 1
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          labels:
+            name: notify-bc-cron
+        spec:
+          containers:
+            - env:
+                - name: NODE_ENV
+                  value: production
+                - name: DATABASE_SERVICE_NAME
+                  value: ${DATABASE_SERVICE_NAME}
+                - name: MONGODB_USER
+                  value: ${DATABASE_USER}
+                - name: MONGODB_PASSWORD
+                  value: ${DATABASE_PASSWORD}
+                - name: MONGODB_DATABASE
+                  value: ${DATABASE_NAME}
+                - name: MONGODB_ADMIN_PASSWORD
+                  value: ${DATABASE_ADMIN_PASSWORD}
+                - name: NOTIFYBC_NODE_ROLE
+                  value: master
+                - name: NOTIFYBC_WORKER_PROCESS_COUNT
+                  value: 1
+              image: notify-bc
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 120
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: notify-bc
+              ports:
+                - containerPort: 3000
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 1Gi
+              volumeMounts:
+                - mountPath: /mnt
+                  name: config-volume
+          volumes:
+            - configMap:
+                name: notify-bc
+              name: config-volume
+      triggers:
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - notify-bc
+            from:
+              kind: ImageStreamTag
+              name: notify-bc:latest
+          type: ImageChange
+        - type: ConfigChange
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        service.alpha.kubernetes.io/tolerate-unready-endpoints: 'true'
+      name: ${DATABASE_SERVICE_NAME}
+    spec:
+      clusterIP: None
+      ports:
+        - name: peer
+          port: 27017
+          protocol: TCP
+          targetPort: 27017
+      selector:
+        name: ${DATABASE_SERVICE_NAME}
+      sessionAffinity: None
+      type: ClusterIP
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        description: Exposes and load balances the application pods
+        service.alpha.openshift.io/dependencies: '[{"name":"${DATABASE_SERVICE_NAME}","kind":"Service"}]'
+      name: notify-bc
+    spec:
+      ports:
+        - name: web
+          port: 3000
+          targetPort: 3000
+        - name: smtp
+          port: 2525
+          targetPort: 2525
+      selector:
+        name: notify-bc-app
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      annotations:
+        haproxy.router.openshift.io/timeout: 24d
+      name: notify-bc
+    spec:
+      host: ${APPLICATION_DOMAIN}
+      port:
+        targetPort: 3000
+      tls:
+        termination: edge
+      to:
+        kind: Service
+        name: notify-bc
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      name: notify-bc-smtp
+    spec:
+      host: ${INBOUND_SMTP_DOMAIN}
+      port:
+        targetPort: 2525
+      tls:
+        termination: passthrough
+      to:
+        kind: Service
+        name: notify-bc
+  - apiVersion: extensions/v1beta1
+    kind: HorizontalPodAutoscaler
+    metadata:
+      name: notify-bc-cron
+    spec:
+      maxReplicas: 1
+      minReplicas: 1
+      scaleRef:
+        apiVersion: extensions/v1beta1
+        kind: DeploymentConfig
+        name: notify-bc-cron
+        subresource: scale
+  - apiVersion: v1
+    data:
+      config.local.js: "module.exports = {\n  inboundSmtpServer: {\n \
+        \   listeningSmtpPort: 2525,\n    options: {\n      secure: true\n    }\n  }\n\
+        }\n"
+      datasources.production.js: "module.exports = {\n  db: {\n    connector:\
+        \ \"mongodb\",\n    url: \"mongodb://${DATABASE_SERVICE_NAME}-0.${DATABASE_SERVICE_NAME}:27017,${DATABASE_SERVICE_NAME}-1.${DATABASE_SERVICE_NAME}:27017,${DATABASE_SERVICE_NAME}-2.${DATABASE_SERVICE_NAME}:27017/${DATABASE_NAME}?replicaSet=rs0\"\
+        \n  }\n}\n"
+      middleware.local.json:
+        "{\n  \"routes:before\":{\n    \"morgan\":{\n      \"enabled\"\
+        : false\n    }\n  }\n}\n"
+    kind: ConfigMap
+    metadata:
+      name: notify-bc
+  - apiVersion: v1
+    data:
+      mongod.conf:
+        "net:\n  port: 27017\nreplication:\n  replSetName: rs0\nstorage:\n\
+        \  dbPath: /data/db\n"
+    kind: ConfigMap
+    metadata:
+      name: ${DATABASE_SERVICE_NAME}
+  - apiVersion: apps/v1beta1
+    kind: StatefulSet
+    metadata:
+      name: ${DATABASE_SERVICE_NAME}
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          name: ${DATABASE_SERVICE_NAME}
+      serviceName: ${DATABASE_SERVICE_NAME}
+      template:
+        metadata:
+          annotations:
+            pod.alpha.kubernetes.io/init-containers: '[{"name":"install","image":"gcr.io/google_containers/mongodb-install:0.4","args":["--work-dir=/work-dir"],"resources":{},"volumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"}],"imagePullPolicy":"IfNotPresent"},{"name":"bootstrap","image":"mongo:3.4","command":["/work-dir/peer-finder"],"args":["-on-start=/work-dir/on-start.sh","-service=${DATABASE_SERVICE_NAME}"],"env":[{"name":"POD_NAMESPACE","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.namespace"}}},{"name":"REPLICA_SET","value":"rs0"}],"resources":{},"volumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"},{"name":"datadir","mountPath":"/data/db"}],"imagePullPolicy":"IfNotPresent"}]'
+            pod.beta.kubernetes.io/init-containers: '[{"name":"install","image":"gcr.io/google_containers/mongodb-install:0.4","args":["--work-dir=/work-dir"],"resources":{},"volumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"}],"imagePullPolicy":"IfNotPresent"},{"name":"bootstrap","image":"mongo:3.4","command":["/work-dir/peer-finder"],"args":["-on-start=/work-dir/on-start.sh","-service=${DATABASE_SERVICE_NAME}"],"env":[{"name":"POD_NAMESPACE","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.namespace"}}},{"name":"REPLICA_SET","value":"rs0"}],"resources":{},"volumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"},{"name":"datadir","mountPath":"/data/db"}],"imagePullPolicy":"IfNotPresent"}]'
+          labels:
+            name: ${DATABASE_SERVICE_NAME}
+        spec:
+          containers:
+            - command:
+                - mongod
+                - --config=/config/mongod.conf
+              image: mongo:3.4
+              imagePullPolicy: IfNotPresent
+              livenessProbe:
+                exec:
+                  command:
+                    - mongo
+                    - --eval
+                    - db.adminCommand('ping')
+                failureThreshold: 3
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: mongodb-replicaset
+              ports:
+                - containerPort: 27017
+                  name: peer
+                  protocol: TCP
+              readinessProbe:
+                exec:
+                  command:
+                    - mongo
+                    - --eval
+                    - db.adminCommand('ping')
+                failureThreshold: 3
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  memory: ${MEMORY_MONGODB_LIMIT}
+              terminationMessagePath: /dev/termination-log
+              volumeMounts:
+                - mountPath: /data/db
+                  name: datadir
+                - mountPath: /config
+                  name: config
+                - mountPath: /work-dir
+                  name: workdir
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+          volumes:
+            - configMap:
+                defaultMode: 420
+                name: ${DATABASE_SERVICE_NAME}
+              name: config
+            - emptyDir: {}
+              name: workdir
+      volumeClaimTemplates:
+        - metadata:
+            name: datadir
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: ${VOLUME_CAPACITY}
+parameters:
+  - description: Database service name
+    name: DATABASE_SERVICE_NAME
+    value: mongodb-replicaset
+  - description: Database name
+    name: DATABASE_NAME
+    value: notify-bc
+  - description: Volume space available for data, e.g. 512Mi, 2Gi
+    displayName: Volume capacity
+    name: VOLUME_CAPACITY
+    required: true
+    value: 1Gi
+  - description: Maximum amount of memory the MongoDB container can use.
+    displayName: Memory Limit (MongoDB)
+    name: MEMORY_MONGODB_LIMIT
+    required: true
+    value: 1Gi
+  - description:
+      The exposed hostname of the http API server, if left blank a value
+      will be defaulted.
+    name: APPLICATION_DOMAIN
+  - description:
+      The exposed hostname of the smtp server to receive unsubscription email,
+      if left blank a value will be defaulted.
+    name: INBOUND_SMTP_DOMAIN

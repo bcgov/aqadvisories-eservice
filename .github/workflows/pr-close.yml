@@ -1,0 +1,43 @@
+name: PR Closed
+
+on:
+  pull_request:
+    types: [closed]
+
+concurrency:
+  # PR open and close use the same group, allowing only one at a time
+  group: ${{ github.event.number }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  cleanup:
+    name: Cleanup and Image Promotion
+    uses: bcgov/quickstart-openshift-helpers/.github/workflows/.pr-close.yml@a11ad3d1b9288fb40757c4314a62eb86ff227931 # v1.2.1
+    permissions:
+      packages: write
+    secrets:
+      oc_namespace: ${{ secrets.oc_namespace }}
+      oc_token: ${{ secrets.oc_token }}
+      oc_server: ${{ vars.oc_server }}
+    with:
+      cleanup: label
+      packages: backend frontend
+
+  # The helper's label cleanup deletes all,cm,pvc,secret,networkpolicy;
+  # PodDisruptionBudgets aren't in "all", so remove them here.
+  cleanup-pdb:
+    name: Cleanup PodDisruptionBudgets
+    needs: [cleanup]
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - uses: bcgov/action-oc-runner@111868d1fc50db0a40417ba321d865ef5c931bbd # v1.7.0
+        with:
+          oc_namespace: ${{ secrets.oc_namespace }}
+          oc_token: ${{ secrets.oc_token }}
+          oc_server: ${{ vars.oc_server }}
+          commands: |
+            oc delete poddisruptionbudget -l app=${{ github.event.repository.name }}-${{ github.event.number }} --ignore-not-found
+

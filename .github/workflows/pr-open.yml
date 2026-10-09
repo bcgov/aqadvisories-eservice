@@ -1,0 +1,106 @@
+name: PR
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.event.number }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  # https://github.com/bcgov/action-builder-ghcr
+  builds:
+    name: Builds
+    permissions:
+      attestations: write
+      id-token: write
+      packages: write
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        package: [backend, frontend]
+    timeout-minutes: 10
+    steps:
+      - uses: bcgov/action-builder-ghcr@cb2629351c87dd1c2130073e4ebb7233a9653a63 # v4.4.1
+        with:
+          package: ${{ matrix.package }}
+          # The PR tag is mutable (reused every push) and is what merge.yml
+          # deploys/promotes; the head SHA tag is immutable and is what PR
+          # deploys use, so each push changes the pod spec and forces a rollout.
+          tags: |
+            ${{ github.event.number }}
+            ${{ github.event.pull_request.head.sha }}
+          tag_fallback: latest
+          triggers: ('${{ matrix.package }}/', '.github/workflows/pr-open.yml')
+
+  deploys:
+    name: Deploys (${{ github.event.number }})
+    needs: [builds]
+    uses: ./.github/workflows/reusable-deploy.yml
+    secrets:
+      db_admin_password: ${{ secrets.db_admin_password }}
+      db_password: ${{ secrets.db_password }}
+      gcnotify_account_key: ${{ secrets.gcnotify_account_key }}
+      recaptcha_secret: ${{ secrets.recaptcha_secret }}
+      oc_namespace: ${{ secrets.oc_namespace }}
+      oc_token: ${{ secrets.oc_token }}
+    with:
+      target: ${{ github.event.number }}
+      tag: ${{ github.event.pull_request.head.sha }}
+      triggers: ('backend/', 'frontend/', 'common/', '.github/workflows/pr-open.yml')
+      # PR hostnames (<repo>-<PR>.apps.silver...) aren't on the reCAPTCHA site key's
+      # domain list, so Google rejects their tokens; TEST/PROD still verify
+      recaptcha_disabled: true
+
+  tests:
+    name: Tests
+    if: needs.deploys.outputs.triggered == 'true'
+    needs: [deploys]
+    uses: ./.github/workflows/reusable-tests.yml
+    with:
+      # matches the deploys job's recaptcha_disabled
+      recaptcha_disabled: true
+
+  comment:
+    name: Deployment Links
+    needs: [deploys]
+    if: needs.deploys.outputs.triggered == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Post Deploy Links
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          header: pr-deployment-links
+          message: |
+            ### 🚀 Deployments Available
+            - [Frontend](https://${{ github.event.repository.name }}-${{ github.event.number }}.apps.silver.devops.gov.bc.ca)
+
+  # ==========================================================================
+  # WARNING: This job acts as the required merge gate for this workflow.
+  # If you add a new job to this workflow, you MUST add its ID to the 'needs'
+  # array below, otherwise its failure or cancellation will not block the PR!
+  # ==========================================================================
+  results:
+    name: PR Results
+    needs: [builds, deploys, tests, comment]
+    if: always()
+    runs-on: ubuntu-slim
+    timeout-minutes: 1
+    steps:
+      - name: Log Job Results Context
+        run: |
+          echo "=== Upstream Job Statuses ==="
+          echo '${{ toJson(needs) }}'
+
+      - name: Evaluate Overall Status
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "❌ Critical Check Failure: At least one required job has failed or was cancelled."
+          exit 1
+
+      - name: Success Message
+        run: echo "✅ All critical checks passed or were intentionally skipped!"

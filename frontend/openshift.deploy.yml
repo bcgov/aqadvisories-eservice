@@ -1,0 +1,283 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+  - name: NAME
+    description: Module name
+    required: true
+  - name: COMPONENT
+    description: Component name
+    value: frontend
+  - name: ZONE
+    description: Deployment zone, e.g. pr-### or prod
+    required: true
+  - name: IMAGE_TAG
+    description: Image tag to use
+    required: true
+  - name: REGISTRY
+    description: Container registry to import from
+    value: ghcr.io
+  - name: ORG_NAME
+    description: Organization name
+    value: bcgov
+  - name: DOMAIN
+    value: apps.silver.devops.gov.bc.ca
+  - name: MIN_REPLICAS
+    description: The minimum amount of replicas for the horizontal pod autoscaler.
+    value: '2'
+  - name: MAX_REPLICAS
+    description: The maximum amount of replicas for the horizontal pod autoscaler.
+    value: '5'
+  - name: CPU_REQUEST
+    value: '50m'
+  - name: MEMORY_REQUEST
+    value: '64Mi'
+  - name: MEMORY_LIMIT
+    description: Memory limit for the container (bounds the pod's working set).
+    value: '1Gi'
+  - name: NOTIFICATION_SENDER_ROLE
+    description: Keycloak role allowed to send advisories (the app's default spelling is kept).
+    value: 'realm:notificaton-sender'
+  - name: SESSION_PVC_NAME
+    description: >-
+      Existing ReadWriteMany PersistentVolumeClaim (not created here) holding the
+      session-file-store sessions, shared by every frontend pod. It must exist in the
+      namespace, otherwise the frontend pods stay in ContainerCreating.
+    value: aqaess-session-file-store
+  - name: KEYCLOAK_CONFIGMAP
+    description: >-
+      Existing ConfigMap (not created here) whose keycloak.json (SSO server, realm,
+      client and its credentials) replaces the image's file. It must exist in the
+      namespace, otherwise the frontend pods stay in ContainerCreating.
+    value: aqadvisories-eservice
+  - name: RECAPTCHA_DISABLED
+    description: >-
+      "true" skips reCAPTCHA verification of subscription forms. Only for PR environments,
+      whose hostnames the site key doesn't allow (Google rejects their tokens).
+    value: 'false'
+  - name: TRUST_PROXY
+    description: >-
+      Express "trust proxy" setting: which proxy addresses may set X-Forwarded-*. A
+      preset name, IP or CIDR, or a comma-separated list (e.g. "uniquelocal" or
+      "10.0.0.0/8, 172.51.0.0/16"). Not "true": env values are strings, which crash express.
+    value: uniquelocal
+objects:
+  # The <NAME>-<ZONE>-frontend Secret comes from common/openshift.init.yml: recaptcha-secret
+  # (GitHub secret recaptcha_secret) and swift-unsubscription-keyword (GitHub variable
+  # SWIFT_UNSUBSCRIPTION_KEYWORD, default STOP). Keys are read with optional: true so the
+  # app still starts without them (subscriptions then fail reCAPTCHA verification). The
+  # optional keycloak-* keys would override the mounted keycloak.json's server, realm and
+  # client, but init.yml doesn't set them.
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      selector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-${COMPONENT}
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 1
+          maxSurge: 1
+      template:
+        metadata:
+          labels:
+            app: ${NAME}-${ZONE}
+            deployment: ${NAME}-${ZONE}-${COMPONENT}
+        spec:
+          terminationGracePeriodSeconds: 30
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        deployment: ${NAME}-${ZONE}-${COMPONENT}
+                    topologyKey: kubernetes.io/hostname
+          containers:
+            - name: ${NAME}
+              image: ${REGISTRY}/${ORG_NAME}/${NAME}/${COMPONENT}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              ports:
+                - name: http
+                  containerPort: 3001
+              env:
+                - name: port
+                  value: '3001'
+                # backend Service listens on 80 (-> NotifyBC 3000)
+                - name: notify_bc_root_url
+                  value: http://${NAME}-${ZONE}-backend
+                - name: notification_sender_role
+                  value: ${NOTIFICATION_SENDER_ROLE}
+                # behind the OpenShift router: use X-Forwarded-* for the client IP and
+                # https scheme (Keycloak builds its redirect URI from it). Env values are
+                # strings, which express parses as IPs/CIDRs or names ("true" would crash);
+                # the default "uniquelocal" trusts the private ranges the router connects
+                # from. Set per environment with the TRUST_PROXY GitHub variable.
+                - name: trust_proxy
+                  value: ${TRUST_PROXY}
+                - name: recaptcha_disabled
+                  value: ${RECAPTCHA_DISABLED}
+                - name: recaptcha_secret
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-frontend
+                      key: recaptcha-secret
+                      optional: true
+                - name: swift_unsubscription_keyword
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-frontend
+                      key: swift-unsubscription-keyword
+                      optional: true
+                # SSO overrides; when unset, the image's keycloak.json values are used
+                - name: keycloak_auth_server_url
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-frontend
+                      key: keycloak-auth-server-url
+                      optional: true
+                - name: keycloak_realm
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-frontend
+                      key: keycloak-realm
+                      optional: true
+                - name: keycloak_client_id
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-${ZONE}-frontend
+                      key: keycloak-client-id
+                      optional: true
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  memory: ${MEMORY_LIMIT}
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ['ALL']
+                seccompProfile:
+                  type: RuntimeDefault
+              # session-file-store writes here (file_store_path in the image). The volume is
+              # shared (RWX), so a session survives pod restarts and works on any pod.
+              volumeMounts:
+                - name: sessions
+                  mountPath: /mnt/sessions
+                # index.js loads ./keycloak.json (WORKDIR /app); replaces the image's copy
+                - name: keycloak-config
+                  mountPath: /app/keycloak.json
+                  subPath: keycloak.json
+                  readOnly: true
+              startupProbe:
+                httpGet:
+                  path: /ping
+                  port: http
+                periodSeconds: 5
+                failureThreshold: 30
+              readinessProbe:
+                httpGet:
+                  path: /ping
+                  port: http
+                periodSeconds: 5
+                failureThreshold: 3
+              livenessProbe:
+                httpGet:
+                  path: /ping
+                  port: http
+                periodSeconds: 10
+                failureThreshold: 3
+              lifecycle:
+                preStop:
+                  exec:
+                    command: ['sleep', '10']
+          volumes:
+            - name: sessions
+              persistentVolumeClaim:
+                claimName: ${SESSION_PVC_NAME}
+            # subPath mounts don't pick up ConfigMap edits; restart the pods after changing it
+            - name: keycloak-config
+              configMap:
+                name: ${KEYCLOAK_CONFIGMAP}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      ports:
+        - name: http
+          port: 80
+          targetPort: 3001
+      selector:
+        deployment: ${NAME}-${ZONE}-${COMPONENT}
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      host: ${NAME}-${ZONE}.${DOMAIN}
+      to:
+        kind: Service
+        name: ${NAME}-${ZONE}-${COMPONENT}
+        weight: 100
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
+  - apiVersion: autoscaling/v2
+    kind: HorizontalPodAutoscaler
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: ${NAME}-${ZONE}-${COMPONENT}
+      minReplicas: ${{MIN_REPLICAS}}
+      maxReplicas: ${{MAX_REPLICAS}}
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 80
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 30
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 60
+          selectPolicy: Max
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Percent
+              value: 50
+              periodSeconds: 60
+          selectPolicy: Max
+  - apiVersion: policy/v1
+    kind: PodDisruptionBudget
+    metadata:
+      labels:
+        app: ${NAME}-${ZONE}
+      name: ${NAME}-${ZONE}-${COMPONENT}
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-${COMPONENT}

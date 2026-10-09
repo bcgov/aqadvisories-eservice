@@ -1,0 +1,51 @@
+{
+  "api_name": "aqadvisories",
+  "api_version": "1.0.0",
+  "base_url": "${BASE_URL}",
+  "tests": [
+    {
+      "name": "Frontend health",
+      "methods": ["GET"],
+      "path": "/ping",
+      "assertions": [{ "method": "GET", "status_code": 200 }]
+    },
+    {
+      "name": "Home page",
+      "methods": ["GET"],
+      "path": "/",
+      "assertions": [{ "method": "GET", "status_code": 200 }]
+    },
+    {
+      "name": "Subscription form",
+      "methods": ["GET"],
+      "path": "/subscription.html",
+      "assertions": [{ "method": "GET", "status_code": 200 }]
+    },
+    {
+      "name": "Subscription without reCAPTCHA token is rejected",
+      "skip_when_env": "RECAPTCHA_DISABLED",
+      "methods": ["POST"],
+      "path": "/post/subscriptions",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "assertions": [{ "method": "POST", "status_code": 403 }]
+    },
+    {
+      "name": "Unsubscribe validates its parameters",
+      "methods": ["DELETE"],
+      "path": "/unsubscribe/bad-id/123",
+      "assertions": [{ "method": "DELETE", "status_code": 400 }]
+    },
+    {
+      "name": "Unsubscribe reaches NotifyBC and MongoDB (unknown id -> 404, backend down -> 500)",
+      "methods": ["DELETE"],
+      "path": "/unsubscribe/000000000000000000000000/123",
+      "assertions": [{ "method": "DELETE", "status_code": 404 }]
+    },
+    {
+      "name": "Resubscribe reaches NotifyBC and MongoDB (unknown id -> 404, backend down -> 500)",
+      "methods": ["GET"],
+      "path": "/resubscribe/000000000000000000000000/123",
+      "assertions": [{ "method": "GET", "status_code": 404 }]
+    }
+  ]
+}

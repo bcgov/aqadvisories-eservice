@@ -1,0 +1,189 @@
+# Reusable Deploy - Lite Mode Verification
+name: Reusable Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: GitHub/OpenShift environment
+        default: ""
+        type: string
+      target:
+        description: Deployment target; usually PR number, test or prod
+        default: ${{ github.event.number }}
+        type: string
+      tag:
+        description: Container tag
+        default: ${{ github.event.number }}
+        type: string
+      triggers:
+        description: Triggers for deployment
+        default: ""
+        type: string
+      recaptcha_disabled:
+        description: Skip reCAPTCHA verification in the frontend (PR environments only)
+        default: false
+        type: boolean
+
+    secrets:
+      db_admin_password:
+        description: Database admin password
+        required: true
+      db_password:
+        description: Database password
+        required: true
+      gcnotify_account_key:
+        description: GC Notify API key for SMS; when unset, the notify-bc ConfigMap's key is used
+        required: false
+      recaptcha_secret:
+        description: Google reCAPTCHA secret key; when unset, subscription forms fail verification
+        required: false
+      oc_namespace:
+        description: OpenShift namespace
+        required: true
+      oc_token:
+        description: OpenShift token
+        required: true
+    outputs:
+      triggered:
+        description: Has deployment been triggered?
+        value: ${{ jobs.init.outputs.triggered }}
+
+permissions: {}
+
+jobs:
+  init:
+    name: Deploy (init)
+    environment: ${{ inputs.environment }}
+    outputs:
+      triggered: ${{ steps.deploy.outputs.triggered }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: bcgov/action-deployer-openshift@27a85b7b157bfc9c3c9bf0aca53bcd288d4d2506 # v4.2.1
+        id: deploy
+        env:
+          DB_ADMIN_PASSWORD: ${{ secrets.db_admin_password }}
+          DB_PASSWORD: ${{ secrets.db_password }}
+          GCNOTIFY_ACCOUNT_KEY: ${{ secrets.gcnotify_account_key }}
+          RECAPTCHA_SECRET: ${{ secrets.recaptcha_secret }}
+        with:
+          file: common/openshift.init.yml
+          oc_namespace: ${{ secrets.oc_namespace }}
+          oc_server: ${{ vars.oc_server }}
+          oc_token: ${{ secrets.oc_token }}
+          # Secret + NetworkPolicies: applied on every deploy so template changes
+          # (e.g. new Secret keys, NetworkPolicy rules) reach existing environments.
+          # The database creates its users from this Secret on first boot (empty volume),
+          # so when reusing a volume, db_password/db_admin_password must match the
+          # passwords already in that data.
+          overwrite: true
+          # DB_USER/DB_NAME/DB_AUTH_SOURCE (GitHub variables, usually per environment)
+          # match an existing volume's MongoDB accounts; see DB_PVC_NAME below.
+          # The Red Hat image creates DB_USER in the app database, so authSource defaults to it.
+          parameters: -p DB_PASSWORD="$DB_PASSWORD"
+            -p DB_ADMIN_PASSWORD="$DB_ADMIN_PASSWORD"
+            -p GCNOTIFY_ACCOUNT_KEY="$GCNOTIFY_ACCOUNT_KEY"
+            -p RECAPTCHA_SECRET="$RECAPTCHA_SECRET"
+            ${{ vars.SWIFT_UNSUBSCRIPTION_KEYWORD && format('-p SWIFT_UNSUBSCRIPTION_KEYWORD="{0}"', vars.SWIFT_UNSUBSCRIPTION_KEYWORD) || '' }}
+            -p ZONE="${{ inputs.target }}"
+            -p NAME="${{ github.event.repository.name }}"
+            -p DB_USER="${{ vars.DB_USER || github.event.repository.name }}"
+            ${{ vars.DB_NAME && format('-p MONGO_DATABASE="{0}"', vars.DB_NAME) || '' }}
+            -p DB_AUTH_SOURCE="${{ vars.DB_AUTH_SOURCE || vars.DB_NAME || 'app' }}"
+          triggers: ${{ inputs.triggers }}
+
+  deploy:
+    name: Deploy (${{ matrix.name }})
+    environment: ${{ inputs.environment }}
+    needs: [init]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        name: [database, backend, frontend]
+        include:
+          - name: database
+            file: common/openshift.database.yml
+            pvc_size: 1Gi
+          - name: backend
+            file: backend/openshift.deploy.yml
+            parameters: -p IMAGE_TAG="${{ inputs.tag }}"
+          - name: frontend
+            file: frontend/openshift.deploy.yml
+            parameters: -p IMAGE_TAG="${{ inputs.tag }}"
+    outputs:
+      triggered: ${{ steps.deploy.outputs.triggered }}
+    steps:
+      # The database mounts a standalone PVC. Set the DB_PVC_NAME GitHub variable to reuse
+      # an existing claim and its data: at repo level for PRs (all PRs share it), and on
+      # the test/prod environments for theirs. A named claim is used as-is and never
+      # created, resized or deleted here. Without it, <repo>-<target>-database is created
+      # on first deploy, labelled so PR cleanup removes it with the PR.
+      - name: Database volume
+        if: matrix.name == 'database' && needs.init.outputs.triggered != 'false'
+        uses: bcgov/action-oc-runner@111868d1fc50db0a40417ba321d865ef5c931bbd # v1.7.0
+        with:
+          oc_namespace: ${{ secrets.oc_namespace }}
+          oc_token: ${{ secrets.oc_token }}
+          oc_server: ${{ vars.oc_server }}
+          commands: |
+            set -euo pipefail
+            DEFAULT="${{ github.event.repository.name }}-${{ inputs.target }}-database"
+            PVC="${{ vars.DB_PVC_NAME || format('{0}-{1}-database', github.event.repository.name, inputs.target) }}"
+
+            if oc get pvc "${PVC}" >/dev/null 2>&1; then
+              echo "Using existing PVC ${PVC}"
+              oc get pvc "${PVC}"
+
+              # A named claim can be shared, e.g. every PR in the DEV namespace. mongod locks
+              # its data directory, so stop this app's other databases on the claim first:
+              # the latest deploy takes it over, and older PR environments lose their database.
+              OTHERS=$(oc get sts -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.spec.replicas}{" "}{.spec.template.spec.volumes[*].persistentVolumeClaim.claimName}{"\n"}{end}' \
+                | awk -v pvc="${PVC}" -v self="${DEFAULT}" -v repo="${{ github.event.repository.name }}-" \
+                  '$2 > 0 && $1 != self && index($1, repo) == 1 { for (i = 3; i <= NF; i++) if ($i == pvc) print $1 }')
+              for sts in ${OTHERS}; do
+                echo "Scaling down ${sts}, which also uses ${PVC}"
+                oc scale "sts/${sts}" --replicas=0
+                oc wait --for=delete pod -l "deployment=${sts}" --timeout=180s || true
+              done
+            elif [ "${PVC}" != "${DEFAULT}" ]; then
+              # Never create a named claim: a typo would start MongoDB on an empty volume
+              echo "ERROR: PVC ${PVC} (from the DB_PVC_NAME variable) not found in this namespace."
+              exit 1
+            else
+              echo "Creating PVC ${PVC} (${{ matrix.pvc_size }})"
+              # netapp-block-standard (RWO block) suits a single-writer DB and supports resize-up only
+              oc create -f - <<EOF
+            apiVersion: v1
+            kind: PersistentVolumeClaim
+            metadata:
+              name: ${PVC}
+              labels:
+                app: ${{ github.event.repository.name }}-${{ inputs.target }}
+            spec:
+              accessModes: [ReadWriteOnce]
+              storageClassName: netapp-block-standard
+              resources:
+                requests:
+                  storage: ${{ matrix.pvc_size }}
+            EOF
+            fi
+
+      - uses: bcgov/action-deployer-openshift@27a85b7b157bfc9c3c9bf0aca53bcd288d4d2506 # v4.2.1
+        id: deploy
+        with:
+          file: ${{ matrix.file }}
+          oc_namespace: ${{ secrets.oc_namespace }}
+          oc_server: ${{ vars.oc_server }}
+          oc_token: ${{ secrets.oc_token }}
+          parameters: -p ZONE="${{ inputs.target }}"
+            -p NAME="${{ github.event.repository.name }}"
+            ${{ matrix.parameters }}
+            ${{ matrix.name == 'database' && format('-p DB_PVC_NAME="{0}"', vars.DB_PVC_NAME || format('{0}-{1}-database', github.event.repository.name, inputs.target)) || '' }}
+            ${{ matrix.name == 'database' && vars.MONGO_IMAGE && format('-p MONGO_IMAGE="{0}"', vars.MONGO_IMAGE) || '' }}
+            ${{ matrix.name == 'backend' && vars.INBOUND_SMTP_DOMAIN && format('-p INBOUND_SMTP_DOMAIN="{0}"', vars.INBOUND_SMTP_DOMAIN) || '' }}
+            ${{ matrix.name == 'backend' && vars.GCNOTIFY_BASE_URL && format('-p GCNOTIFY_BASE_URL="{0}"', vars.GCNOTIFY_BASE_URL) || '' }}
+            ${{ matrix.name == 'frontend' && vars.TRUST_PROXY && format('-p TRUST_PROXY="{0}"', vars.TRUST_PROXY) || '' }}
+            ${{ matrix.name == 'frontend' && inputs.recaptcha_disabled && '-p RECAPTCHA_DISABLED=true' || '' }}
+          triggers: ${{ inputs.triggers }}

@@ -1,0 +1,120 @@
+{
+  "name": "notification",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "$**_text": {
+      "keys": {
+        "$**": "text"
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true,
+    "replaceOnPUT": true
+  },
+  "hidden": [],
+  "mixins": {
+    "Common": {}
+  },
+  "properties": {
+    "serviceName": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "required": true,
+      "default": "new"
+    },
+    "userChannelId": {
+      "type": "string"
+    },
+    "message": {
+      "type": "object",
+      "required": true,
+      "default": {}
+    },
+    "created": {
+      "type": "date",
+      "default": "$now"
+    },
+    "updated": {
+      "type": "date",
+      "default": "$now"
+    },
+    "channel": {
+      "type": "string",
+      "required": true,
+      "default": "inApp"
+    },
+    "isBroadcast": {
+      "type": "boolean",
+      "default": false
+    },
+    "skipSubscriptionConfirmationCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "validTill": {
+      "type": "date"
+    },
+    "invalidBefore": {
+      "type": "date"
+    },
+    "data": {
+      "type": "object"
+    },
+    "asyncBroadcastPushNotification": {
+      "type": "any"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "prototype.broadcastToChunkSubscribers": {
+      "accepts": [{
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        },
+        {
+          "arg": "start",
+          "type": "number",
+          "required": true,
+          "description": "start index",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [{
+        "arg": "failedDispatches",
+        "type": "array",
+        "root": true,
+        "description": "failed deliveries"
+      }],
+      "description": "dispatch broadcast notifications to a chunk of subscribers",
+      "http": [{
+        "path": "/broadcastToChunkSubscribers",
+        "verb": "get"
+      }]
+    },
+    "prototype.deleteItemById": {
+      "accepts": [{
+        "arg": "options",
+        "type": "object",
+        "required": false,
+        "http": "optionsFromRequest",
+        "description": ""
+      }],
+      "returns": [],
+      "description": "delete a notification by Id",
+      "http": [{
+        "path": "/",
+        "verb": "delete"
+      }]
+    }
+  }
+}
