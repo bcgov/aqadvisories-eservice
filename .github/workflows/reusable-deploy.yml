@@ -112,6 +112,7 @@ jobs:
           - name: frontend
             file: frontend/openshift.deploy.yml
             parameters: -p IMAGE_TAG="${{ inputs.tag }}"
+              -p NAMESPACE="${{ secrets.oc_namespace }}"
     outputs:
       triggered: ${{ steps.deploy.outputs.triggered }}
     steps:
