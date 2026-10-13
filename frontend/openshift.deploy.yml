@@ -62,7 +62,7 @@ parameters:
     value: uniquelocal
   - name: NAMESPACE
     description: OpenShift namespace
-    value: ${{ secrets.oc_namespace }}
+    required: true
 objects:
   # The <NAME>-<ZONE>-frontend Secret comes from common/openshift.init.yml: recaptcha-secret
   # (GitHub secret recaptcha_secret) and swift-unsubscription-keyword (GitHub variable
