@@ -60,6 +60,9 @@ parameters:
       preset name, IP or CIDR, or a comma-separated list (e.g. "uniquelocal" or
       "10.0.0.0/8, 172.51.0.0/16"). Not "true": env values are strings, which crash express.
     value: uniquelocal
+  - name: NAMESPACE
+    description: OpenShift namespace
+    value: ${{ secrets.oc_namespace }}
 objects:
   # The <NAME>-<ZONE>-frontend Secret comes from common/openshift.init.yml: recaptcha-secret
   # (GitHub secret recaptcha_secret) and swift-unsubscription-keyword (GitHub variable
@@ -227,10 +230,10 @@ objects:
         app: ${NAME}-${ZONE}
       name: ${NAME}-${ZONE}-${COMPONENT}
     spec:
-      host: ${NAME}-${ZONE}.${DOMAIN}
+      host: ${NAME}-${NAMESPACE}.${DOMAIN}
       to:
         kind: Service
-        name: ${NAME}
+        name: ${NAME}-${ZONE}-${COMPONENT}
         weight: 100
       tls:
         termination: edge
