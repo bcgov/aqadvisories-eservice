@@ -110,7 +110,7 @@ objects:
                   value: '3001'
                 # backend Service listens on 80 (-> NotifyBC 3000)
                 - name: notify_bc_root_url
-                  value: http://${NAME}-${ZONE}-backend
+                  value: http://${NAME}-${ZONE}-backend.apps.silver.devops.gov.bc.ca
                 - name: notification_sender_role
                   value: ${NOTIFICATION_SENDER_ROLE}
                 # behind the OpenShift router: use X-Forwarded-* for the client IP and
