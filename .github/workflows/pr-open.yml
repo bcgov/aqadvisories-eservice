@@ -52,16 +52,16 @@ jobs:
       triggers: ('backend/', 'frontend/', 'common/', '.github/workflows/pr-open.yml')
       # PR hostnames (<repo>-<PR>.apps.silver...) aren't on the reCAPTCHA site key's
       # domain list, so Google rejects their tokens; TEST/PROD still verify
-      recaptcha_disabled: true
+      #recaptcha_disabled: true
 
   tests:
     name: Tests
     if: needs.deploys.outputs.triggered == 'true'
     needs: [deploys]
     uses: ./.github/workflows/reusable-tests.yml
-    with:
+   # with:
       # matches the deploys job's recaptcha_disabled
-      recaptcha_disabled: true
+      #recaptcha_disabled: true
 
   comment:
     name: Deployment Links
