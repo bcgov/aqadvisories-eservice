@@ -230,7 +230,7 @@ objects:
       host: ${NAME}-${ZONE}.${DOMAIN}
       to:
         kind: Service
-        name: ${NAME}-${ZONE}-${COMPONENT}
+        name: ${NAME}
         weight: 100
       tls:
         termination: edge
