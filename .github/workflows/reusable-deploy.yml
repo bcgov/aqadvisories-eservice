@@ -88,7 +88,7 @@ jobs:
             ${{ vars.SWIFT_UNSUBSCRIPTION_KEYWORD && format('-p SWIFT_UNSUBSCRIPTION_KEYWORD="{0}"', vars.SWIFT_UNSUBSCRIPTION_KEYWORD) || '' }}
             -p ZONE="${{ inputs.target }}"
             -p NAME="${{ github.event.repository.name }}"
-            -p DB_USER="${{ vars.DB_USER || github.event.repository.name }}"
+            -p DB_USER="${{ secrets.DB_USER || github.event.repository.name }}"
             ${{ vars.DB_NAME && format('-p MONGO_DATABASE="{0}"', vars.DB_NAME) || '' }}
             -p DB_AUTH_SOURCE="${{ vars.DB_AUTH_SOURCE || vars.DB_NAME || 'app' }}"
           triggers: ${{ inputs.triggers }}
