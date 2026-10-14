@@ -13,10 +13,13 @@ on:
       #   description: The frontend was deployed with reCAPTCHA off (PRs); skips the tests that need it
       #   default: false
       #   type: boolean
-
+    secrets:
+      oc_namespace:
+        description: OpenShift namespace
+        required: true
 env:
   DOMAIN: apps.silver.devops.gov.bc.ca
-  PREFIX: ${{ github.event.repository.name }}-${{ inputs.target }}
+  PREFIX: ${{ github.event.repository.name }}-${{ secrets.oc_namespace }}
 
 permissions: {}
 
