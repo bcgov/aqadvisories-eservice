@@ -1,0 +1,51 @@
+{
+  "name": "configuration",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "unique_name_serviceName": {
+      "keys": {
+        "name": 1,
+        "serviceName": 1
+      },
+      "options": {
+        "unique": true
+      }
+    },
+    "$**_text": {
+      "keys": {
+        "$**": "text"
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Common": {}
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "any"
+    },
+    "serviceName": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date",
+      "default": "$now"
+    },
+    "updated": {
+      "type": "date",
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

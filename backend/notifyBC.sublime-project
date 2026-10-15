@@ -1,0 +1,147 @@
+{
+  "settings":
+  {
+    "todoreview":
+    {
+      "exclude_folders": [
+        "*.git*",
+        "*node_modules*"
+      ]
+    }
+  },
+  "build_systems": [
+  {
+    "cmd": [
+      "bundle.bat",
+      "exec",
+      "jekyll",
+      "s"
+    ],
+    "name": "docs",
+    "working_dir": "${project_path}/docs",
+    "target": "ansi_color_build",
+    "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+  },
+  {
+    "cmd": [
+      "npm.cmd",
+      "test"
+    ],
+    "name": "npm-run-test",
+    "working_dir": "${project_path}",
+    "target": "ansi_color_build",
+    "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+  },
+  {
+    "cmd": [
+      "npm.cmd",
+      "run",
+      "start:dev"
+    ],
+    "env":
+    {
+      "NOTIFYBC_NODE_ROLE": "master"
+    },
+    "name": "node-app",
+    "working_dir": "${project_path}"
+  },
+  {
+    "cmd": [
+      "npm.cmd",
+      "run",
+      "dev"
+    ],
+    "name": "node-client-dev",
+    "working_dir": "${project_path}/client"
+  },
+  {
+    "cmd": [
+      "node.exe",
+      "server/smtp.js"
+    ],
+    "env":
+    {
+      "NOTIFYBC_NODE_ROLE": "master"
+    },
+    "name": "node-smtp",
+    "working_dir": "${project_path}"
+  },
+  {
+    "cmd": [
+      "node.exe",
+      "node_modules/jasmine/bin/jasmine.js"
+    ],
+    "env":
+    {
+      "NODE_ENV": "test"
+    },
+    "name": "node-jasmine",
+    "working_dir": "${project_path}",
+    "target": "ansi_color_build",
+    "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+  },
+  {
+    "cmd": [
+      "node.exe",
+      "--inspect",
+      "server/server.js"
+    ],
+    "env":
+    {
+      "NOTIFYBC_NODE_ROLE": "master",
+      "NODE_ENV": "dev"
+    },
+    "name": "debug-app",
+    "working_dir": "${project_path}"
+  },
+  {
+    "cmd": [
+      "node.exe",
+      "--inspect",
+      "node_modules/jasmine/bin/jasmine.js"
+    ],
+    "env":
+    {
+      "NODE_ENV": "test"
+    },
+    "name": "debug-jasmine",
+    "working_dir": "${project_path}"
+  },
+  {
+    "cmd": [
+      "node-debug.cmd",
+      "server/server.js"
+    ],
+    "env":
+    {
+      "NOTIFYBC_NODE_ROLE": "master"
+    },
+    "name": "v4-debug-app",
+    "working_dir": "${project_path}"
+  },
+  {
+    "cmd": [
+      "node-debug.cmd",
+      "node_modules/jasmine/bin/jasmine.js"
+    ],
+    "env":
+    {
+      "NODE_ENV": "test"
+    },
+    "name": "v4-debug-jasmine",
+    "working_dir": "${project_path}"
+  }],
+  "folders": [
+  {
+    "path": "."
+  },
+  {
+    "path": "../jmespath.js"
+  },
+  {
+    "path": "../loopback-component-explorer"
+  },
+  {
+    "path": "../json-editor"
+  }]
+}

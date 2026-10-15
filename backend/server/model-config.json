@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "notification": {
+    "dataSource": "db",
+    "public": true
+  },
+  "subscription": {
+    "dataSource": "db",
+    "public": true
+  },
+  "configuration": {
+    "dataSource": "db",
+    "public": true
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "administrator": {
+    "dataSource": "db",
+    "public": true
+  },
+  "rss": {
+    "dataSource": "db",
+    "public": false
+  },
+  "bounce": {
+    "dataSource": "db",
+    "public": true
+  }
+}

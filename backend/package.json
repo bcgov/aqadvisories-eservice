@@ -1,0 +1,72 @@
+{
+  "name": "notification",
+  "version": "1.15.8",
+  "dbSchemaVersion": "0.6.0",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node .",
+    "start:dev": "cross-env NODE_ENV=dev node .",
+    "postinstall": "cd client && yarn install --network-timeout 100000 && yarn run build && cd ..",
+    "test": "cross-env NODE_ENV=test istanbul cover node_modules/jasmine/bin/jasmine.js",
+    "pretest": "eslint ."
+  },
+  "dependencies": {
+    "async": "^3.0.1",
+    "axios": "^0.19.0",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "cron": "^1.2.1",
+    "cross-env": "^5.0.0",
+    "csvtojson": "^1.1.7",
+    "ejs": "^2.5.7",
+    "feedparser": "^2.2.0",
+    "helmet": "^3.8.0",
+    "ip-range-check": "0.0.2",
+    "jmespath": "f-w/jmespath.js#semver:^1.0",
+    "lodash": "^4.17.11",
+    "loopback": "^3.26.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^6.4.0",
+    "loopback-connector-mongodb": "^5.2.2",
+    "mailparser": "^2.3.2",
+    "morgan": "^1.9.1",
+    "node-getopt": "^0.2.3",
+    "node-rsa": "^0.4.1",
+    "nodemailer": "^4.1.2",
+    "nodemailer-direct-transport": "^3.3.2",
+    "pluralize": "^7.0.0",
+    "randexp": "^0.4.3",
+    "semver": "^5.3.0",
+    "serve-favicon": "^2.0.1",
+    "smtp-server": "^3.1.0",
+    "strong-error-handler": "^1.0.1",
+    "twilio": "^3.7.0",
+    "underscore.string": "^3.3.4"
+  },
+  "devDependencies": {
+    "connect-history-api-fallback": "^1.4.0",
+    "eslint": "^5.3.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "istanbul": "^1.0.0-alpha.1",
+    "jasmine": "^2.6.0",
+    "smtp-connection": "^4.0.2",
+    "supertest": "2.0.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=8.2.1"
+  },
+  "license": "Apache-2.0",
+  "description": "A versatile notification API server",
+  "private": true
+}

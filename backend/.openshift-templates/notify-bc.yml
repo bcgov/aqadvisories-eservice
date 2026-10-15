@@ -1,0 +1,409 @@
+apiVersion: v1
+kind: Template
+labels:
+  template: notify-bc
+metadata:
+  annotations:
+    description: NotifyBC app with a MongoDB database
+    iconClass: icon-nodejs
+    tags: instant-app,nodejs,mongodb
+  name: notify-bc
+objects:
+  - apiVersion: v1
+    kind: Secret
+    type: opaque
+    metadata:
+      name: mongodb
+    stringData:
+      password: ${DATABASE_PASSWORD}
+      adminPassword: ${DATABASE_ADMIN_PASSWORD}
+  - apiVersion: image.openshift.io/v1
+    kind: ImageStream
+    metadata:
+      annotations:
+        description: Keeps track of changes in the application image
+      name: notify-bc
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: ${DATABASE_SERVICE_NAME}
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${VOLUME_CAPACITY}
+  - apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    metadata:
+      annotations:
+        description: Defines how to deploy the application server
+      name: notify-bc-app
+    spec:
+      replicas: 1
+      strategy:
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            name: notify-bc-app
+        spec:
+          containers:
+            - env:
+                - name: NODE_ENV
+                  value: production
+                - name: DATABASE_SERVICE_NAME
+                  value: ${DATABASE_SERVICE_NAME}
+                - name: MONGODB_USER
+                  value: ${DATABASE_USER}
+                - name: MONGODB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: mongodb
+                - name: MONGODB_DATABASE
+                  value: ${DATABASE_NAME}
+                - name: MONGODB_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: adminPassword
+                      name: mongodb
+                - name: NOTIFYBC_NODE_ROLE
+                  value: slave
+                - name: NOTIFYBC_WORKER_PROCESS_COUNT
+                  value: '1'
+              image: notify-bc
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 100
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              name: notify-bc
+              ports:
+                - containerPort: 3000
+                  protocol: TCP
+                - containerPort: 2525
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 100
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              resources:
+                limits:
+                  cpu: '1'
+                  memory: 1Gi
+                requests:
+                  cpu: 100m
+                  memory: 512Mi
+              volumeMounts:
+                - mountPath: /mnt
+                  name: config-volume
+          volumes:
+            - configMap:
+                name: notify-bc
+              name: config-volume
+      triggers:
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - notify-bc
+            from:
+              kind: ImageStreamTag
+              name: notify-bc:latest
+          type: ImageChange
+        - type: ConfigChange
+  - apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    metadata:
+      annotations:
+        description: Defines how to deploy the application server
+      name: notify-bc-cron
+    spec:
+      replicas: 1
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          labels:
+            name: notify-bc-cron
+        spec:
+          containers:
+            - env:
+                - name: NODE_ENV
+                  value: production
+                - name: DATABASE_SERVICE_NAME
+                  value: ${DATABASE_SERVICE_NAME}
+                - name: MONGODB_USER
+                  value: ${DATABASE_USER}
+                - name: MONGODB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: mongodb
+                - name: MONGODB_DATABASE
+                  value: ${DATABASE_NAME}
+                - name: MONGODB_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: adminPassword
+                      name: mongodb
+                - name: NOTIFYBC_NODE_ROLE
+                  value: master
+                - name: NOTIFYBC_WORKER_PROCESS_COUNT
+                  value: '1'
+              image: notify-bc
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 120
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: notify-bc
+              ports:
+                - containerPort: 3000
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 3000
+                  scheme: HTTP
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 1Gi
+              volumeMounts:
+                - mountPath: /mnt
+                  name: config-volume
+          volumes:
+            - configMap:
+                name: notify-bc
+              name: config-volume
+      triggers:
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - notify-bc
+            from:
+              kind: ImageStreamTag
+              name: notify-bc:latest
+          type: ImageChange
+        - type: ConfigChange
+  - apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    metadata:
+      annotations:
+        description: Defines how to deploy the database
+      name: ${DATABASE_SERVICE_NAME}
+    spec:
+      replicas: 1
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          labels:
+            name: ${DATABASE_SERVICE_NAME}
+        spec:
+          containers:
+            - env:
+                - name: MONGODB_USER
+                  value: ${DATABASE_USER}
+                - name: MONGODB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: mongodb
+                - name: MONGODB_DATABASE
+                  value: ${DATABASE_NAME}
+                - name: MONGODB_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: adminPassword
+                      name: mongodb
+              image: ' '
+              livenessProbe:
+                initialDelaySeconds: 30
+                tcpSocket:
+                  port: 27017
+                timeoutSeconds: 1
+              name: mongodb
+              ports:
+                - containerPort: 27017
+              readinessProbe:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -i
+                    - -c
+                    - mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD
+                      --eval="quit()"
+                initialDelaySeconds: 3
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  memory: ${MEMORY_MONGODB_LIMIT}
+              volumeMounts:
+                - mountPath: /var/lib/mongodb/data
+                  name: ${DATABASE_SERVICE_NAME}-data
+          volumes:
+            - name: ${DATABASE_SERVICE_NAME}-data
+              persistentVolumeClaim:
+                claimName: ${DATABASE_SERVICE_NAME}
+      triggers:
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - mongodb
+            from:
+              kind: ImageStreamTag
+              name: mongodb:3.6
+              namespace: openshift
+          type: ImageChange
+        - type: ConfigChange
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        description: Exposes and load balances the application pods
+        service.alpha.openshift.io/dependencies: '[{"name":"${DATABASE_SERVICE_NAME}","kind":"Service"}]'
+      name: notify-bc
+    spec:
+      ports:
+        - name: web
+          port: 3000
+          targetPort: 3000
+        - name: smtp
+          port: 2525
+          targetPort: 2525
+      selector:
+        name: notify-bc-app
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        description: Exposes the database server
+      name: ${DATABASE_SERVICE_NAME}
+    spec:
+      ports:
+        - name: mongodb
+          port: 27017
+          targetPort: 27017
+      selector:
+        name: ${DATABASE_SERVICE_NAME}
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      annotations:
+        haproxy.router.openshift.io/timeout: 24d
+      name: notify-bc
+    spec:
+      host: ${APPLICATION_DOMAIN}
+      port:
+        targetPort: 3000
+      tls:
+        termination: edge
+      to:
+        kind: Service
+        name: notify-bc
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: notify-bc-smtp
+    spec:
+      host: ${INBOUND_SMTP_DOMAIN}
+      port:
+        targetPort: 2525
+      tls:
+        termination: passthrough
+      to:
+        kind: Service
+        name: notify-bc
+  - apiVersion: autoscaling/v1
+    kind: HorizontalPodAutoscaler
+    metadata:
+      name: notify-bc-cron
+    spec:
+      maxReplicas: 1
+      minReplicas: 1
+      scaleTargetRef:
+        apiVersion: v1
+        kind: DeploymentConfig
+        name: notify-bc-cron
+        subresource: scale
+  - apiVersion: autoscaling/v1
+    kind: HorizontalPodAutoscaler
+    metadata:
+      name: ${DATABASE_SERVICE_NAME}
+    spec:
+      maxReplicas: 1
+      minReplicas: 1
+      scaleTargetRef:
+        apiVersion: v1
+        kind: DeploymentConfig
+        name: ${DATABASE_SERVICE_NAME}
+        subresource: scale
+  - apiVersion: v1
+    data:
+      config.local.js: "module.exports = {\n  inboundSmtpServer: {\n \
+        \   listeningSmtpPort: 2525,\n \
+        \   options: {\n      secure: true\n    }\n  }\n}\n"
+      middleware.local.json:
+        "{\n  \"routes:before\":{\n    \"morgan\":{\n      \"enabled\"\
+        : false\n    }\n  }\n}\n"
+    kind: ConfigMap
+    metadata:
+      name: notify-bc
+parameters:
+  - description: Database service name
+    name: DATABASE_SERVICE_NAME
+    value: mongodb
+  - description: Username for MongoDB user that will be used for accessing the database
+    from: user[A-Z0-9]{3}
+    generate: expression
+    name: DATABASE_USER
+  - description: Password for the MongoDB user
+    from: '[a-zA-Z0-9]{16}'
+    generate: expression
+    name: DATABASE_PASSWORD
+  - description: Database name
+    name: DATABASE_NAME
+    value: notify-bc
+  - description: Password for the database admin user
+    from: '[a-zA-Z0-9]{16}'
+    generate: expression
+    name: DATABASE_ADMIN_PASSWORD
+  - description: Volume space available for data, e.g. 512Mi, 2Gi
+    displayName: Volume capacity
+    name: VOLUME_CAPACITY
+    required: true
+    value: 1Gi
+  - description: Maximum amount of memory the MongoDB container can use.
+    displayName: Memory Limit (MongoDB)
+    name: MEMORY_MONGODB_LIMIT
+    required: true
+    value: 1Gi
+  - description:
+      The exposed hostname of the http API server, if left blank a value
+      will be defaulted.
+    name: APPLICATION_DOMAIN
+  - description:
+      The exposed hostname of the smtp server to receive unsubscription email,
+      if left blank a value will be defaulted.
+    name: INBOUND_SMTP_DOMAIN

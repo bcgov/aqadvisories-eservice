@@ -1,0 +1,17 @@
+.git
+.gitattributes
+.gitignore
+.vscode
+.s2i
+node_modules
+sessions
+backup
+.env
+*.bak
+*.db
+*.log
+Dockerfile
+.dockerignore
+app.code-workspace
+README.md
+COMPLIANCE.yaml

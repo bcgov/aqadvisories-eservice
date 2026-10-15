@@ -1,0 +1,2 @@
+serviceName,channel,userChannelId,state,unsubscriptionCode,confirmationRequest.sendRequest
+myService,email,foo@bar.com,confirmed,12345,False

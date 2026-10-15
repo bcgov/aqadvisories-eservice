@@ -1,0 +1,76 @@
+{
+  "name": "bounce",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "state_channel_userChannelId": {
+      "keys": {
+        "state": 1,
+        "channel": 1,
+        "userChannelId": 1
+      }
+    },
+    "$**_text": {
+      "keys": {
+        "$**": "text"
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Common": {}
+  },
+  "properties": {
+    "channel": {
+      "type": "string",
+      "required": true
+    },
+    "userChannelId": {
+      "type": "string",
+      "required": true
+    },
+    "hardBounceCount": {
+      "type": "number",
+      "default": 0,
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "required": true,
+      "default": "active"
+    },
+    "bounceMessages": {
+      "type": [{
+        "date": {
+          "type": "date"
+        },
+        "message": {
+          "type": "string"
+        }
+      }],
+      "required": false
+    },
+    "latestNotificationStarted": {
+      "type": "date",
+      "required": false
+    },
+    "latestNotificationEnded": {
+      "type": "date",
+      "required": false
+    },
+    "created": {
+      "type": "date",
+      "default": "$now"
+    },
+    "updated": {
+      "type": "date",
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

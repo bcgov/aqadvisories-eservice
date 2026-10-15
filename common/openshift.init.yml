@@ -1,0 +1,154 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+  - name: NAME
+    description: Product name
+    value: quickstart-openshift
+  - name: MONGO_DATABASE
+    description: MongoDB database name
+    value: app
+  - name: ZONE
+    description: Deployment zone, e.g. pr-### or prod
+    required: true
+  - name: DB_USER
+    description: >-
+      MongoDB user the backend connects as. On a new (empty) volume it is created in
+      MONGO_DATABASE; with an existing volume it must be a user that already exists in that data.
+    required: true
+  - name: DB_PASSWORD
+    description: >-
+      Password for DB_USER. It is embedded in database-uri, so use
+      URL-safe characters only (letters, digits, - . _ ~).
+    required: true
+  - name: DB_ADMIN_PASSWORD
+    description: Password for the MongoDB "admin" user (MONGODB_ADMIN_PASSWORD). Not used by the backend.
+    required: true
+  - name: DB_AUTH_SOURCE
+    description: >-
+      Database that DB_USER is defined in. The Red Hat image creates it in MONGO_DATABASE,
+      so keep the two equal unless an existing volume defines the user elsewhere.
+    value: app
+  - name: GCNOTIFY_ACCOUNT_KEY
+    description: >-
+      GC Notify API key for SMS (sms.gcnotify.accountKey). Empty keeps the key from the
+      notify-bc ConfigMap's config.local.js.
+    value: ""
+  - name: RECAPTCHA_SECRET
+    description: >-
+      Google reCAPTCHA secret key the frontend verifies subscription forms with. Empty
+      makes every subscription fail verification (HTTP 403).
+    value: ""
+  - name: SWIFT_UNSUBSCRIPTION_KEYWORD
+    description: Keyword SMS recipients reply with to unsubscribe ("Reply STOP to unsubscribe.").
+    value: STOP
+objects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${NAME}-${ZONE}-database
+      labels:
+        app: ${NAME}-${ZONE}
+    # Read by common/openshift.database.yml (MONGODB_*) and the backend.
+    stringData:
+      database-admin-password: ${DB_ADMIN_PASSWORD}
+      database-name: ${MONGO_DATABASE}
+      database-password: ${DB_PASSWORD}
+      database-user: ${DB_USER}
+      database-uri: mongodb://${DB_USER}:${DB_PASSWORD}@${NAME}-${ZONE}-database:27017/${MONGO_DATABASE}?authSource=${DB_AUTH_SOURCE}
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${NAME}-${ZONE}-backend
+      labels:
+        app: ${NAME}-${ZONE}
+    # Read by backend/openshift.deploy.yml (GCNOTIFY_ACCOUNT_KEY -> server/config.production.js)
+    stringData:
+      gcnotify-account-key: ${GCNOTIFY_ACCOUNT_KEY}
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${NAME}-${ZONE}-frontend
+      labels:
+        app: ${NAME}-${ZONE}
+    # Read by frontend/openshift.deploy.yml (recaptcha_secret, swift_unsubscription_keyword).
+    # Applied with overwrite, so keys added by hand are replaced on the next deploy.
+    stringData:
+      recaptcha-secret: ${RECAPTCHA_SECRET}
+      swift-unsubscription-keyword: ${SWIFT_UNSUBSCRIPTION_KEYWORD}
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: ${NAME}-${ZONE}-frontend-ingress
+      labels:
+        app: ${NAME}-${ZONE}
+    spec:
+      podSelector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-frontend
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+      policyTypes:
+        - Ingress
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: ${NAME}-${ZONE}-backend-ingress
+      labels:
+        app: ${NAME}-${ZONE}
+    spec:
+      podSelector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-backend
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-frontend
+            # NotifyBC calls its own API through the backend Service to send large
+            # broadcasts in chunks (more than broadcastSubscriberChunkSize subscribers)
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-backend
+        # From the router: NotifyBC's API and web console (the /api and backend Routes,
+        # 3000) and inbound SMTP (passthrough SMTP Route, 2525)
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+          ports:
+            - protocol: TCP
+              port: 3000
+            - protocol: TCP
+              port: 2525
+      policyTypes:
+        - Ingress
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: ${NAME}-${ZONE}-database-ingress
+      labels:
+        app: ${NAME}-${ZONE}
+    spec:
+      podSelector:
+        matchLabels:
+          deployment: ${NAME}-${ZONE}-database
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-backend
+            - podSelector:
+                matchLabels:
+                  app: ${NAME}-${ZONE}
+                  deployment: ${NAME}-${ZONE}-backend-cron
+          ports:
+            - protocol: TCP
+              port: 27017
+      policyTypes:
+        - Ingress
