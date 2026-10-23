@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const app = express()
 const port = process.env.port || 8080
 const role = process.env.notification_sender_role || 'realm:notificaton-sender'
@@ -54,7 +55,12 @@ app.use(
 )
 app.use(keycloak.middleware())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.get('/admin.html', keycloak.protect())
+// Previously admin.html was in static/ folder so it was bypassed easily. 
+// admin.html lives outside static/ so express.static can never serve it; this route
+// is the only way to reach it.
+app.get('/admin.html', keycloak.protect(), (req, res) =>
+  res.sendFile('admin.html', { root: path.join(__dirname, 'private') })
+)
 app.get('/stats.html', keycloak.protect())
 
 app.post('/post/subscriptions', async (req, res) => {
