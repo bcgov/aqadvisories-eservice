@@ -12,6 +12,7 @@ const axios = require('axios')
 const bodyParser = require('body-parser')
 const htmlToText = require('html-to-text')
 const qs = require('qs')
+const fs = require('fs')
 // same module the subscription form loads in the browser, so client and server
 // enforce one definition of a valid sms number
 const nanp = require('./static/js/nanp')
@@ -58,8 +59,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Previously admin.html was in static/ folder so it was bypassed easily. 
 // admin.html lives outside static/ so express.static can never serve it; this route
 // is the only way to reach it.
+// read once at startup
+const adminPage = fs.readFileSync(path.join(__dirname, 'private', 'admin.html'))
 app.get('/admin.html', keycloak.protect(), (req, res) =>
-  res.sendFile('admin.html', { root: path.join(__dirname, 'private') })
+  res.type('html').send(adminPage)
 )
 app.get('/stats.html', keycloak.protect())
 
@@ -252,7 +255,6 @@ app.get('/resubscribe/:subscriptionId/:unsubscriptionCode', async (req, res) => 
     const notifyResponse = await axios.get(resubscribeUrl, anonymousRequest);
     res.status(200).json({ message: 'Resubscription successful' });
   } catch (error) {
-    console.log(error)
     console.error('Resubscription failed:', error.response ? error.response.data : error.message);
     const status = error.response ? error.response.status : 500;
     const message = error.response ? error.response.data : 'Internal server error during resubscription';

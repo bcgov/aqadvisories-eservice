@@ -123,7 +123,7 @@ jobs:
           allow_issue_writing: true
           issue_title: "ZAP Security Report"
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: https://${{ github.event.repository.name }}-test.apps.silver.devops.gov.bc.ca
+          target: https://${{ github.event.repository.name }}-ef3999-test.apps.silver.devops.gov.bc.ca
 
   load-tests:
     name: Load
