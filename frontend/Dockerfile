@@ -11,6 +11,7 @@ RUN npm ci --omit=dev && npm cache clean --force
 
 COPY index.js keycloak.json ./
 COPY static ./static
+COPY private ./private
 
 # session-file-store writes here. keycloak.json holds the SSO defaults; each
 # environment overrides them with keycloak_* env vars (see openshift.deploy.yml)
