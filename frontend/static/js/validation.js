@@ -83,7 +83,7 @@ alert( 'You need to fill out at least your email address or a mobile phone numbe
     }
     grecaptcha.ready(function() {
       grecaptcha
-        .execute('6LeOitcUAAAAAIdx7rI5W27QySOqaML-qrlzuYhN', {
+        .execute('6LdMdhguAAAAACrCqzsHatPcSkSoVFk5kmbjD34M', {
           action: 'submit'
         })
         .then(function(token) {
