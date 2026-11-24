@@ -193,12 +193,6 @@ Sysdig API token used to sync the PROD email-alert set on every merge. Sourced f
 * Reference: `${{ secrets.SYSDIG_API_TOKEN }}`
 * Alert templates live in [`monitoring/alerts/`](./monitoring/alerts/). Add or remove files to customize the alert set per app — see [`bcgov/action-sysdig-monitor`](https://github.com/bcgov/action-sysdig-monitor) for the template schema and placeholder vocabulary.
 
-**`TLS_CERTIFICATE`, `TLS_PRIVATE_KEY`, `TLS_CA_CERTIFICATE`**
-
-PEM-formatted certificates and private key for custom vanity URL TLS on the PROD frontend OpenShift Route. Optional — required only when `vars.ROUTE_HOST` is configured. If `vars.ROUTE_HOST` is unset, the `route-tls` step is safely skipped.
-* References: `${{ secrets.TLS_CERTIFICATE }}`, `${{ secrets.TLS_PRIVATE_KEY }}`, `${{ secrets.TLS_CA_CERTIFICATE }}`
-* Validated and applied via [`bcgov/actions-openshift/route-tls`](https://github.com/bcgov/actions-openshift/tree/main/route-tls), which checks key matching, CA chain, expiration, and archives previous certificates to an OpenShift secret.
-
 ### Variable Values
 
 >  Click Settings > Secrets and Variables > Actions > Variables > New repository variable
@@ -210,10 +204,13 @@ OpenShift server address (API endpoint for your OpenShift cluster).
 * BCGov: `https://api.gold.devops.gov.bc.ca:6443` or `https://api.silver.devops.gov.bc.ca:6443`
 * Others: Use your cluster's API server address (e.g. `https://api.<cluster-domain>:6443`)
 
-**`ROUTE_HOST`**
+**`ROUTE_HOST` (vanity URL certificate)**
 
-Vanity URL hostname for the application (e.g., `myapp.gov.bc.ca` — hostname only, no scheme). Optional — can be set as a repository variable or environment variable on `prod`. When set, `merge.yml` configures an OpenShift Route with custom TLS for the frontend service.
+Vanity URL hostname for the application (e.g., `myapp.gov.bc.ca`, hostname only, no scheme). Optional repository variable. While it is unset, the standalone `Cert Keeper` workflow ([`cert-keeper.yml`](./.github/workflows/cert-keeper.yml)) does nothing.
+
 * Reference: `${{ vars.ROUTE_HOST }}`
+* Set as a repository variable: `gh variable set ROUTE_HOST --body 'myapp.gov.bc.ca'`. The workflow checks `ROUTE_HOST` at job level, so it must be a repository variable, not an environment-only variable.
+* Once set, `Cert Keeper` checks the served certificate daily and issues/renews via [Let's Encrypt](https://letsencrypt.org/) when needed, installing it on `<repository>-vanity-url`. Ensure DNS points at the cluster router, port 80 is reachable, `prod` has no required-reviewer gate blocking scheduled runs, and `.github/codeowners` lists a maintainer handle for failure alerts. See the [cert-keeper README](https://github.com/bcgov/actions-openshift/blob/main/cert-keeper/README.md#add-a-host-step-by-step).
 
 ## Updating Dependencies
 
